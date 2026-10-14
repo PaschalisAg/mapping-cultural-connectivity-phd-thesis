@@ -1,5 +1,6 @@
 project:
   type: book
+  output_dir: _book
 
 book:
   title: "Mapping Cultural Connectivity: Network and Embeddings Analysis Applied to English Wikipedia's Internal Link Structure"
@@ -8,6 +9,7 @@ book:
   cover-image: media/cover.png
   date: "9/30/2026"
   search: true
+  output-file: mapping-cultural-connectivity-phd-thesis
   downloads: [pdf, epub]
   
   site-url: "https://PaschalisAg.github.io/mapping-cultural-connectivity-phd-thesis/"

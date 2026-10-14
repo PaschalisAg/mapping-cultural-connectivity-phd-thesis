@@ -1666,7 +1666,7 @@ century are embedded in this way, their individual vectors are averaged
 together using a technique called mean pooling (see [**Figure
 17**](#_Ref229391666) for an overview of the approach):
 
-${\overrightarrow{v}}_{c} = \frac{1}{n_{c}}\Sigma_{i = 1}^{n_{c}}{\overrightarrow{v}}_{i}$.
+$${\overrightarrow{v}}_{c} = \frac{1}{n_{c}}\Sigma_{i = 1}^{n_{c}}{\overrightarrow{v}}_{i}$$.
 
 This averaged vector ${\overrightarrow{v}}_{c}$ corresponds to the
 centroid of the link embeddings. After computing the centroid, L-2
@@ -1674,7 +1674,7 @@ normalisation is applied to ensure that the resulting vector has unit
 length. In other words, that the resulting vector represents direction
 only, without allowing the magnitude to influence the result:
 
-$\overrightarrow{v}'_{c} = \frac{v_{c}}{||v_{c}||_{2}}$.
+$$\overrightarrow{v}'_{c} = \frac{v_{c}}{||v_{c}||_{2}}$$.
 
 ![[]{#_Ref229391666 .anchor}**Figure 17** Computational workflow for
 constructing century-level semantic profiles. The method involves
