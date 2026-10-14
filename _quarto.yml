@@ -1,6 +1,6 @@
 project:
   type: book
-  output_dir: _book
+  output-dir: _book
 
 book:
   title: "Mapping Cultural Connectivity: Network and Embeddings Analysis Applied to English Wikipedia's Internal Link Structure"
