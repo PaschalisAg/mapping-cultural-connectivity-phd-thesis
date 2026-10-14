@@ -1,0 +1,707 @@
+---
+title: "Introduction"
+author: "Paschalis Agapitos"
+format: html
+bibliography: references.bib
+---
+
+# Introduction
+
+> "By thinking about culture as data we open up opportunities both for
+> new analytical processes and for new areas of discourse and
+> engagement."
+>
+> Ahnert et al., *The Network Turn*, p. 56 [@Ahnert2020Network]
+
+Over the past two decades, the growing availability of large-scale
+digital data has substantially expanded how we study culture. Such data
+arise from a range of sources (e.g., online platforms, digitised
+archives, and collaborative knowledge systems) and it captures
+interactions between people, ideas, and artefacts at a scale that was
+simply not possible before [@Lazer2009Computational; @Salah2013Combining]. As a result, cultural information
+can now be understood as a vast, interconnected system.
+
+However, this expansion in scale introduces a methodological challenge.
+Many relationships between cultural entities are not recorded
+explicitly. Instead, they emerge from patterns of co-occurrence and
+association across large, interconnected datasets [@Lazer2009Computational; @Romein2020State; @Schich2014Network; @So2021Introduction; @Bode2017Equivalence]. Such
+relationships are referred to here as *indirect*: they are present in
+the data but not directly observable. They have to be inferred from the
+structure of the data as a whole. To make this distinction clearer,
+consider two types of relationship. An explicit relationship takes the
+form: *entity A is directly connected to entity B*. An indirect
+relationship, by contrast, might be inferred from the observation that
+*entity A and entity B are each independently connected to entity C*. In
+the latter case, the connection between A and B is not recorded anywhere
+directly; it only becomes visible when the broader network of
+associations is considered. This means that recovering the full
+relational structure of a cultural dataset requires attending not only
+to direct connections but also to indirect ones --- relationships that
+exist through intermediary elements.
+
+Both tasks (identifying explicit relationships and inferring indirect
+ones from patterns of co-occurrence) become increasingly difficult as
+the complexity of interactions among a large number of cultural entities
+grows [@Bode2017Equivalence]. Moreover, because the number of possible pairwise
+interactions between cultural entities grows combinatorially with the
+number of elements themselves, the higher-order structures that organise
+cultural knowledge become progressively harder to recover from the data.
+Methods developed within the humanities for close, interpretive reading
+of small corpora are not designed to operate at this level of scale and
+complexity --- not because they lack analytical rigour, but because they
+were built for a fundamentally different mode of engagement with
+cultural material. A different set of analytical tools is therefore
+required.
+
+However, the same expansion in digital data that generates this
+methodological challenge also creates new conditions for addressing it.
+Publicly accessible corpora and digital platforms provide access not
+only to cultural artefacts themselves, but also to the relational
+structures connecting them; structures that would be difficult to
+recover at this scale through manual analysis alone. When combined with
+computational methods capable of processing large, interconnected
+datasets, this relational data makes it possible to detect, describe,
+and compare patterns of connections between cultural entities that would
+otherwise remain inaccessible [@Gallop2007Historicization].
+
+This convergence of data availability and analytical capacity has
+produced methodological approaches that apply quantitative tools to
+questions traditionally framed within the humanities [@Salah2013Combining]. Rather than
+treating these as competing orientations, this thesis treats
+quantitative rigour and humanistic interpretation as complementary. The
+former offers systematic pattern detection and quantification at scale.
+The latter provides the conceptual frameworks needed to interpret what
+those patterns mean. In practice, this means using computational methods
+to detect and quantify patterns of connection across large collections
+of cultural entities and then drawing on humanistic frameworks to
+interpret what those patterns reveal about the organisation of cultural
+knowledge.
+
+## Close and Distant Reading
+
+The tension between interpreting individual works and analysing large
+collections of cultural entities is not new to digital methods. Close
+reading treats meaning as something located in the specific features of
+individual texts. It involves careful, recursive interpretation of a
+small number of works, with attention to language, syntax, and internal
+structure [@Su2009Close; @Ohrvik2024Close; @Cain2018British; @Middleton2005Distant; @Moretti2000Conjectures; @Underwood2017Genealogy]. Developed within 20^th^-century Anglo-American
+literary criticism, the approach treats each text as a self-contained
+object whose meaning emerges from its formal organisation. Scale and
+particularity are its defining commitments: close reading assumes that
+meaning cannot be recovered without sustained, repeated engagement with
+the individual work.
+
+Distant reading looks for meaning in patterns that emerge across many
+texts. Franco Moretti coined the term around 2000 to describe a mode of
+literary analysis that operates at a fundamentally different scale [@Moretti2000Conjectures; @Moretti2005Graphs]. Instead of explaining individual works, it aims to reveal
+large-scale structures: the rise and fall of genres, the spread of
+literary forms across languages, and the long-term dynamics of what
+Moretti called the literary world-system. The individual text is set
+aside, because the patterns of interest only become visible when many
+texts are examined together.
+
+Although first framed as opposing alternatives, the two approaches are
+now widely treated as complementary. Matthew Jockers, for example, uses
+computational analysis of large corpora to generate hypotheses about
+literary history, then refines those hypotheses through close engagement
+with individual texts [@Jockers2013Macroanalysis]. Ted Underwood places this combination
+within a longer tradition of book history and literary sociology that
+predates digital humanities as a distinct field [@Underwood2017Genealogy; @Sula2019Early]. Together,
+these arguments show that aggregate and interpretive methods are not
+rivals but different levels of analysis that can strengthen one another.
+
+Yet treating the two as simply complementary does not fully resolve the
+tension between them. Each approach retains structural limitations that
+the other cannot compensate for. For example, close reading, by
+definition, cannot operate at scale and therefore fails to detect
+large-scale structural patterns; distant reading, conversely, can
+identify such patterns but lacks the interpretive apparatus to ground
+those patterns in specific cultural and historical meaning. What is
+needed is a method that operates at both levels simultaneously: one that
+uses large-scale pattern detection to identify what is worth examining
+closely and then deploys humanistic interpretation to make those
+patterns meaningful. This is the logic that motivates focus reading
+[@Miccio2022Mapping].
+
+In practice, focus reading works like this. Rather than reading
+everything closely, which is impossible at scale, or reading nothing
+closely, which leaves patterns without interpretive content, the analyst
+first uses network analysis to scan a large corpus and identify its most
+significant nodes. These nodes represent the people, ideas, and works
+most densely connected to the subject under investigation: the points
+through which the greatest volume of intellectual traffic passes. The
+analyst then reads those specific nodes closely, drawing on established
+humanistic knowledge to interpret what the network has surfaced. The
+network identifies where to look. Humanistic interpretation determines
+what it means.
+
+This thesis adopts focus reading as its primary analytical orientation.
+Its main object is not any single Wikipedia article but the structural
+patterns that emerge across millions of them, examined through complex
+network analysis. That focus matters methodologically. Wikipedia
+articles are not authored texts in the conventional sense: their meaning
+is produced through collective editorial negotiation rather than through
+the stylistic choices of a single author. Formal literary close reading
+does not apply directly. What the thesis retains is the interpretive
+commitment that underlies close reading, namely the expectation that
+aggregate patterns only become analytically meaningful when read through
+established humanistic frameworks. Over the past two decades, this
+combination of large-scale pattern detection and humanistic
+interpretation has been formalised into two related disciplinary fields.
+
+## Digital Humanities & Cultural Data Analytics
+
+Two related disciplinary traditions formalise the complementarity
+between aggregate pattern detection and humanistic interpretation
+established in *section [1.1](#close-and-distant-reading)*, and together
+provide the intellectual context for the approach developed in this
+thesis: digital humanities and cultural analytics. While both draw on
+quantitative methods, they differ in scope and emphasis in ways that are
+consequential for the analysis developed here.
+
+*Digital humanities* (hereafter DH) denotes the application of
+computational methods to research questions across the humanities
+including history, literary studies, linguistics, philosophy, and
+cultural studies [@Wallace2023Overview; @Romein2020State; @Das2025Cultural]. In practice, this encompasses techniques
+such as text mining, natural language processing, network analysis, and
+statistical modelling, applied to textual, visual, and other cultural
+materials at a scale that exceeds what manual analysis can address. The
+field is defined less by any single method than by a shared orientation:
+computational tools are developed and used to identify structures and
+patterns in large collections of data, while research questions,
+interpretive categories, and evaluative frameworks remain grounded in
+humanistic inquiry. This dual commitment is what distinguishes DH from
+purely technical approaches to data analysis and from traditional
+humanities scholarship alike and it is within this tradition that this
+thesis operates.
+
+Within this broader landscape, *cultural analytics* (hereafter CA)
+represents a more specifically focused area of inquiry. Where DH
+encompasses the full range of humanistic disciplines and methods, CA is
+concerned primarily with the quantitative analysis and visualisation of
+large cultural datasets, with the aim of identifying patterns in
+cultural production, circulation, and change over time [@Salah2013Combining; @So2021Introduction; @Manovich2020Cultural]. The
+materials that constitute cultural data in this context are diverse,
+ranging from digitised books, films, and photographs to natively digital
+content such as social media, video games, and collaborative online
+platforms [@Salah2013Combining]. However, a defining characteristic of the field is not
+merely the breadth of its materials but the analytical implications of
+their scale: the volume of cultural data now available exceeds what any
+researcher can examine item by item. At this scale, computational
+methods are not merely convenient but analytically necessary, because
+they make it possible to pose questions about cultural patterns that
+close, item-level reading could not address.
+
+However, this reorientation is not purely methodological. It reflects a
+broader epistemological shift in what constitutes the legitimate object
+of cultural inquiry: a move from the intensive study of a small number
+of exemplary works towards the systematic analysis of large populations
+of artefacts, practices, and representations [@Dondero2019Visual]. Rather than
+treating individual texts or objects as windows onto culture, this
+perspective treats patterns across collections as analytically
+meaningful in their own right. The question is no longer only what a
+given artefact means, but what structural regularities emerge when many
+artefacts are examined together. Taken together, these two traditions
+establish the intellectual coordinates within which the present thesis
+is situated: a commitment to using computational methods --- here,
+specifically network analysis and distributional semantics --- to detect
+and quantify patterns of connectivity between cultural entities at
+scale, interpreted through humanistic frameworks concerned with how
+knowledge is structured and organised.
+
+## The Network as an Epistemological Choice
+
+> "The network framework shapes how we interpret the world around us.
+> Nothing is naturally a network; rather, networks are an abstraction
+> into which we squeeze the world."
+>
+> Ahnert et al. *The Network Turn* [@Ahnert2020Quantifying]
+
+The decision to represent cultural data as a network is not only driven
+by computational convenience. A network makes the relation between
+entities, rather than the individual entity itself, the unit of
+analysis, making it possible to see which entities are constituted by,
+or derive their significance from, their relationships. This aspect is
+very important because, as mentioned earlier, many culturally meaningful
+relationships are indirect; they do not appear as a labelled connection
+between two entities, but they emerge from patterns of co-occurrence and
+aggregation across a large, interconnected dataset. A network
+representation is therefore the most appropriate way to study such
+structures, since it is designed precisely to make this kind of
+relational complexity tractable.
+
+To understand why network representations are analytically valuable, it
+helps to consider what simpler alternatives cannot do. A basic list of
+cultural entities and their types (such as people, objects, or ideas) do
+nothing beyond naming those entities since it reveals nothing about how
+they relate to one another. Adding one more layer, the frequency
+distribution of types of cultural entities, captures only how often
+entities appear but conceals which ones cluster together or bridge
+disconnected domains (i.e., how they relate to each other). By contrast,
+a network makes the relational organisation of the data itself the
+object of inquiry without presupposing any particular form for the
+representation. As Ahnert et al [@Ahnert2020Quantifying] argue, network analysis makes it
+possible to measure relationships between many entities simultaneously
+and in multiple ways, enabling a form of engagement with complex systems
+that neither close reading nor statistical aggregation alone can
+achieve. As noted earlier, this thesis does not reject close reading or
+statistical analysis. Both are incorporated into its analytical
+pipeline. In this context, networks function as an analytical filter: a
+way of surfacing patterns latent in large volumes of interconnected data
+while simultaneously identifying which entities and relationships
+warrant closer humanistic scrutiny.
+
+The filter metaphor also implies a shift in analytical scale, from
+individual nodes and their immediate relationships to the system as a
+whole. This is an explanatory gap that network analysis is well
+positioned to bridge. Some of the cultural patterns this thesis
+investigates, such as the clustering of intellectual domains, the
+structural positions of bridging figures, and shifting connectivity
+patterns between fields over time, are neither visible at the level of
+any single entity nor recoverable from aggregate statistics that ignore
+relational structure. They are properties of the network itself. The
+capacity to move between part and whole is therefore the central
+epistemological contribution the network form provides, and the reason
+the representational choice made here is analytically motivated rather
+than merely convenient.
+
+Establishing that a network representation is appropriate for
+interconnected cultural phenomena does not, however, mean that every
+network qualifies as a cultural network. This distinction matters
+because network analysis, as a general method, is agnostic about the
+nature of the entities and relationships it models. It can equally
+represent traffic flows, protein interactions, and social media
+followings. If the claim is that the approach pursued here is suited to
+cultural inquiry specifically, then a principled definition of what
+constitutes a cultural network is required.
+
+For the purposes of this thesis, the most useful definition is offered
+by Suárez et al. [@Suarez2015Cultural], who define a cultural network as a multimodal
+network in which at least two node types represent persons and cultural
+objects respectively. In such networks, relationships between persons
+are mediated by cultural objects (ideas, artefacts, institutions) rather
+than by direct social ties alone. This definition does several important
+pieces of work simultaneously, and it is worth unpacking each of them in
+turn.
+
+First, the requirement of multimodality rules out networks composed of a
+single node type. A network of persons linked only by co-authorship
+captures social proximity but not the cultural content through which
+that proximity is constituted. What makes a network *cultural* is
+precisely that the objects circulating between persons, whether texts,
+concepts, artworks, or institutions, are present as nodes, not merely as
+labels attached to edges. Without this, cultural relationships collapse
+into purely social ones, and the patterns this thesis seeks to examine
+are obscured.
+
+Second, requiring that relationships between persons be mediated by
+cultural objects shifts the unit of analysis away from individual actors
+and towards the shared cultural infrastructure through which they are
+connected. Two scholars may never have corresponded directly, yet both
+may link extensively to the same set of concepts, fields, and
+institutions. In a cultural network, that shared referential context is
+itself a relationship, and one of a specific kind: it reveals something
+about the organisation of knowledge rather than merely the topology of
+acquaintance.
+
+Third, by requiring that cultural objects include not only artefacts but
+also ideas and institutions, the definition accommodates the kind of
+heterogeneous, semantically rich data that characterises encyclopaedic
+sources such as Encyclopaedia Britannica and Wikipedia. A network
+spanning only persons and texts would miss the institutional and
+conceptual infrastructure through which cultural knowledge is organised
+and transmitted. A network spanning persons, ideas, institutions, and
+events simultaneously allows the analyst to examine how different types
+of cultural entity relate to one another, and whether those patterns
+shift across historical time or disciplinary domain.
+
+Not every large-scale network assembled from cultural data will
+therefore qualify as a cultural network in this sense. The defining
+criterion is not size, nor even the presence of humanistically
+recognisable entities, but the mediated structure of relationships:
+persons connected through objects, fields intersecting through shared
+concepts, institutions rendered visible through the figures and ideas
+they concentrate. When this structure is present, the network does more
+than organise data efficiently. It encodes the relational logic through
+which a community has distributed and structured its collective
+knowledge.
+
+## Wikipedia's network as a cultural network
+
+The methodological framework established in *section
+[1.2](#digital-humanities-cultural-data-analytics)* (i.e., combining
+computational pattern detection with humanistic interpretation within
+the general tradition of DH and CA) places specific demands on an
+empirical object: it must be large enough to require computational
+methods, structured enough to support systematic and reproducible
+analysis, and it must be a cultural network. English Wikipedia meets all
+three conditions. With almost 7.2 million[^4] articles, it exceeds the
+scale where manual analysis is practical. Its articles are organised
+according to stable editorial conventions and interconnected through a
+consistent hyperlinking system. And because it is produced through
+ongoing collective editorial negotiation among a large and diverse
+community of contributors, its structure is not an engineering artefact
+but a direct expression of how that community organises and relates
+cultural knowledge [@Gabella2019Cultural]. This is the reason why Wikipedia's network
+constitutes the primary empirical object of this thesis.
+
+The unit of analysis is the Wikipedia content article: a structured
+encyclopaedic entry on a specific topic, written and continuously
+revised by volunteer editors [@Gabella2019Cultural]. What matters analytically for this
+thesis is not just the text but the wikilinks each article contains,
+connecting one article to another. These links are not incidental
+navigation aids. They encode editorial judgments about which concepts,
+persons, institutions, and events are related enough to warrant a
+connection. The English Wikipedia article on Clarice Phelps [@Kopf2022Article] (for
+an excerpt see **[Figure 1](#_Ref234573898)A**), for example, links to
+nuclear chemistry, the chemical element tennessine, and the University
+of Texas at Austin. These connections do more than place her
+biographically. They locate her within an intersecting network of
+scientific knowledge, professional communities, and institutional
+affiliations. Studied at scale, such networks reveal how cultural
+knowledge is organized: which domains cluster together, which figures or
+concepts bridge fields, and how different knowledge communities relate
+over time.
+
+Constructing a network from this structure requires a deliberate
+representational choice. As Ahnert et al. [@Ahnert2020Network] caution, nothing is
+naturally a network: the network is an abstraction, a framework imposed
+on a complex system in order to make it tractable for analysis. In the
+representation used here each Wikipedia article becomes a node and each
+wikilink becomes a directed edge (i.e., an arrow pointing from the
+linking article to the linked one). Directionality matters: a link from
+the article on Clarice Phelps to the article on the University of Texas
+at Austin does not imply the existence of the reciprocal link (see
+**[Figure 1](#_Ref234573898)B**). This abstraction inevitably loses some
+information. The wikilink between Phelps and the university does not
+specify whether she studied or worked there, or how significant that
+connection was. For this thesis, that loss is acceptable. The analysis
+focuses not on the precise nature of individual links but on the
+large-scale structural patterns that emerge across the network as a
+whole. Those patterns are invisible at the level of any single article.
+They only become legible when the full network is considered.
+
+![[]{#_Ref234573898 .anchor}**Figure 1** **(A)** The English Wikipedia
+article on Clarice Phelps, retrieved in April 2026 [@Kopf2022Article]. Red boxes
+highlight a selection of hyperlinks (wikilinks) embedded in the article
+text. **(B)** The directed network derived from the links highlighted in
+(A). Each Wikipedia article is represented as a node, and each directed
+edge indicates the presence of a wikilink from one article to another.
+The directionality of the edges reflects the asymmetric nature of
+hyperlinks: the existence of a link from the article on Clarice Phelps
+to the article on the University of Texas at Austin does not imply the
+existence of the reciprocal
+link.](media/media/image3.png){width="6.268055555555556in"
+height="2.972916666666667in"}
+
+This analytical orientation rests on the broader assumption presented in
+*section [1.3](#the-network-as-an-epistemological-choice)*: that meaning
+does not reside solely in individual entities but also emerges from the
+patterns of relations that connect them [@Schich2014Network; @Ahnert2020Network]. What becomes
+analytically important is not any single node in isolation, but the
+relational structure that nodes collectively form. This is the
+commitment that underlies the \"network turn\" in the humanities, which
+argues that network analysis provides a shared conceptual language for
+examining complex cultural and social systems, while also demanding
+critical reflection on how such representations are constructed and by
+whom [@Ahnert2020Network; @Schich2014Network; @Bode2017Equivalence]. The analytical value of operating at this scale is
+that it suspends the assumption that only already-recognised
+relationships are worth examining. Schich et al. [@Schich2014Network] , for example,
+showed that aggregate cultural data can surface unexpected correlations
+between events, actors, and historical periods that specialised,
+small-scale studies would be unlikely to detect not because those
+correlations were unknown, but because they were only visible at the
+population level. Applying this logic to Wikipedia, the wikilink network
+makes it possible to identify which cultural entities function as
+structural hubs through which knowledge circulates, which remain
+peripheral or isolated, and how these positional patterns shift across
+historical time.
+
+Building on this, Ahnert et al. [@Ahnert2020Network] argue that such an approach is
+generalisable beyond any single corpus. When cultural entities are
+understood not merely as nodes but as carriers of ideas, practices, and
+forms of knowledge, network analysis becomes a tool for mapping how
+those elements are distributed, clustered, and connected at scale. In
+the context of this thesis, analysing Wikipedia\'s network does more
+than describe how articles relate to one another in a technical sense.
+It makes it possible to examine which cultural entities are structurally
+central to Wikipedia\'s organisation of knowledge, how the connectivity
+of biographical, scientific, and intellectual entities varies across
+historical periods, and which relationships would remain invisible if
+articles were examined individually rather than as components of a
+large, interconnected system. This supports the central claim of the
+thesis: that Wikipedia's network encodes culturally meaningful patterns
+of connectivity that can be recovered, quantified, and interpreted
+through computational methods. *Cultural connectivity*, as used
+throughout this thesis, refers to the structural patterns of association
+between cultural entities as encoded in Wikipedia\'s network. More
+precisely, it denotes which entities occupy dense, central positions
+within that network, which function as bridges between otherwise
+separate domains, and how these positional patterns shift across
+historical periods and knowledge communities. Moreover, the networks
+analysed in this thesis are understood, as mentioned earlier (see
+*section [1.3](#the-network-as-an-epistemological-choice)*), as
+*cultural networks* which require the relationships between people to be
+mediated through shared cultural entities. In the context of this
+thesis, that mediation is operationalized through Wikipedia\'s wikilink
+structure: two cultural entities are considered related not because one
+article links directly to the other, but because they share common
+linking contexts within the encyclopaedia\'s broader network of
+knowledge. However, before those patterns can be analysed, a prior
+question must be addressed: what motivates the use of Wikipedia for this
+type of analysis?
+
+### Why Wikipedia's network and no other alternatives?
+
+Wikipedia's network is the most analytically appropriate resource for
+examining large-scale patterns of cultural connectivity, and a brief
+comparison with the main alternatives clarifies why. This claim rests on
+two criteria: the heterogeneity of the entities a resource covers, and
+the density and variety of the relationships it encodes. Considered
+against these criteria, the principal alternatives each fall short in
+ways that are structurally significant.
+
+Wikidata [@Wikidata2026], the formal knowledge base underlying many Wikipedia
+infoboxes, organises entities through explicitly typed relationships
+such as *instance of*, *part of*, and *influenced by*. This typing is
+analytically useful for targeted queries, but it captures only the small
+subset of relationships that editors have defined through controlled
+vocabularies. The much denser web of connections embedded in
+Wikipedia\'s article prose falls almost entirely outside Wikidata\'s
+scope or appears there only selectively and unevenly. DBpedia [@DBpedia2025]
+faces a structurally comparable limitation: it extracts structured data
+from Wikipedia's infoboxes and semi-structured markup, but leaves the
+far richer network of in-text wikilinks largely unaddressed. Because the
+in-text wikilink network is precisely the analytical object of this
+thesis, neither Wikidata nor DBpedia offers a viable substitute.
+
+Scholarly citation networks present a different kind of limitation. They
+are restricted to a specific type of cultural entity, primarily
+published academic works and their authors, and to a single, formalised
+relationship type: citation. This restriction makes them poorly suited
+to the kind of analysis pursued here, which requires a network spanning
+heterogeneous entities, including people, ideas, scientific concepts,
+institutions, artworks, and historical events, alongside the varied
+associative relationships between them.
+
+To the best of my knowledge, Wikipedia's network is the only resource
+that satisfies both criteria at scale. It is encyclopaedic in scope,
+culturally heterogeneous in its entities, and the product of sustained
+collective editorial judgement rather than automated extraction. Its
+links are not formally typed, which means some semantic precision is
+sacrificed. However, for the purposes of detecting large-scale
+structural patterns of cultural connectivity, coverage and heterogeneity
+matter more than formal completeness. To understand deeper the patterns
+I analyse, the next section will answer what Wikipedia recognises as
+knowledge in the first place, and through which institutional mechanisms
+that recognition is granted.
+
+### What is considered knowledge in Wikipedia?
+
+> "The bulk of the world's knowledge is an imaginary construction".
+>
+> Helen Keller, The World I Live In [@Keller2004World]
+
+The previous section established that Wikipedia's network encodes
+culturally meaningful patterns of connectivity. This raises a question:
+meaningful according to whom, and on what basis? What enters the network
+is not determined by cultural significance alone; it is governed by a
+normative framework that decides what counts as knowledge worth
+recording. This section examines that framework, situating Wikipedia
+epistemologically before analysing the editorial principles through
+which inclusion and exclusion operate in practice.
+
+The concept of collective memory provides the appropriate theoretical
+entry point, because it captures the central tension between knowledge
+as an objective record and knowledge as a selective, socially
+constructed account of what a community has chosen to preserve. In
+social theory, collective memory refers to shared understandings of the
+past that are produced and maintained by groups rather than by isolated
+individuals [@Roediger2015Collective; @Graus2018Birth]. Maurice Halbwachs, who coined the term, argued
+that remembering is always shaped by social frameworks (e.g., cultural
+norms, institutions, and shared narratives) that determine what groups
+choose to remember, how they interpret events, and which accounts are
+sustained over time [@Halbwachs1992Collective]. Collective memory is therefore not a neutral
+archive; it is selective and oriented toward present concerns,
+foregrounding certain events and actors while marginalising others [@Ferron2014Beyond; @Pentzold2009Fixing]. Crucially, it is also dynamic: rather than accumulating as a
+stable deposit, collective memories are continuously reconstructed
+through communication, media, and commemorative practices, making them
+contested and subject to revision [@Nora1989Between].
+
+Jan Assmann\'s distinction between cultural and communicative memory
+refines this picture in ways directly relevant to Wikipedia. Cultural
+memory is stabilised in durable media such as texts, archives, and
+institutional practices, and is characterised by formalisation and
+long-term transmission [@Assmann2011Communicative; @Mossner2017Knowledge]. Communicative memory, by contrast,
+circulates in everyday interactions, spans living generations, and is
+more fluid and revisable [@Pentzold2009Fixing; @Assmann2011Communicative; @Mossner2017Knowledge]. Digital technologies have
+substantially transformed both forms, expanding the volume of material
+that can be preserved and the speed at which it circulates [@Yasseri2022Collective; @Gunn2021Internet].
+However, as Haux et al. [@Haux2021Cultural] observe, digital memory systems do not
+map cleanly onto either category: they combine large-scale storage with
+structured filtering that determines not only what is preserved, but
+what is findable, linkable, and therefore culturally operative.
+
+Wikipedia occupies a hybrid position within this landscape. It lacks the
+curatorial authority of a museum or the legal deposit function of a
+national archive, yet its content depends on precisely those
+institutions, drawing on scholarly publications and archival sources as
+its primary evidence base [@Mossner2017Knowledge; @Kopf2022Discursive]. At the same time, it is produced
+through a decentralised, ongoing process of editorial negotiation in
+which contributors collectively decide what should be included, how
+topics are framed, and how articles are interconnected [@Kopf2022Discursive]. Wikipedia
+thus combines the formalisation characteristic of cultural memory,
+through its reliance on citeable sources, with the dynamism and
+contestation characteristic of communicative memory, through the
+continuous renegotiation of its content. It is not a static record of
+what is known, but an evolving representation of what a large,
+distributed community has agreed is worth knowing.
+
+This characterisation has direct methodological consequences. If
+Wikipedia functions as a normatively regulated, collectively constructed
+form of digital cultural memory, then its editorial policies are not
+incidental administrative rules; they are the mechanisms through which
+the boundary between knowledge and non-knowledge is drawn. Those
+policies cluster around four interlocking principles: verifiability,
+notability, reliance on secondary sources, and the requirement of a
+neutral point of view.
+
+*Verifiability* requires that all content be supported by reliable,
+published sources that readers can independently consult [@WikipediaVerifiability2026].
+Material that lacks such support cannot be included, regardless of its
+factual accuracy or cultural significance [@WikipediaNoOriginalResearch2026; @WikipediaReliableSources2026]. Original research
+(i.e., the proposal of new interpretations or theories) is explicitly
+prohibited, anchoring Wikipedia's content to what has already been
+recognised and published elsewhere [@WikipediaNoOriginalResearch2026]. *Notability* determines
+whether a topic warrants a dedicated article at all. A topic is
+considered notable if it has received significant coverage in reliable
+sources that are independent of the subject [@WikipediaNotability2026]. This principle
+functions as the primary mechanism of inclusion and exclusion: it is the
+editorial filter that decides whether a cultural entity gains a node in
+the network or remains absent from it. *Reliability*, in this context,
+refers to sources with established editorial standards, such as
+peer-reviewed publications and reputable news organisations [@WikipediaReliableSources2026];
+independence requires that those sources have no direct interest in the
+subject they cover [@WikipediaIndependentSources2026]. *Secondary sources and neutrality* reinforce
+this structure. Wikipedia prioritises secondary sources which means that
+the attention falls on sources that provide analysis and interpretation
+of events rather than first-hand accounts [@WikipediaReliableSources2026], and requires that all
+content represent significant viewpoints fairly, as they appear in the
+published record [@WikipediaReliableSources2026; @WikipediaNeutralPointOfView2026]. Together, these principles mean that what
+enters Wikipedia is not simply what is true, but what has been
+recognised, published, and independently documented by sources that meet
+institutional standards.
+
+Taken together, these four principles constitute a filter that operates
+prior to any analysis conducted on the network: they determine which
+cultural entities are represented, how prominently, and in relation to
+which others. This has a direct implication for this thesis. The
+patterns of connectivity recovered from Wikipedia's network do not
+reflect an unmediated map of cultural knowledge; they reflect a map of
+knowledge as it has been certified, formalised, and selectively
+preserved by a specific epistemic regime; this regime operates at the
+intersection of the editorial community's collective judgements about
+what is worth including and the formal constraints imposed by
+Wikipedia's editorial guidelines. Understanding this regime is therefore
+not a preliminary formality but an interpretive condition because it
+shapes what the network can and cannot reveal, and what must be kept in
+view when patterns of inclusion and connectivity are analysed. The
+following section examines how these knowledge criteria translate
+directly into network structure: which entities gain nodes, which
+connections form edges, and which cultural entities remain structurally
+absent from the system altogether.
+
+### How Inclusion Shapes the Network of Wikipedia 
+
+The four principles examined earlier (i.e., verifiability, notability,
+secondary sourcing, and neutrality) as well as the biases that each
+editor carries (see [*Limitations*](#limitations)) do not only determine
+the textual content of individual articles. They also determine the
+topology of the wikilink network itself. Because a content article can
+exist only if its subject meets notability and verifiability standards,
+any topic that fails these criteria is absent from the network not
+merely as a gap in coverage but as a structural condition: it has no
+node, and therefore no edges can form to or from it. The network\'s
+connectivity patterns are thus shaped upstream, before any links are
+created, by a filtering process that is normative rather than neutral.
+What the network makes visible is precisely what this filtering regime
+has admitted; what it cannot reveal is what the regime has excluded.
+
+The case of Donna Strickland illustrates this mechanism concretely.
+Prior to October 2018, the English Wikipedia contained no article on
+her, because editors determined that the available independent coverage
+of her work did not yet satisfy notability standards [@Erhart2018Donna]. In network
+terms, she was structurally absent: no node existed, and no wikilink
+could point to or from her. This absence was not a reflection of her
+scientific significance because she had already made the contributions
+that would earn her a Nobel Prize, but of the documentation threshold
+that Wikipedia's editorial framework requires. When she was awarded the
+Nobel Prize in Physics in 2018 alongside Gérard Mourou, the resulting
+surge in independent coverage triggered the creation of her article, and
+she entered the network with links to related scientific fields,
+institutions, and co-recipients.[^5] The analytical implication is
+significant: the network\'s apparent completeness at any given moment
+conceals a prior layer of selectivity. Structural centrality in the
+network reflects not only cultural significance in the world but the
+degree to which that significance has been recognised, documented, and
+certified by sources meeting Wikipedia's institutional standards.
+However, it should be noted that her case points to a further layer of
+complexity. Because Wikipedia's notability criteria depend on coverage
+in secondary sources, the network also inherits the selectivity of the
+broader scholarly and journalistic record; a record in which women have
+historically been underrepresented relative to their contributions and
+which record affects what enters Wikipedia [@Tripodi2023Ms; @Lemieux2023Too].[^6]
+
+Two further qualifications follow from this analysis and bear directly
+on the empirical approach adopted in this thesis. First, it is worth
+being clear about what this analysis observes and what it does not. The
+thesis does not look directly at how Wikipedia's knowledge is made (the
+back-and-forth of editorial debates, contested revisions, and talk-page
+arguments about whether someone deserves an article); rather, it
+examines the outcome of those processes: the network of articles and
+links as it existed at a fixed point in time. Following this line of
+thought, the structure under study encodes the accumulated effect of
+thousands of editorial decisions, but it does not show those decisions
+happening. The cultural memory framework introduced above is used here
+because it helps make sense of what kind of information the resulting
+structure is; a sedimented record of what the community of Wikipedia
+editors judged worth preserving, connecting, and certifying.
+
+Second, the empirical focus is on the English Wikipedia specifically.
+This choice is motivated by its scale --- as the largest language
+edition, with approximately 7.2 million articles [@WikipediaStatistics2026] and by the
+particular character of its contributor base: because English functions
+as a global lingua franca of the internet, the English Wikipedia
+attracts editors from a wide range of geographical and cultural
+backgrounds [@Mossner2017Knowledge], producing a breadth of coverage that makes it the
+most suitable version for a large-scale analysis of cultural
+connectivity across historical periods. Neither of these conditions
+eliminates the selectivity documented above; they constrain it in
+specific ways that the analysis keeps in view.
+
+These considerations establish the interpretive frame within which the
+patterns identified in the following chapters should be read. The
+wikilink network analysed in this thesis is not a neutral map of
+cultural history; it is a structured, normatively regulated
+representation of knowledge as a specific epistemic community ---
+Wikipedia's collective of editors --- has chosen to record and connect
+it. Its patterns of connectivity reflect the cumulative effect of
+editorial judgements about what is notable, verifiable, and relevant,
+mediated by the institutional standards of secondary scholarship and
+shaped by the known biases of the contributing community (see
+[*Limitations*](#limitations)). The analytical results should therefore
+be interpreted not as direct evidence of historical reality, but as
+evidence of how that reality has been selectively encoded in a large,
+collaboratively constructed digital knowledge system. This distinction
+is not a limitation to be apologised for; it is the interpretive
+condition that makes the analysis possible and meaningful. With these
+conceptual and methodological foundations in place, the thesis addresses
+three research questions, each organised as a chapter linked to its
+corresponding paper and each addressing a distinct but interrelated
+dimension of cultural connectivity in Wikipedia's network.
+
+[^4]: As of the time of writing (April 20, 2026) the actual number of content articles in the English Wikipedia is 7,171,064.
+[^5]: As of March 2026, the article of Donna Strickland in the English Wikipedia has an out-degree of 66 (wikilinks to other Wikipedia content articles) and an in-degree of 56 (the number of wikilinks that her article receives from other Wikipedia content articles).
+[^6]: It is worth mentioning that a recent study showed that after 2022 the representation gap has been reversed in biographical pages of women biologists affiliated with United States universities [@AlvarezPonce2026Monitoring].
+
+## References

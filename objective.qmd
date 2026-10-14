@@ -1,0 +1,61 @@
+---
+title: "Objective"
+author: "Paschalis Agapitos"
+format: html
+bibliography: references.bib
+---
+
+# Objective
+
+Cultural relationships, understood here as the connections between
+people, ideas, and artefacts, are complex by nature. These relationships
+can show up in countless forms, from religious practice to everyday
+interaction. This thesis focuses on the ones captured in structured
+online knowledge repositories. Within these repositories, these
+connections are often distributed across large volumes of data and are
+frequently not directly observable. For instance, many such
+relationships are not recorded as explicit connections between two
+elements. Instead, they emerge from patterns of association across
+interconnected collections of data. Finding those patterns requires
+tools that can work at a scale and complexity that traditional
+humanities methods were not built for, since those methods were designed
+for close reading of small corpora and not for the volumes of cultural
+data that is now available. This gap between the scale of available data
+and the scope of existing analytical approaches motivates the present
+thesis.
+
+Wikipedia's internal link network provides a particularly suitable basis
+for addressing this challenge. As one of the largest collaboratively
+built knowledge repositories, Wikipedia encodes relationships between
+cultural entities^[A cultural entity is any discrete topic that can be the subject of a Wikipedia article, such as a person, institution, event, or place. It is not a direct representation of its real-world referent; rather, it is an abstract knowledge entity embedded in a network of relations, comprising multiple layers like social, scientific, and political contexts, along with connections to other cultural entities. It emerges from two sources of knowledge: the explicit knowledge produced by experts, and the implicit knowledge derived from quantitatively analysing Wikipedia's wikilinks as a network [@Miccio2025Wikipedia].] 
+through millions of wikilinks.^[A wikilink is an internal (hyperlink) in a wiki that points to another page or section within the same wiki version.] These wikilinks
+reflect collective editorial decisions made over time in a process that
+does not have an established endpoint. Because of this collaborative and
+cumulative process, the wikilink network captures not only explicit
+factual connections but also implicit patterns of association that
+reflect how contributors collectively organise knowledge.
+
+The aim of this thesis is to develop and apply methods, both new and
+existing, to identify, quantify, and interpret connectivity patterns
+between cultural entities using Wikipedia's network as the main data
+source.^[Throughout this thesis, all references to "Wikipedia's network" denote the wikilink network of the English-language edition of Wikipedia.] This aim is pursued through three successive contributions,
+each building on the previous one. The first examines whether
+wikilink-based network analysis can recover meaningful connectivity
+patterns between cultural entities within a defined historical period.
+More specifically, it investigates the relationships between Art,
+Science, and Philosophy in seventeenth-century Europe. This serves as a
+methodological proof of concept by testing whether the proposed
+analytical framework can produce historically meaningful results within
+a well-documented domain. The second addresses a prerequisite for
+scaling the analysis. It introduces WikiTextGraph, an open-source
+software tool for extracting text and wikilink networks from
+multilingual Wikipedia dumps. WikiTextGraph is built for reproducibility
+and computational efficiency, and it provides the infrastructure needed
+to extend the analysis beyond a single historical period. The third
+contribution applies the combined previous steps to suggest a framework
+for a large-scale analysis of Wikipedia\'s biographical subnetwork.
+Through this framework it examines the temporal and semantic patterns
+that emerge across approximately two million biographies spanning
+twenty-five centuries.
+
+## References

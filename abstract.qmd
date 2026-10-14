@@ -1,0 +1,150 @@
+---
+title: "Abstract"
+author: "Paschalis Agapitos"
+format: html
+---
+# Abstract
+
+Cultural relationships between entities often leave no direct trace in
+the historical record, surfacing instead as diffuse patterns of
+association across large bodies of data. This thesis develops a
+computational approach, combining network analysis and distributional
+semantics with humanistic interpretation, to recover such patterns from
+Wikipedia\'s link network and examine how they are encoded within
+large-scale cultural data.
+
+*Chapter [1](#introduction)* establishes the conceptual and
+methodological foundations of the thesis. It opens by framing the core
+problem: many culturally meaningful relationships are not recorded as
+direct links between two entities but emerge indirectly, as patterns of
+association across large bodies of data that traditional close reading
+was never designed to handle. The chapter then introduces how this
+thesis addresses this problem by using \"focus reading\" that combines
+computational methods, network analysis and distributional semantics, to
+detect patterns at scale with humanistic frameworks to interpret their
+significance, situating this approach within digital humanities and
+cultural data analytics. It explains why the network is treated as a
+deliberate epistemological choice rather than a neutral mirror of
+reality, and defines what distinguishes a specifically cultural network:
+one in which relationships between people are mediated by shared
+objects, ideas, and institutions. The chapter argues that Wikipedia\'s
+network constitutes a suitable, if normatively filtered, instance of
+such a network, and closes by motivating the study and presenting the
+three research questions that structure the remaining chapters.
+
+*Chapter [2](#methodology)* presents the methodology shared across the
+three studies and the specific techniques each requires. It explains
+that all three draw on the same analytical toolkit: network science,
+which examines the structure of systems of connected entities, and
+distributional semantics, which represents meaning through context, with
+each study applying these tools at a different scale. For the
+seventeenth-century study, the chapter introduces a measure of
+structural relatedness inspired by the Normalised Google Distance, which
+infers conceptual closeness between articles from shared linking
+patterns rather than from direct links alone, and pairs this measure
+with bootstrapping to test whether observed differences are
+statistically robust. It then introduces WikiTextGraph, the open-source
+tool developed for the data mining phase of this thesis, describing how
+it parses Wikipedia dumps efficiently and reconstructs the internal link
+network in a way that is reproducible and accessible to non-specialists.
+Finally, it outlines the procedure for the large-scale biographical
+study, including the use of Wikidata to reliably detect nearly two
+million biographies and the combination of network topology with
+semantic embeddings to recover long-range patterns across twenty-five
+centuries.
+
+*Chapter 3* presents the results, divided into two parts corresponding
+to the two studies conducted.
+
+*Section [3.1](#wikipedia-as-a-cultural-lens-a-network-approach)*
+reports the results of the first study, which serves as a proof of
+concept for the overall approach. It asks whether wikilink-based network
+analysis can recover historically meaningful patterns within a defined
+period, testing this on the cultural network connecting Art, Science,
+and Philosophy in seventeenth-century Europe. Rather than analysing a
+single triad of figures, as earlier studies had done, it averages across
+465 triads sampled from the period, so that the results describe the
+period itself rather than any one configuration of individuals. The
+analysis operates at three scales. At the level of the whole network,
+high modularity shows that the period divides cleanly into three
+disciplinary clusters. At the cluster level, the measures reveal that
+Philosophy was the most internally cohesive discipline and that the
+connection between Science and Philosophy was by far the strongest,
+while Art occupied a peripheral position, findings that align with what
+historians have independently established about the period. At the level
+of individual nodes, the study identifies two distinct statistical
+patterns of connectivity, a core-periphery structure within disciplines
+and a heavy-tailed distribution across them and recovers central figures
+and concepts that were never chosen as starting points. Together, these
+results confirm that Wikipedia\'s network encodes recoverable cultural
+structure and that the method is sensitive to genuine historical change.
+
+*Section
+[3.2](#network-and-semantic-patterns-in-wikipedias-network-of-biographies)*
+reports the large-scale study, which extends the approach from a single
+period to roughly 1.9 million biographies spanning twenty-five
+centuries, combining network analysis with semantic embeddings. The
+network analysis shows that biographies mostly link to others born
+within the same or adjacent century, a pattern of temporal homophily so
+strong that the average gap between linked individuals, about
+thirty-four years, closely matches the span of a human generation. The
+sparse long-range links that remain are not random: connections from
+later scientists back to Classical figures trace the documented
+transmission of ancient knowledge, while the choice of how links are
+counted determines whether the network tells a story of historical
+continuity or of rupture, a reminder that such methodological choices
+are interpretive rather than neutral. The semantic analysis then finds
+that centuries close in time occupy nearby regions of the embedding
+space, conventional historical periods re-emerge from the data without
+being imposed, and semantic similarity declines gradually with temporal
+distance, a regularity termed here the temporal Tobler pattern. The
+outliers to that trend surface periods that are distant in time yet
+conceptually close, such as the link between thirteenth-century science
+and Classical antiquity through the Arabic-Latin translation movement.
+Taken together, the section shows that both the network and the semantic
+structure of Wikipedia\'s biographical network are organised by time,
+and that the patterns recoverable from that network reflect not only
+historical processes but the representational choices (methodological
+and editorial) through which those processes have been made legible at
+scale.
+
+*Chapter [4](#conclusions-limitations-future-work)* draws the three
+studies together and reflects on what they collectively establish. It
+revisits each research question in turn: the first demonstrated that
+Wikipedia\'s link network retains historically meaningful structure at
+the level of a period, the second built the computational infrastructure
+needed to work at scale, and the third combined both to trace temporal
+and semantic patterns across nearly two million biographies. From this,
+the chapter draws out the theoretical contributions, chiefly the
+treatment of a historical period as a measurable analytical object
+through triad averaging, and the demonstration that the structural and
+semantic dimensions of a cultural network are complementary rather than
+redundant. It then turns, with care, to the limitations, acknowledging
+that Wikipedia is a socially situated representation shaped by gender,
+geographic, linguistic, and notability biases, so that the patterns
+recovered describe how cultural memory has been encoded rather than the
+past itself. The chapter closes by setting out directions for future
+work, including identifying core figures within disciplines, modelling
+the network\'s generative mechanisms, and extending the framework to
+other periods, languages, and data sources.
+
+This thesis was carried out by the author at the Centro de Física de
+Materiales (CFM) under the supervision of Dr. Gustavo Ariel Schwartz
+(CFM) and Dr. Juan Luis Suárez (CulturePlex Lab, London, Ontario,
+Canada), with funding provided by the Donostia International Physics
+Centre (DIPC) through the Mestizajes project.
+
+This thesis is the result of three studies:
+
+1.  Miccio LA, **Agapitos P**, Gamez-Perez C, et al (2025) Wikipedia as
+    a cultural lens: a quantitative approach for exploring cultural
+    networks. Humanit Soc Sci Commun 12:462.
+    <https://doi.org/10.1057/s41599-025-04772-5>
+
+2.  **Agapitos P**, Suárez J-L, Schwartz GA (2025) WikiTextGraph: A
+    Python Tool for Parsing Multilingual Wikipedia Text and Graph
+    Extraction. Journal of Open Research Software 13(1):17.
+    <https://doi.org/10.5334/jors.572>
+
+3.  **Agapitos P**, Suárez J-L, Schwartz GA (2026) Temporal and Semantic
+    Patterns in Wikipedia\'s Network of Biographies. (to be submitted)

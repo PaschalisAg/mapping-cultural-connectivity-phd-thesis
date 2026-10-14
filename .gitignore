@@ -1,0 +1,15 @@
+/.quarto/
+/_book/
+
+/.venv/
+/venv/
+__pycache__/
+.ipynb_checkpoints/
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+**/*.quarto_ipynb

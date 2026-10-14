@@ -1,0 +1,981 @@
+---
+title: "Results - Wikipedia as a Cultural Lens"
+author: "Paschalis Agapitos"
+bibliography: references.bib
+---
+
+# Wikipedia as a Cultural Lens -- a Network Approach
+
+## Background
+
+The conceptual (see [*Introduction*](#introduction)) and methodological
+(see *Methodology - section [2.3](#period-characterization)*)
+foundations established in the previous chapters place this thesis
+within digital humanities and cultural analytics and identify
+Wikipedia's wikilinks network as the empirical object of analysis. The
+present section presents the results.^[The results presented in this section has been published as an independent peer-reviewed paper with the title “Wikipedia as a cultural lens: a quantitative approach for exploring cultural networks” in the journal of Humanities & Social Sciences Communications in 2025 [@Miccio2025Wikipedia].] 
+But first, it is worth situating the specific scholarly conversation this thesis contributes to.
+
+The first body of literature relevant to the present section concerns
+the use of large-scale datasets to investigate questions traditionally
+framed within the humanities and social sciences. This line of work
+generally recognizes that cultural dynamics (e.g., the formation of
+movements, the diffusion of ideas, the rise and decline of intellectual
+currents) emerges from interactions among many people, ideas, and
+cultural objects, and that those interactions are increasingly
+accessible in digital form. Schich et al. [@Schich2014Network] mapped the migration
+trajectories of notable individuals across two millennia and using the
+aggregate movement of people they characterized the geographic dynamics
+of cultural transmission. Another study adopts a different strategy by
+analysing the frequencies with which specific terms appear in millions
+of digitised books to track lexical and conceptual change at
+unprecedented scale [@Michel2011Quantitative]. Other studies extend this orientation in
+different directions: for instance, Gao et al. [@Gao2012Culturomics] apply tools from
+statistical physics to identify long-range correlations in cultural and
+social phenomena over the past two centuries, while another paper argues
+for a more general programme, sometimes referred to as *cliodynamics*,
+that treats historical processes as analytically tractable through
+formal modelling [@Turchin2008Arise]. Even though these approaches are different from
+each other, the unifying component can be tracked in the underlying
+premise that cultural patterns, once aggregated across large populations
+of cultural entities, exhibit regularities that remain invisible at the
+level of any single case. This is exactly the premise that motivates the
+present analysis.
+
+A second body of literature, complementary to the first, formalizes the
+analysis of cultural systems through the tools of complex network
+theory. A central claim of this literature is that the structure of
+relationships among cultural entities is itself a source of information
+about how those entities behave collectively, what are the patterns that
+emerge when relationships are abstracted, and how the system affects the
+connections between the entities. For instance, Smolla and Akçay [@Smolla2019Cultural]
+use complex network analysis to study cultural evolution, demonstrating
+how individual behaviour at the micro level gives rise to structural
+patterns observable at the population level. By applying a related logic
+to the early modern publication industry, another study [@Brown2016Preliminaries]
+reconstructed the social network underlying book production from
+large-scale archival data. Focusing mostly on the theoretical framework
+of these types of works, Suárez et al [@Suarez2015Cultural] introduced the concept of a
+cultural network, that is defined as a structure in which relationships
+among people are mediated by cultural entities such as ideas, artefacts,
+and institutions rather than by direct social ties alone. Such networks
+constitute a distinct empirical object that warrants its own analytical
+framework. This orientation is generalised under the heading of the
+network turn in the humanities (see [*Introduction*](#introduction)),
+arguing that network analysis offers a shared conceptual vocabulary
+capable of bringing computational rigour into dialogue alongside
+humanistic interpretation [@Ahnert2020Network].
+
+The significance of the aforementioned works lies in two specific
+contributions. First, the recognition that cultural networks are not
+merely social networks with cultural content; they are structurally
+distinct because they can also carry connections between cultural
+entities and not only interpersonal ones. In other words, these studies
+shift the analytical focus from who connects to whom toward which
+cultural entities (e.g., ideas, people, works, concepts) bridge
+different domains of knowledge. The second contribution is that the
+toolkit that network science offers provide a quantitative vocabulary
+for describing structural properties that humanistic methods have
+discussed before in qualitative terms. For example, notions such as
+influence, isolation, bridging acquire formal counterparts that can be
+measured, compared, and tested.
+
+The third strand of relevant literature concerns the use of Wikipedia as
+an empirical resource for quantitative cultural research. As mentioned
+in the [*Introduction*](#introduction), Wikipedia is the main data
+source of this thesis and it satisfies three conditions that make it
+analytically distinctive: 1) it operates at a scale that requires
+computational methods to be analysed, 2) it is structured given the
+guidelines the editors have to follow, and 3) it is produced through
+sustained collective editorial negotiation. As is normal, a significant
+body of work has exploited these properties for a variety of analytical
+purposes. For example, Mehdi et al. [@Mehdi2017Excavating] provide a systematic review
+of studies that use the Wikipedia corpus, identifying applications in
+information retrieval, natural language processing, and ontology
+construction. More recently, it has been used to answer cultural
+questions. For instance, the Wikipedia corpus has been used to examine
+its role in representing cultural heritage [@Gabella2019Cultural], as an issue in the
+*Journal of Cultural Analytics* to map the structure of world literature
+[@Fischer2023Preface], to document gender and country biases embedded in its citation
+patterns [@Zheng2023Gender]. A subset of studies shifting the focus from citation
+patterns to the wikilinks of Wikipedia themselves, treats the structure
+of internal connections as the primary analytical object. These studies
+are the ones that are most directly relevant to the present chapter. In
+the studies below, Wikipedia's network is used to investigate specific
+historical periods through targeted, period-focused cultural networks.
+For instance Eom and Shepelyansky [@Eom2013Highlighting] and Eom et al. [@Eom2015Interactions] use the
+ranking of articles across multiple language editions to identify
+cultural entanglement among national perspectives. A related approach
+constructed co-citation networks among scientific topics represented in
+Wikipedia to map the open knowledge structure of Science [@ArroyoMachado2020Science].
+Finally, two related studies examine the cultural structures encoded in
+the network of first-wikilinks [@Ibrahim2017Connecting, @Gabella2019Cultural]. More recent works, develop
+methodologies proposing that Wikipedia's network can be converted into a
+meaningful network of knowledge by means of a structural relationship
+metric [@Schwartz2021Complex]. In that study, the cultural contexts of Pablo Picasso,
+Albert Einstein, and James Joyce are analysed jointly to characterise
+the interdisciplinary structure of early 20^th^-century culture across
+Art, Science, and Literature. Similarly, a more recent work, focusing on
+the Italian Renaissance, took Michelangelo, Copernicus, and Pico della
+Mirandola as a representative triad of artist, scientist and philosopher
+and identified hidden structural relationships between the nodes of this
+network [@Miccio2022Mapping].
+
+The literature reviewed above establishes three points that motivate
+chapter's analysis. First, quantitative analysis of cultural data has
+been shown to recover patterns that traditional humanistic methods,
+working usually at a small scale, cannot easily detect. Second, complex
+network theory provides a formal apparatus for analysing such patterns
+when they take the form of structured relationships among cultural
+entities. Third, Wikipedia's network, when interpreted as a cultural
+network, constitutes a particularly well-suited empirical source for
+this kind of analysis. What remains absent from the literature, however,
+is an analysis that moves toward the statistical characterisation of a
+historical period and distances itself as much as possible from the
+analysis of a few individuals.
+
+The work presented in this chapter is designed to fill that gap. Instead
+of analysis a single triad of figures, it proposes to characterise the
+cultural network of a historical period by averaging across many triads
+sampled from that period (see *Methodology - section
+[2.3](#period-characterization)*). By doing so, it aims to recover the
+structural properties of the period itself, as distinct from those of
+any particular configuration of individuals within it. As a proof of
+concept, the cultural network of Art, Science, and Philosophy in 17^th^
+century Europe is used. The results presented in the following sections
+are evaluated against a dual criterion: 1) agreement with established
+historical knowledge, which means that the approach can recover cultural
+meaningful patterns, and 2) the disclosure of new quantitative
+regularities that would not have been accessible through traditional
+non-computational methods alone.
+
+## Results
+
+### The Network as a Whole: Modularity of the Period
+
+As mentioned earlier (see *Methodology - [Modularity](#modularity)*),
+modularity measures how cleanly the cultural network divides into
+separate disciplinary clusters. It is high when nodes within a
+discipline connect densely to one another and sparsely to nodes in other
+disciplines. It is low when frequent cross-disciplinary links blur the
+boundaries between them. The value is normalised, so a score close to 1
+indicates strong clustering and a score close to 0 weak clustering.
+
+![[]{#_Ref229663572 .anchor}**Figure 18** Average normalised modularity
+($\overline{Q_{N}}$) and its associated error interval as a function of
+the number of sampled triads. The relative error decreases as the number
+of sampled triads increases, reaching 1.6% for 50 samples and 0.6% for
+465 samples (the full dataset). The dashed line marks the mean value
+obtained using the bootstrapping method,
+$\overline{Q_{N}} = 0.862 \pm 0.005$. Note the logarithmic scale on the
+horizontal axis.](media/media/image21.jpeg){width="5.78628280839895in"
+height="4.159574584426947in"}
+
+[Figure 18](#_Ref229663572) reports the average normalised modularity
+for the 17^th^-century network as a function of the number of sampled
+triads. Two observations emerge from this plot. First, the estimated
+error decreases substantially with the number of triads. As it can be
+seen in [Figure 18](#_Ref229663572), the error stands at approximately
+1.6% for 50 triads and falls at 0.6% when all 465 triads are included.
+This is a finding that confirms that the chosen sample size is
+sufficient for reliable estimation. Second, the average value of the
+modularity stabilises at $\overline{Q_{N}} = 0.862 \pm 0.005$, with a
+standard deviation of 0.098, which is approximately 11.4% of the
+mean.^[The overbar in $\overline{Q_{N}}$ is used here to indicate that the value is averaged across many triads and therefore characterises the period as a whole, in contrast to the single-network modularities reported in earlier studies of specific triads [@Schwartz2021Complex; @Miccio2022Mapping](which are written without the overbar as Q_{N} and refer to one particular configuration of individuals).] 
+This indicates that the 17^th^ century network divides the
+cluster cleanly into three disciplinary clusters, and that high
+modularity is a persistent feature across the sampled triads rather than
+being driven by a few exceptional cases; though the standard deviation
+of 0.098 (i.e., 11.4% of the mean) does reflect a moderate degree of
+variability in the strength of that separation from triad to triad.
+
+The interpretation of this result can be aided when placed next to prior
+studies that applied similar methodology to other historical periods.
+For the Italian Renaissance, for example, the cultural network built
+around Michelangelo, Copernicus, and Pico della Mirandola produced a
+normalised modularity of 0.77 [@Miccio2022Mapping]. For the early 20^th^-century
+network built around Picasso, Einstein, and Joyce, the corresponding
+value was 0.88 [@Schwartz2021Complex]. Even though these earlier studies analyse single
+triads and not period averages, the progression from 0.77 (Italian
+Renaissance) to 0.862 (17^th^ century) to 0.88 (early 20^th^ century) is
+consistent with the well-established historical hypothesis that
+disciplinary specialization has increased progressively across the
+modern period [@Gatti2025Divisions]. The disciplines, in other words, have become
+internally cohesive and more externally separated over time. The small
+number of comparison points between the aforementioned period can only
+confirm a suggestive trend, nevertheless it provides initial evidence
+that the method is sensitive to historically meaningful structural
+change.
+
+To sum up, this first finding supports the claim that was made at the
+beginning of this chapter: that Wikipedia's network encodes culturally
+meaningful structural information that can be recovered using complex
+network theory in combination with the NGD (see *Methodology -
+[Structural Relationships using the Normalised Google
+Distance](#structural-relationships-using-the-normalised-google-distance)*).
+
+### Disciplines and their Interactions
+
+Modularity establishes that the network divides into clusters, but it
+does not specify neither how strong the internal cohesion of each
+cluster is, nor how the clusters interact with one another. For this
+reason, assortativity is employed (see *Methodology -
+[Assortativity](#assortativity)*). The assortativity matrix provides
+this finer-grained information. Its diagonal elements ($a_{ii}^{N}$)
+measure the strength of connections within each cluster (i.e., how
+tightly Art connects to Art, Science to Science, and Philosophy to
+Philosophy). Its off-diagonal elements ($a_{ij}^{N}$, where $i \neq j$)
+measure the strength of connections between clusters (i.e., how strongly
+Art connects to Science, Art to Philosophy, and Science to Philosophy).
+The matrix is normalised so that each coefficient represents the
+fraction of weighted links accounted for by that particular intra- or
+inter-cluster relationship.
+
++-----------------+--------------------------------------------------+--------------------------------------------------+--------------------------------------------------+
+| **Assortativity | *Art*                                            | *Science*                                        | *Philosophy*                                     |
+| coefficients**  |                                                  |                                                  |                                                  |
++:===============:+:================================================:+:================================================:+:================================================:+
+| *Art*           | $$\overline{\alpha_{11}^{N}} = 0.285 \pm 0.004$$ | $$\overline{\alpha_{12}^{N}} = 0.025 \pm 0.002$$ | $$\overline{\alpha_{13}^{N}} = 0.017 \pm 0.001$$ |
+|                 |                                                  |                                                  |                                                  |
+|                 | $$\sigma_{11} = 0.085\ (30\%)$$                  | $$\sigma_{12} = 0.035\ (140\%)$$                 | $$\sigma_{13} = 0.020\ (117\%)$$                 |
++-----------------+--------------------------------------------------+--------------------------------------------------+--------------------------------------------------+
+| *Science*       |                                                  | $$\overline{\alpha_{22}^{N}} = 0.268 \pm 0.003$$ | $$\overline{\alpha_{23}^{N}} = 0.092 \pm 0.003$$ |
+|                 |                                                  |                                                  |                                                  |
+|                 |                                                  | $$\sigma_{22} = 0.074\ (28\%)$$                  | $$\sigma_{23} = 0.065\ (71\%)$$                  |
++-----------------+--------------------------------------------------+--------------------------------------------------+--------------------------------------------------+
+| *Philosophy*    |                                                  |                                                  | $$\overline{\alpha_{33}^{N}} = 0.313 \pm 0.005$$ |
+|                 |                                                  |                                                  |                                                  |
+|                 |                                                  |                                                  | $$\sigma_{33} = 0.115\ (37\%)$$                  |
++-----------------+--------------------------------------------------+--------------------------------------------------+--------------------------------------------------+
+
+: []{#_Ref229671167 .anchor}**Table 1** Normalised assortativity
+coefficients ($\bar{\alpha_{ij}^{N}}$) and their bootstrapping error
+estimates for each pair of disciplines. The standard deviation
+($\sigma_{ij}$) of each bootstrapped distribution is also reported, with
+the percentage in parentheses indicating its magnitude relative to the
+corresponding mean. Diagonal entries represent within-discipline
+assortativity, while off-diagonal entries capture cross-discipline
+mixing. Row and column colours correspond to Art (red), Science (green),
+and Philosophy (blue).
+
+#### Intra-disciplinary interactions
+
+Starting with the intra-cluster connectivity, the diagonal coefficients
+reveal that the three disciplines are not equally cohesive internally.
+For 465 triads, the values are
+$\overline{\alpha_{11}^{N}} = 0.285 \pm 0.004$ for Art,
+$\overline{\alpha_{22}^{N}} = 0.268 \pm 0.003$ for Science, and
+$\overline{\alpha_{33}^{N}} = 0.313 \pm 0.005$ for Philosophy (see
+[**Table 1**](#_Ref229671167) and [**Figure 19**](#_Ref229749454)
+**(left)** for the corresponding error intervals when increasing the
+number of triads). It is worth noting that the differences between the
+three coefficients are larger than their respective combined standard
+errors which strongly suggests that the disciplinary differences
+observed are not artefacts of sampling but reflect a structural
+variation in intra-cluster cohesion. Moreover, Philosophy emerges as the
+discipline with the most internal-to-philosophy links, with an
+intra-cluster coefficient roughly 17% higher than that of Science and
+slightly higher than that of Art.
+
+This finding is historically distinctive when compared with prior
+results. In both the Italian Renaissance ($\alpha_{11}^{N} = 0.383$) and
+the early 20^th^ century ($\alpha_{11}^{N} = 0.316$), Art was the most
+internally cohesive cluster [@Schwartz2021Complex, @Miccio2022Mapping]. The 17^th^-century network thus
+marks a departure from this pattern, with Philosophy taking the position
+previously occupied by Art. This points to a structural reconfiguration
+of the relations among the three disciplines in the seventeenth century,
+which the inter-cluster coefficients help to specify further.
+
+![[]{#_Ref229749454 .anchor}**Figure 19** Average normalised
+assortativity coefficients as a function of the number of sampled
+triads, estimated using the bootstrapping method. Shaded regions
+represent the associated error intervals, which narrow as the number of
+sampled triads increases. **(Left)** Diagonal coefficients
+($\overline{\alpha_{ii}^{N}}$), reflecting the strength of
+within-discipline interactions for Art (red), Science (green), and
+Philosophy (blue). **(Right)** Off-diagonal coefficients
+($\overline{\alpha_{jj}^{N}}$, $i \neq j$), reflecting the strength of
+cross-discipline interactions between Art and Science (violet), Art and
+Philosophy (light blue), and Science and Philosophy (orange). The dashed
+lines and cross markers indicate the mean values obtained using the full
+dataset. Note the logarithmic scale on the horizontal
+axis.](media/media/image22.jpeg){width="6.230239501312336in"
+height="2.2446806649168853in"}
+
+#### Inter-disciplinary interactions
+
+While I focused on diagonal coefficients to measure the strength within
+the disciplines of the network, now I will focus on the off-diagonal
+coefficients which quantify the strength of connections between
+different disciplines. The three relevant pairs return very different
+values: $\overline{\alpha_{12}^{N}} = 0.025 \pm 0.002$ for Art--Science,
+$\overline{\alpha_{13}^{N}} = 0.017 \pm 0.001$ for Art--Philosophy, and
+$\overline{\alpha_{23}^{N}} = 0.092 \pm 0.003$ for Science--Philosophy.
+All three values are substantially smaller than the intra-cluster
+coefficients, which is expected given the high modularity of the
+network. However, the difference in the relative magnitudes among them
+is an interesting finding.
+
+The Science-Philosophy connection
+($\overline{\alpha_{23}^{N}} = 0.092 \pm 0.003)$ is the strongest of the
+three, exceeding the Art-Science connection by a factor of roughly four
+and the Art-Philosophy connection by a factor of more than five. This
+pattern aligns with the historical literature on the period. Sandoz
+[@Sandoz2021Thematic] has documented that early modern Philosophy underwent a
+substantial reorientation during the 17^th^ century, shifting its
+attention away from questions of Art and aesthetics and towards
+epistemology, the methodology of science, and the foundations of
+scientific knowledge. Thomas Hobbes captures this shift in *Leviathan*
+(1651) [@Hobbes2017Leviathan], where he distinguishes between "Knowledge of Fact" (the
+kind required of a witness) and "Knowledge of the Consequence" of one
+statement to another (the kind required of a philosopher), explicitly
+aligning the latter with Science [@Sandoz2021Thematic]. The strong Science-Philosophy
+coefficient (see [**Figure 19**](#_Ref229749454) (right panel-orange))
+recovered here is consistent with this re-orientation: the cultural
+network reflects a period in which the two disciplines were overlapping
+and only gradually separating around questions of mind and matter, the
+foundations of the scientific method, and the nature of the physical
+explanation [@Casini1988Newton, @Boran2017Reading].
+
+The Art-Science and Art-Philosophy coefficients are also worth comparing
+with prior results. The Art-Science coefficient in the 17^th^ century
+($\overline{\alpha_{12}^{N}} = 0.025$) (see [**Figure
+19**](#_Ref229749454) (right panel-violet)) is similar to that observed
+at the beginning of the 20^th^ century ($a_{12}^{N} = 0.020$) [@Schwartz2021Complex] but
+substantially lower than the value found for the Renaissance
+($a_{12}^{N} = 0.056$) [@Miccio2022Mapping]. This difference aligns with the
+established historical claim that the Art-Science relationship was
+unusually close during the Italian Renaissance and weakened in the
+centuries that followed [@Wade2017Geometry]. The Art-Philosophy coefficient shows an
+even more pronounced difference: the 17^th^ century value
+($\overline{\alpha_{13}^{N}} = 0.017$) (see [**Figure
+19**](#_Ref229749454) (right panel-light blue)) is approximately
+one-eighth of the Italian Renaissance value ($a_{13}^{N} = 0.130$). If
+we take together these comparisons, we can see that the Art cluster has
+progressively decoupled from both Science and Philosophy since the
+Italian Renaissance, while the Science-Philosophy connections has
+strengthened. Thus, the cultural network of Wikipedia captures a
+structural transformation in how the three disciplines examined here
+relate to one another, and that transformation is consistent with what
+historical scholarship has independently discussed.
+
+From an analytical point of view, another interesting property concerns
+the variability of these coefficients across triads, measured by the
+relative standard deviation (i.e., the standard deviation divided by the
+mean, expressed as a percentage). For the diagonal coefficients, this
+relative variability sits at approximately 30% (see [**Table
+1**](#_Ref229671167)), indicating relatively consistent intra-cluster
+behaviour across triads. For the off-diagonal coefficients, however, the
+values are higher: 71% for Science--Philosophy, 117% for
+Art--Philosophy, and 140% for Art--Science. This means that the
+Science--Philosophy connection is not only the strongest but also the
+most homogeneous, while the connections involving Art vary substantially
+depending on which artist is chosen as a seed. This heterogeneity is
+itself historically meaningful: the 17^th^ century Art world was
+structured by regional fragmentation, with separate channels of
+production and patronage operating for Protestant and Catholic markets
+in Europe and Latin America [@Suarez2012Sustaining] and with local and national patrons
+shaping the development of distinct national art traditions [@Tucker2010Patronage]. The
+cultural network registers this fragmentation as elevated variance in
+the Art-related inter-cluster coefficients.
+
+#### Distributions of the Coefficients
+
+Beyond their mean values, the coefficients also follow distinct
+statistical distributions that reveal something more about how the
+network is organised. [**Figure 20**](#_Ref229752822) (left panel) shows
+the distribution of $\overline{\alpha_{11}^{N}}$ values across the 465
+triads, which is well described by a lognormal function. The other
+diagonal coefficients follow similar distributions. By contrast, [Figure
+20](#_Ref229752822) (right panel) shows that the distribution of
+$\overline{\alpha_{12}^{N}}$ values follows a power law with an exponent
+of approximately $- 2$ (see [**Figure 20**](#_Ref229752822) (right
+panel)). A power-law distribution differs from a lognormal one in that
+it features a long, heavy tail: most triads produce low values, but a
+small number of triads produce values much higher than the average. This
+distinction matters because it indicates that intra-cluster and
+inter-cluster connections are generated by different underlying
+processes, a point that becomes more concrete in the analysis of
+individual nodes below.
+
+![[]{#_Ref229752822 .anchor}**Figure 20** Bootstrapped distributions of
+the normalised assortativity coefficients for the within-discipline term
+$\overline{\alpha_{11}^{N}}$ (**left**) and the cross-discipline term
+$\overline{\alpha_{12}^{N}}$ (**right**). The solid curves show the best
+fits to each distribution: a log-normal function for
+$\overline{\alpha_{11}^{N}}$ and a power law of the form Counts
+$= 0.16 \times (\overline{\alpha_{12}^{N}}\ )^{- 2}$ for
+$\overline{\alpha_{12}^{N}}$. The inset in the right panel shows the
+same data on a double-logarithmic scale, where the linear trend confirms
+the power-law
+behaviour.](media/media/image23.jpeg){width="6.253061023622047in"
+height="2.308510498687664in"}
+
+#### Openness of the Disciplines
+
+Continuing with the discipline-level metrics, a complementary
+perspective on that aspect is provided by openness, which is defined as
+the percentage of nodes within a discipline whose external connections
+(i.e., to other disciplines) outweigh their internal connections (i.e.,
+within the same discipline). A cluster with high openness contains many
+nodes that act as bridges to other disciplines; a cluster with low
+openness is more inwardly turned (see *Methodology -
+[Openness](#openness)*).
+
+Our analysis shows that for the 17^th^ century cultural network, the
+average openness are $\overline{{Op}_{art}} = \ 5.0 \pm 0.4\%$,
+$\overline{{Op}_{sci}} = \ 15.5 \pm 1.0\%$, and
+$\overline{{Op}_{phil}} = \ 13.4 \pm 1.1\%$. The results show that Art
+is the most inwardly oriented of the three disciplines, with an openness
+approximately three times lower that than of Science or Philosophy. This
+finding is consistent with the inter-cluster assortativity coefficients
+reported above (see [**Table 2**](#_Ref232592390)), which showed that
+Art connects only weakly to both Science and Philosophy.
+
++-------------------------------------+--------------------------------------+--------------------------------------+
+| *Art*                               | *Science*                            | *Philosophy*                         |
++:===================================:+:====================================:+:====================================:+
+| $$\overline{Op} = \ 5.0 \pm 0.4\%$$ | $$\overline{Op} = \ 15.5 \pm 1.0\%$$ | $$\overline{Op} = \ 13.4 \pm 1.1\%$$ |
+|                                     |                                      |                                      |
+| $$\sigma = 8.1\ (162\%)$$           | $$\sigma = 22.1\ (143\%)$$           | $$\sigma = 23.8\ (178\%)$$           |
++-------------------------------------+--------------------------------------+--------------------------------------+
+
+: []{#_Ref232592390 .anchor}**Table 2** Average openness
+($\overline{Op}$) for each discipline, estimated using the bootstrapping
+method. The standard deviation ($\sigma$) of each bootstrapped
+distribution is given below the mean, with the percentage in parentheses
+indicating its magnitude relative to the corresponding mean. The large
+relative standard deviations (143--178%) reflect the high variability
+inherent to the openness measure, which is sensitive to the choice of
+seed node in each triad.
+
+Moreover, when examining the distribution of openness values (see
+[**Figure 21**](#_Ref230008204)), it is shown that it follows a power
+law, like that of the inter-cluster coefficients. For the Art cluster,
+the exponent is $\alpha = - 1.14$; for the Science cluster,
+$\alpha = - 0.95$; and for the Philosophy cluster, $\alpha = - 1.09$.
+The interpretation of these values tells us that overall, the majority
+of nodes within any given discipline are weakly connected to nodes in
+other clusters, while a small number of nodes are very strongly
+connected across discipline boundaries. This shows a signal of
+homophily, which is the tendency of nodes to associate preferentially
+with similar nodes, but it also points to the existence of small number
+of strongly cross-connecting nodes that function as bridges between
+disciplines. These bridging nodes are examined more closely in the
+analysis at the individual-node level that follows.
+
+![[]{#_Ref230008204 .anchor}**Figure 21** Bootstrapped distribution of
+openness values for the Art discipline. The distribution is strongly
+right skewed, with the majority of triads exhibiting low openness
+values. The solid curve shows the best power-law fit to the data, given
+by $\log(\text{Counts}) = 1.86 - 1.14\log(Op)$, confirming that large
+openness values are rare but
+present.](media/media/image24.jpeg){width="4.623175853018373in"
+height="3.4776115485564305in"}
+
+This structure invites comparison with Granovetter\'s \"strength of weak
+ties\" thesis. Granovetter observed that cross-group^[By “group” here we can think of disciplines, such as the ones presented in this section (Art, Philosophy, Science).] connections in
+social networks tend to be weak ties, and that these weak ties are
+disproportionately responsible for transmitting novel information across
+otherwise homophilous communities [@Granovetter1973Strength]. The distribution observed here
+is consistent with the underlying geometry of that thesis since I
+observe dense intra-discipline association alongside sparse
+inter-discipline connectivity. However, the findings presented here must
+be connected to Granovetter\'s thesis with some caution. The power-law
+tail indicates that inter-discipline connectivity is not uniformly
+distributed across weakly bridging nodes, but it appears concentrated in
+a comparatively small portion of the network where connectivity across
+discipline boundaries is robust rather than weak. With this in mind, I
+argue that these nodes correspond more closely to what Burt and Soda
+characterized as brokers spanning structural holes; in other words,
+positions whose value derives precisely from maintaining robust ties to
+otherwise disconnected communities [@Burt2021Network]. The 17th century cultural
+network thus exhibits a hybrid bridging regime, in which the bulk of
+inter-discipline traffic is carried, in aggregate, by many sparse
+cross-ties, while a share of integrative links appears concentrated in a
+small portion of the network that functions as bridges between
+disciplines.
+
++-----------------------------------------------------+--------------------------------+
+| **Triads' seeds**                                   | **Openness (Op)**              |
++:===============:+:===============:+:===============:+:========:+:========:+:========:+
+| *Art*           | *Sci.*          | *Phil.*         | *Art*    | *Sci.*   | *Phil.*  |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Nicolaes Maes   | Isaac Newton    | Baruch Spinoza  | 1.79     | 0        | 88.98    |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Claude Lorrain  | Isaac Newton    | Baruch Spinoza  | 3.81     | 0        | 88.70    |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Johannes        | Isaac Newton    | Baruch Spinoza  | 3.05     | 0        | 90.91    |
+| Vermeer         |                 |                 |          |          |          |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Peter Lely      | Isaac Newton    | Baruch Spinoza  | 26.67    | 0.23     | 84.44    |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Christopher     | Isaac Newton    | Baruch Spinoza  | 31.96    | 0.49     | 77.33    |
+| Wren            |                 |                 |          |          |          |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Gerrit Dou      | Isaac Newton    | Baruch Spinoza  | 3.75     | 0        | 90.91    |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Andrea Pozzo    | Isaac Newton    | Baruch Spinoza  | 4.08     | 0        | 87.50    |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Godfrey Kneller | Isaac Newton    | Baruch Spinoza  | 37.25    | 0.42     | 88.71    |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Johannes        | Christian       | Blaise Pascal   | 3.70     | 0        | 43.97    |
+| Vermeer         | Huygens         |                 |          |          |          |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Johannes        | Isaac Newton    | Blaise Pascal   | 2.50     | 0        | 54.55    |
+| Vermeer         |                 |                 |          |          |          |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Johannes        | Johannes        | Blaise Pascal   | 0.63     | 10.61    | 0        |
+| Vermeer         | Hevelius        |                 |          |          |          |
++-----------------+-----------------+-----------------+----------+----------+----------+
+| Johannes        | Jan Swammerdam  | Blaise Pascal   | 1.22     | 26.19    | 0        |
+| Vermeer         |                 |                 |          |          |          |
++-----------------+-----------------+-----------------+----------+----------+----------+
+
+: []{#_Ref230009736 .anchor}**Table 3** Openness values for
+representative triads, grouped by which seed node was varied. In the
+first eight entries, the Science and Philosophy seeds are held fixed
+while the Art seed is varied; the openness values associated with Newton
+and Spinoza remain relatively stable across different Art seeds,
+suggesting that the choice of Art representative has little influence on
+these disciplines. In the final four entries, the Art and Philosophy
+(Phil.) seeds are held fixed while the Science (Sci.) seed is varied;
+replacing Huygens with Newton produces little change in openness,
+whereas substituting Hevelius leads to a substantial change,
+illustrating the sensitivity of the measure to the choice of Science
+seed.
+
+Openness also reveals another structural feature when examined at the
+level of specific triads. [Table 3](#_Ref230009736) shows openness
+values for triads in which two seeds are held constant, and one is
+varied. When Isaac Newton (Science) and Baruch Spinoza (Philosophy) are
+held fixed and different artists are substituted, the openness of the
+Newton-related clusters remains close to zero and the openness of the
+Spinoza-related cluster remains close to 90%, almost independently of
+the choice of the artist. This means that Newton's network position is
+largely insulated from Art connections, while Spinoza's position is
+strongly connected to the broader network (and, given the consistency of
+the pattern, primarily to the Newton-related cluster itself). This
+finding is consistent with what historians of science have established
+about the diffusion of Newtonian thought in continental Europe: the
+technical character of the *Principia* (1687) delayed its uptake outside
+England, and continental thinkers committed to Cartesianism resisted
+Newtonianism well into the 1740s [@Casini1988Newton; @Boran2017Reading]. The cultural network
+registers this delay as elevated openness for the few artists with
+English connections (e.g., Peter Lely, who settled in London; Godfrey
+Kneller, who settled at that English court; and Christopher Wren, an
+English architect and natural philosopher) and very low openness for
+continental artists from Holland, France, and Italy.
+
+However, a different pattern emerges when the Science seed is varied
+(see last four rows of [**Table 3**](#_Ref230009736)). Replacing Newton
+with Huygens produces only modest changes in discipline openness, but
+replacing Newton with Hevelius or Swammerdam produces larger changes,
+reflecting the fact that the latter two figures are positioned
+differently within the network of the 17^th^-century Science. These
+variations confirm that the method is sensitive to fine-grained
+differences in network position, even within a single discipline. This
+also means that openness values for any given triad are shaped by the
+specific seed chosen, and should be read as local, seed-dependent
+measurements rather than fixed properties of the discipline as a whole.
+
+### Individual Nodes: Frequencies and Connectivity Distributions
+
+As mentioned in the [*Introduction*](#introduction), this thesis follows
+the analytical approach of focus reading. For this reason, an analysis
+at the level of individual nodes is necessary. This analysis serves two
+purposes: 1) it identifies which cultural entities are most central to
+the 17^th^ century cultural network of Art-Science-Philosophy. 2) It
+characterises the statistical laws that govern how individual nodes
+connect to others, both within and across disciplines.
+
+Before presenting the results of this part of the analysis, it should be
+noted that the 465 triads in this study produce networks with a total of
+3,585 unique nodes. These nodes, as the representation of cultural
+entities, can be people (e.g., Blaise Pascal, Christiaan Huygens, Thomas
+Hobbes, etc.), objects (e.g., (microscope, telescope, vacuum pump,
+etc.), and ideas or concepts (e.g., rationalism, mechanical philosophy,
+scientific revolution, etc.).
+
+#### Node Analysis: The Most Central Cultural Entities
+
+The simplest analysis at the node level is to count how frequently each
+cultural entity appears across the 465 triads. [Table 4](#_Ref230084890)
+lists the entities that appear in more than half of the triads. Three
+observations can be made from this list.
+
+First, most of the high-frequency nodes are not themselves seed
+entities. This means that they emerge as central not because they were
+selected at the outset, but because they are structurally important
+within the network of relations that the cultural entities collectively
+generate. The method therefore is able to capture relevant cultural
+entities that would not have been identified through a direct
+examination of the cultural entities list.
+
+  ------------------------------------------------------------------------------
+        **Node's name**         **Birth-Death**   **Discipline**     ***N***
+  ---------------------------- ----------------- ---------------- --------------
+        Pierre Gassendi            1592-1655         Sci-Phil          355
+
+          Robert Boyle             1627-1691           Sci             351
+
+    *Mechanical Philosophy*           \-                \-             338
+
+         René Descartes            1596-1650         Sci-Phil          326
+
+          Pierre Bayle             1647-1706           Phil            313
+
+      Nicolas Malebranche          1638-1715           Phil            313
+
+     Evangelista Torricelli        1608-1647           Sci             309
+
+         *Rationalism*                \-                \-             307
+
+       Giambattista Vico           1668-1744           Phil            299
+
+         Thomas Hobbes             1588-1679           Phil            296
+
+      Michel de Montaigne          1533-1592           Phil            296
+
+    *Scientific revolution*           \-                \-             294
+
+         Blaise Pascal             1623-1662         Sci-Phil          290
+
+         Marin Mersenne            1588-1648           Sci             276
+
+           *Thomism*                  \-                \-             275
+
+         Baruch Spinoza            1632-1677           Phil            274
+
+   Gottfried Wilhelm Leibniz       1646-1716         Sci-Phil          263
+
+        Antoine Arnauld            1612-1694           Phil            263
+
+    Jean le Rond d\'Alembert       1717-1783         Sci-Phil          262
+
+       Christiaan Huygens          1629-1695           Sci             261
+
+       Frans van Schooten          1615-1660           Sci             256
+
+        Gerolamo Cardano           1501-1576         Sci-Phil          255
+
+         Francis Bacon             1561-1626           Phil            252
+
+        Johannes Kepler            1571-1630           Sci             251
+
+   David Teniers the Younger       1610-1690           Art             249
+
+    Willem van de Velde the        1633-1707           Art             241
+            Younger                                               
+
+   Juan Caramuel y Lobkowitz       1606-1682           Phil            234
+  ------------------------------------------------------------------------------
+
+  : []{#_Ref230084890 .anchor}**Table 4** Cultural entities appearing in
+  more than half of the 465 sampled triads ($N \geq 233$), ranked by
+  frequency $N$. Each entry corresponds to an English Wikipedia article
+  and may represent a person, concept, or movement. The "discipline"
+  column indicates whether the entity is primarily associated with Art,
+  Science (Sci), Philosophy (Phil), or a combination thereof; entries
+  without a birth--death date or discipline label correspond to concepts
+  or movements rather than individuals. The dominance of Science and
+  Philosophy among the most frequent nodes reflects the central role of
+  these disciplines in the 17th-century cultural network, and notably,
+  the majority of these entities were not used as triad seeds,
+  demonstrating the ability of the method to recover implicit knowledge
+  from the network.
+
+Second, the disciplines of Science and Philosophy seem to dominate the
+list of central cultural entities. Among the named individuals,
+philosophers, and people that worked between Science and Philosophy in
+the 17^th^ century (e.g., René Descartes, Gottfried Wilhelm Leibniz,
+Blaise Pascal, etc.) substantially outnumber artists. Among the abstract
+concepts and ideas, the most prominent are "Mechanical philosophy",
+"Rationalism", "Scientific revolution", and "Thomism" (all of which sit
+at the intersection of Science and Philosophy). This finding reinforces
+the structural pattern identified through the assortativity matrix:
+within the tripartite network of Science, Philosophy, and Art that we
+extract from English Wikipedia, the 17th century is organised around the
+axis of the first two, while Art occupies a more peripheral position
+relative to them.
+
+Third, the most central nodes correspond to people and ideas rather than
+to physical objects. Microscope, telescope, and vacuum pump, albeit
+scientific instruments of the 17^th^ century Science, do not appear
+among the high-frequency nodes. This suggests that, in Wikipedia's
+representation of the period, the relational structure is organised
+around conceptual and biographical entities rather than around material
+culture. Whether this reflects a property of the period itself or a
+property of how Wikipedia documents it is a question to which the
+analysis returns in the discussion of limitations (see
+[*Limitations*](#limitations)).
+
+#### Intra-Cluster Connectivity: A Core-Periphery Structure
+
+Moving from frequency to connectivity, the next analysis examines how
+individual nodes connect to other nodes within the same discipline. For
+each node, the internal strength $s_{int}$ is computed as the sum of the
+weighted links connecting it to other nodes in its own discipline. The
+distribution of these values across all 3,585 nodes is shown in [Figure
+22](#_Ref230094632) (left panel), and it is well described by the sum of
+two Gaussian functions.^[A Gaussian function is a smooth, continuous mathematical function that produced a symmetrical, bell-shaped curve [@Squires2001Practical].] The means of these two components fall at
+approximately 25 and 140 on the strength scale, suggesting that nodes
+within a cluster divide into two structurally distinct groups.
+
+![[]{#_Ref230094632 .anchor}**Figure 22** Distributions of the average
+link strength for all nodes in the network. (**Left panel**)
+Distribution of internal link strength, showing a bimodal structure
+captured by the sum of two Gaussian functions (solid curve), which
+serves as a guide to the eye. (**Right panel**) Distribution of external
+link strength plotted on a double-logarithmic scale with logarithmic
+binning, revealing a power-law behaviour with exponent $\alpha = - 0.74$
+(solid line). The contrasting shapes of the two distributions suggest
+that internal and external connectivity follow fundamentally different
+statistical laws.](media/media/image25.jpeg){width="6.30801946631671in"
+height="2.297871828521435in"}
+
+This bimodal pattern is suggestive of what network science calls a
+core-periphery structure [@Barucca2016Centrality; @Gurugubelli2022Generative]. A core-periphery network contains a
+dense, highly interconnected group of nodes (the core) and a sparser,
+more loosely connected group of nodes (the periphery). The first
+Gaussian corresponds to the peripheral nodes, which have relatively few
+intra-cluster connections, while the second corresponds to core nodes,
+which are densely connected within the cluster. The same bimodal pattern
+is observed for each of the three disciplinary clusters individually,
+which means that the core-periphery organization is a general property
+of intra-cluster connectivity in the 17^th^ century network rather than
+a feature of any specific discipline.
+
+This finding indicates that the cultural relations among nodes within a
+discipline follow a structured organization in which a small group of
+central entities anchors a much larger group of peripheral ones. In
+humanistic terms, this is the quantitative counterpart of the
+well-recognised distinction between canonical and marginal figures
+within a discipline, but the method used here specifies that distinction
+structurally rather than by appeal to received reputation. Which nodes
+specifically occupy the core in each cluster is a question that requires
+further analysis and is reserved for future work.
+
+#### Inter-Cluster Connectivity: A Power Law and the Generalist-Specialist Distinction
+
+After examining the connection within the discipline itself, the final
+node-level analysis examines how individual nodes connect to nodes in
+other disciplines. The external strength $s_{out}$ is computed
+analogously to $s_{int}$, but summing weighted links to nodes outside
+the cluster. The distribution of $s_{out}$ values, shown in [Figure
+22](#_Ref230094632) (right), is well described by a power law with an
+exponent $\alpha = - 0.74$. The same general pattern holds when the
+distribution is computed separately for each discipline.
+
+A power-law distribution of external strength has a specific structural
+meaning. Most nodes connect only weakly across discipline boundaries,
+but a small number of nodes connect very strongly (refer to Burt and
+Soda broker's concept above). The scale of the distribution shows that
+the ratio between the two groups can be as large as 200 to 1, meaning
+that for every node that bridges strongly across disciplines, there are
+roughly two hundred that remain disciplinarily contained. The strongly
+bridging nodes are called "generalists" and the weakly bridging nodes
+"specialists". The exponent of the power law quantifies the balance
+between them: the more negative the exponent, the higher the proportion
+of specialists to generalists.
+
+This finding is analytically significant for two reasons. First, it
+offers a quantitative formulation of a distinction that humanistic
+scholarship has long made qualitatively, namely the distinction between
+figures who worked across disciplines and figures who work only within
+one discipline. Second, the power-law form of the distribution indicates
+that intra-cluster and inter-cluster connectivity are governed by
+different generative processes. The bimodal Gaussian distribution of
+intra-cluster strength is consistent with a random-growth process of the
+kind first described by Erdős and Rényi [@Erdos1960Evolution; @Barabasi2016Network], in which connections
+form without systematic preference. By contrast, the power-law
+distribution of inter-cluster strength is consistent with a
+preferential-attachment process of the kind described by Barabási and
+Albert [@BarabasiAlbert1999Emergence; @Barabasi2013Network], in which already well-connected nodes are more likely
+to gain further connections. The cultural network therefore appears to
+grow through two distinct mechanisms operating at different structural
+levels: random within disciplines, preferential across them. Confirming
+the precise generative dynamics behind this observation would require
+further work, but the empirical signature is consistent with the
+predictions of these two models.
+
+## Discussion
+
+**Summary of the findings.** The analysis presented in this chapter
+applied a triad-averaging framework to English Wikipedia's wikilinks
+network in order to characterise the cultural network of Art, Science,
+and Philosophy in 17^th^ century Europe. The results can be summarised
+at three analytical scales, moving from the network as a whole to its
+individual nodes.
+
+At the level of the whole network, the average normalised modularity
+stabilised at $\overline{Q_{N}} = \ 0.862\  \pm 0.005$ with an
+estimation error of $0.6\%$ when all 465 triads are included. This value
+indicates that the 17^th^-century cultural network divides quite well
+into three disciplinary clusters and that this clusterisation is a
+property of the period rather than an artefact of any particular triad.
+Placed alongside prior single-triad studies of the Italian Renaissance
+($Q_{N} = 0.77$) [@Miccio2022Mapping], and the early 20^th^ century ($Q_{N} = 0.88$)
+[@Schwartz2021Complex], the 17^th^-century value sits in the middle of the sequence. The
+three data points are too few to confirm a trend, but their ordering is
+consistent with the historical hypothesis that disciplinary
+specialisation has increased across the modern period.
+
+At the cluster level, the assortativity matrix revealed two findings.
+First, Philosophy emerged as the discipline with the most intra-cluster
+connections ($\overline{\alpha_{33}^{N}} = \ 0.313 \pm 0.005$), a result
+that departs from the pattern observed in the Italian Renaissance and
+the early 20^th^ century, where Art occupied that position. Second, the
+Science-Philosophy connection
+($\overline{\alpha_{23}^{N}} = 0.092\  \pm \ 0.003$) was substantially
+stronger than the Art-Science
+($\overline{\alpha_{12}^{N}} = \ 0.025 \pm 0.002$) and Art-Philosophy
+($\overline{\alpha_{13}^{N}} = \ 0.017\  \pm \ 0.001$) connections,
+exceeding them by factors of roughly four and five respectively. The
+relative variability of these coefficients was also informative: the
+Science-Philosophy connection was the most homogeneous across triads,
+while the Art-related connections showed substantially higher
+variability, with relative standard deviations of 117% for
+Art-Philosophy and 140% for Art-Science.
+
+The openness measure complemented these findings. Art had an average
+openness approximately three times lower than that of Science and
+Philosophy, confirming its peripheral position within the period's
+cultural network. The triad-level analysis showed that this openness
+varied systematically with the choice of artist, with English-connected
+artists such as Peter Lely, Godfrey Kneller, and Christopher Wren
+producing markedly higher openness values than continental artists.
+
+At the node level, the analysis of 3,585 unique cultural entities
+yielded two distinct statistical patterns. The distribution of the
+intra-cluster strength followed a bimodal shape well described by the
+sum of two Gaussian functions, which is consistent with a core-periphery
+organisation. By contrast, the distribution of the inter-cluster
+strength followed a power law with exponent $\alpha = - 0.74$,
+indicating that a small number of nodes carry a disproportionate share
+of cross-disciplinary connections. The most frequent cultural entities
+across the 465 triads were dominated by figures and concepts associated
+with Science and Philosophy (for instance, Pierre Gassendi, Robert
+Boyle, "Mechanical philosophy", and "Rationalism"), and most of these
+high-frequency nodes were not themselves seed entities.
+
+**Theoretical Implications.** Three theoretical implications follow from
+the results presented in this chapter, each extending beyond the
+specific case of the seventeenth century.
+
+The first concerns the analytical status of conceptual nodes within
+cultural networks. The theoretical literature distinguishes cultural
+networks from social networks on the grounds that the former include
+non-human entities such as ideas, movements, and material objects
+alongside people (see *section 3.1.1. [Background](#background)*). The
+results reported here give that distinction an empirical correlate:
+abstract concepts such as \"Mechanical philosophy\" and \"Rationalism\"
+emerged among the most structurally central nodes in the network without
+having been selected as seeds, and they did so with frequencies that
+exceed those of many named individuals. This implies that the structural
+prominence of conceptual nodes is not merely a theoretical postulate but
+a measurable, period-specific property. Mapping which kinds of entities
+occupy central positions in a given period\'s network could therefore
+serve as a comparative indicator of how knowledge is organised and
+transmitted across different historical contexts (see *Results -
+[Embeddings Analysis](#embeddings-analysis)*).
+
+The second implication concerns the generative mechanisms underlying
+cultural network formation. The coexistence of two statistically
+distinct distributions points to the possibility that cultural networks
+grow through two mechanisms operating simultaneously at different
+structural scales. A random-growth process, of the kind described by
+Erdős and Rényi, would generate the bimodal pattern observed within
+disciplines. A preferential-attachment process, of the kind described by
+Barabási and Albert, would generate the power-law pattern observed
+across disciplines. If this dual-mechanism hypothesis can be confirmed
+through explicit generative modelling, which lies beyond the scope of
+the present work, it would have substantive consequences for theories of
+cultural change. It would suggest that innovation within a discipline
+and the emergence of cross-disciplinary bridges are not governed by the
+same social logic, and that the conditions facilitating one need not
+facilitate the other.
+
+The third implication concerns the relationship between the present
+findings and existing frameworks in network sociology. The overall
+geometry of the seventeenth-century network is broadly compatible with
+Granovetter\'s weak-ties thesis. However, the power-law tail of the
+external strength distribution introduces an important qualification. If
+cross-disciplinary connectivity were uniformly distributed across weakly
+bridging nodes, as a straightforward application of Granovetter\'s
+framework would suggest, then the distribution would not exhibit such a
+pronounced tail. The fact that it does indicates that a small number of
+nodes carry a share of integrative capacity, which corresponds more
+closely to Burt and Soda\'s model of brokers spanning structural holes.
+The seventeenth-century cultural network therefore exhibits a hybrid
+bridging regime that neither framework fully captures on its own. This
+suggests that future theoretical work on cultural networks may need to
+combine elements of both accounts, reserving the weak-ties framework for
+the bulk of sparse cross-discipline links while invoking a brokerage
+logic for the concentrated tail. More broadly, it raises the question of
+whether this hybrid structure is particular to the seventeenth century
+or a general feature of cultural networks. Such type of question can be
+answered by the comparative framework introduced here once more periods
+are analysed.
+
+Finally, the period-averaging procedure introduced in this chapter has a
+methodological implication that extends to other historical contexts. By
+averaging across many triads sampled from the same period, the analysis
+recovers structural properties of the period itself rather than
+properties of any particular configuration of individuals within it.
+This shifts the unit of analysis from the individual triad to the
+historical period, and it provides a framework within which different
+periods can be compared on the same statistical footing. Although only
+three periods (Italian Renaissance, seventeenth century, early twentieth
+century) can currently be placed on this scale, the framework
+establishes the conditions under which more systematic cross-period
+comparison becomes possible.
+
+**Practical Implications.** The findings also carry implications for the
+practice of cultural and historical analysis, particularly for scholars
+working at the intersection of digital humanities, cultural analytics,
+and complex network theory. For digital humanists working with Wikipedia
+or comparable knowledge graphs, the results indicate that the wikilinks
+network can be treated as a meaningful empirical object rather than as a
+mere accessory to article content. The agreement between the structural
+patterns recovered here and well-established historical knowledge
+supports the practical use of wikilinks networks as a data source for
+cultural research. This is methodologically significant because
+wikilinks are less affected by the textual biases of Wikipedia than
+article content itself. Editorial prejudices and partial framings tend
+to reside in the wording of articles, while the linking structure
+aggregates many small editorial decisions. The use of the normalised
+Google distance, which relies on multiple links rather than direct
+connections, further reduces the influence of any single editorial
+choice on the resulting network.
+
+For historians working on specific periods, the framework offers a tool
+for identifying cultural entities that merit closer examination. The
+fact that most of the high-frequency nodes in the seventeenth-century
+network were not themselves seed entities means that the method can
+surface figures and concepts whose structural importance is not obvious
+from a direct reading of the primary sources. Pierre Gassendi, Pierre
+Bayle, and \"Mechanical philosophy\" emerge as central not because they
+were selected at the outset but because they occupy structurally
+important positions in the network of relations that the seed entities
+collectively generate. This is the analytical capability that the
+focus-reading framework introduced in the
+*[Introduction](#introduction)* is designed to support: large-scale
+pattern detection identifies what is worth examining closely, and close
+reading then takes over.
+
+For scholars interested in the relationship between disciplines, the
+method provides a way of quantifying distinctions that have previously
+been articulated qualitatively. The distinction between \"generalists\"
+and \"specialists,\" for instance, has long been part of humanistic
+discourse about intellectual history, but the power-law form of the
+external strength distribution allows this distinction to be measured
+and compared across periods. Similarly, the distinction between core and
+peripheral figures within a discipline, which is often inherited from
+canon formation, can be specified structurally rather than by appeal to
+received reputation. These quantitative formulations are not intended to
+replace qualitative judgement, but to provide an additional layer of
+evidence that can be brought into dialogue with humanistic
+interpretation.
+
+## References

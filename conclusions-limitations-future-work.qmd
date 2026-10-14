@@ -1,0 +1,473 @@
+---
+title: "Conclusions, Limitations, and Future Work"
+author: "Paschalis Agapitos"
+bibliography: references.bib
+---
+
+# Conclusions, Limitations & Future Work
+
+## Overview
+
+The goal of this thesis was to develop and apply methods, both newly
+created and already existing, to identify, quantify, and interpret
+connectivity patterns between cultural entities, using as a case study
+the network of wikilinks of the English Wikipedia. That aim was pursued
+through three successive contributions, each building on the previous
+one. The first contribution examined whether an analysis of the network
+of Wikipedia can recover culturally meaningful connectivity patterns
+between cultural entities within a defined historical period and
+specific disciplines. As a proof of concept, I focused on the network of
+Art, Science, and Philosophy in the 17th century Europe (see *Results --
+section [3.1](#wikipedia-as-a-cultural-lens-a-network-approach)*). The
+second contribution addressed the computational infrastructure required
+to extend such analysis beyond a single historical period, presenting
+WikiTextGraph, an open-source tool for extracting text and the wikilinks
+network from Wikipedia dumps in a reproducible and efficient manner (see
+*Methodology -- section [2.4](#wikitextgraph)*). The third brought
+together the analytical insights of the first contribution and the
+software developed in the second to propose a large-scale framework
+combining network and distributional semantics approaches, through which
+temporal and semantic patterns across approximately 2 million
+biographies spanning 25 centuries were identified and interpreted.
+
+The present section draws together the main findings of this thesis and
+presents their collective theoretical and practical implications. It
+also reflects on the limitations of the work and qualifies the scope of
+these findings. Throughout, the section maintains the interpretive frame
+established in the [*Introduction*](#introduction): the network of
+Wikipedia is not a neutral map of cultural history, but a representation
+shaped by two distinct layers of mediation. The first is
+historiographical: the patterns it encodes reflect centuries of expert
+scholarly judgment about which figures, events, and ideas are
+historically significant. The second is editorial: Wikipedia\'s
+collective of editors has made further decisions about which of that
+knowledge merits inclusion in the platform and how it should be
+connected. The patterns identified in this thesis should therefore be
+read as evidence of how cultural knowledge has been doubly filtered and
+selectively encoded in a large, collaboratively constructed digital
+knowledge system, and not as direct evidence of historical reality.
+
+## Conclusions
+
+### Summary of Findings by Research Question
+
+#### RQ1: Network Analysis of a Historical Period
+
+The first research question asked whether a network-based analysis of
+Wikipedia's network structure can recover meaningful connectivity
+patterns between cultural entities, using a given historical period as a
+case study. The analysis of the 17th-century cultural network of Art,
+Science, and Philosophy answers this question affirmatively,
+demonstrating that Wikipedia\'s link structure does retain historically
+and culturally meaningful signals (see *Results - [Wikipedia as a
+Cultural Lens -- a Network
+Approach](#wikipedia-as-a-cultural-lens-a-network-approach)*).
+
+The contribution that distinguishes this work from prior studies in the
+field is the shift from analysing individual triads of figures to
+averaging network metrics across many sampled triads. Rather than
+characterising the 17th century through the lens of a single
+configuration of individuals, which would reflect one particular
+selection of figures, this approach derives a portrait of the period
+from the averaged metrics of multiple triads, each representing a
+different combination of actors within Art, Science, and Philosophy.
+This makes the resulting characterisation of the historical period more
+robust and less contingent on any individual selection, addressing a
+recurring limitation in network-based cultural history research.
+
+Four findings emerged from this analysis. First, the degree to which the
+17^th^-century network separates into three disciplinary clusters sits
+between the values recovered for the Italian Renaissance and the early
+20^th^ century, consistent with the hypothesis that disciplinary
+specialisation has increased progressively across the modern period.
+Second, at the cluster level, Philosophy emerges as the most internally
+cohesive discipline and the Science--Philosophy connection as the
+strongest cross-disciplinary bond in the network, reflecting the
+well-documented reorientation of early modern Philosophy towards
+epistemology and the foundations of scientific knowledge. Third, Art is
+by far the most inward-looking discipline, with openness values that
+vary systematically with the geographical positioning of individual
+artists, consistent with the documented regional fragmentation of the
+17^th^-century art world. Fourth, at the node level, within-discipline
+and cross-discipline connectivity follow different statistical
+distributions, suggesting that the two types of connection are generated
+by different underlying mechanisms.
+
+In summary, these findings demonstrate that Wikipedia\'s network is
+sensitive to historically meaningful structural change and that the
+triad-averaging method can surface culturally central figures and
+concepts that were not selected at the outset. This last capacity aligns
+directly with the analytical logic of focus reading: large-scale
+structural analysis identifies what is worth examining closely before
+the close examination begins.
+
+#### RQ2: A Scalable Pipeline for Wikipedia Data Extraction
+
+The second research question asked how a scalable, multilingual pipeline
+for extracting the text and the network from Wikipedia\'s content
+articles can be designed and implemented in a way that remains
+accessible to non-technical audiences. To address this question, it is
+necessary to first situate it within the trajectory of the broader
+project.
+
+This research question did not arise independently; it emerged directly
+from the findings of the first contribution. Once the period-specific
+analysis demonstrated that Wikipedia\'s link network, when examined
+through the methods of complex network analysis, can recover
+historically meaningful structural patterns, the logical next step was
+to ask whether a comparable approach could be extended to longer
+temporal windows and larger populations of articles. Scaling up the
+analysis in this way, however, required infrastructure that the standard
+online request methods provided by Wikipedia could not reliably support.
+While querying Wikipedia\'s API is appropriate for retrieving a small
+number of articles, this approach becomes increasingly impractical as
+the number of content pages grows, due to rate limits and the cumulative
+overhead of repeated individual requests.
+
+To resolve this constraint, WikiTextGraph was developed. Rather than
+relying on live online queries, WikiTextGraph parses and processes a
+complete Wikipedia database dump, extracting both the textual content of
+articles and their internal wikilink structure to construct a network
+representation at scale. This infrastructure does two things
+simultaneously: (1) it resolves a technical bottleneck, and (2) it
+establishes the analytical conditions under which the third contribution
+becomes possible.
+
+#### RQ3: Temporal and Semantic Patterns in the Biographical Subnetwork
+
+The third research question asked what temporal and semantic patterns
+emerge in the biographical subnetwork of the English Wikipedia when
+analysed across twenty-five centuries. To address it, both network and
+distributional semantics methods were applied to a large dataset of
+approximately 2 million biographical pages, each classified by Field of
+Human Activity (FHA). This question can be seen as the continuation of
+the two preceding contributions: the first established that Wikipedia\'s
+link structure encodes historically meaningful signals at the period
+level, and the second provided the computational infrastructure to
+operate at a scale that would have otherwise been technically
+unfeasible. The third contribution brings these two strands together and
+asks whether the patterns recovered in a single, bounded historical
+period hold and how they evolve when the analysis is extended to a
+larger temporal range of Wikipedia\'s biographical coverage by combining
+network and semantic methods. Network analysis and distributional
+semantics address different dimensions of the same object: the former
+captures the relational structure between biographical entities, while
+the latter captures the thematic and conceptual content of the articles
+themselves. Using them in tandem allows patterns to emerge that neither
+approach could surface in isolation.
+
+Three principal findings resulted from this combined approach. The first
+is that temporal homophily operates as a general organising principle of
+the biographical network: biographical wikilinks connect overwhelmingly
+to individuals from the same or adjacent centuries, with an average
+temporal distance that approximates the length of a human generation.
+This extends and generalises a pattern previously reported in the
+literature over narrower time windows, establishing it as a structural
+property of the network across twenty-five centuries rather than a
+period-specific feature.
+
+The second finding concerns the long-range connections that sit outside
+this dominant pattern and what they reveal about how Wikipedia encodes
+intellectual history. Examining the network from two complementary
+normalisation perspectives shows that the same data simultaneously
+supports a reading of historical continuity and a reading of historical
+rupture. This divergence is not a technical artefact but a reflection of
+the layered nature of the cultural entity, in which the
+historiographical record and the editorial decisions that incorporated
+it into Wikipedia leave distinguishable traces depending on the
+analytical perspective applied (see [*Introduction*](#introduction)).
+
+The third finding is that temporal organisation extends beyond link
+structure into the semantic content of biographical pages. Without any
+historical categories being built into the method, the semantic profiles
+of biographical pages organise themselves into clusters that correspond
+closely to conventional historical periods. At the pairwise level,
+semantic similarity decreases gradually with temporal distance, a
+regularity described here as a temporal Tobler pattern. The outlier
+detection procedure applied to the full set of pairwise century
+comparisons identifies specific century pairs whose semantic proximity
+is anomalously high relative to their temporal distance. These outliers
+are of interest because they flag cases where biographical corpora
+separated by ten or more centuries share a concentration of the same
+figures, texts, and concepts. This pattern is consistent with long-range
+processes of knowledge transmission that would not be visible in a
+period-by-period analysis. What makes this finding worth noting is that
+these connections are recovered from the link structure of biographical
+pages without any prior historical categorisation built into the method;
+the correspondence with processes that historians have independently
+documented therefore serves as a form of external validation. The
+results showed that there is a disciplinary contrast between the two
+FHAs: the Science outliers are organised around a relatively delimited
+vocabulary of textual and figural transmission, while the Humanities and
+Philosophy outliers span a broader network of philosophical,
+theological, rhetorical, and literary culture. This difference may
+reflect genuine asymmetries in how the two fields encoded and
+transmitted their classical inheritance, though the possibility that
+this breadth is partly an artefact of Wikipedia\'s retrospective
+editorial framing cannot be excluded.
+
+### Theoretical and Practical Contributions
+
+This thesis contributes to the field of cultural analytics by developing
+and applying a quantitative framework that treats Wikipedia\'s hyperlink
+network as a cultural network. The contribution is twofold:
+methodological and empirical. At the methodological level, this thesis
+introduces a software pipeline for analysing Wikipedia data dumps and
+their relational structure. At the empirical level, two interconnected
+results chapters demonstrate that this network can be analysed
+systematically across different scales of resolution, from the
+characterisation of a single historical period to the longitudinal
+examination of nearly two million biographical pages spanning
+twenty-five centuries. Together, these contributions support the central
+claim that large-scale digital repositories such as Wikipedia do not
+merely store cultural information; they organise it in ways that are
+amenable to formal analysis and that surface patterns inaccessible to
+traditional humanistic methods operating at smaller scales.
+
+The first theoretical contribution concerns the analytical status of
+historical periods as units of analysis. In much of the existing
+literature, structural or cultural properties of a given period are
+inferred from the analysis of individual figures, rendering the
+resulting characterisation sensitive to the particular composition of
+the sample. In other words, a different selection of individuals could,
+in principle, yield a substantially different picture.
+
+This thesis addresses that limitation through the triad-averaging
+framework. Rather than analysing any single artist, scientist, or
+philosopher, the method draws a large number of sampled triads of
+figures from within the same century, computes network metrics for each,
+and derives period-level estimates by averaging across all sampled
+configurations. This procedure shifts the unit of analysis from the
+individual to the period itself. Structural properties such as the
+degree of disciplinary specialisation, the relative internal cohesion of
+constituent disciplines, and the strength of cross-disciplinary
+connections are thereby treated as statistical regularities of the
+period rather than as properties of any particular configuration of
+individuals. The historical period, in this framework, becomes a
+measurable and comparable analytical object in its own right.
+
+The results for the seventeenth-century network demonstrate that this
+approach recovers patterns consistent with established historical
+knowledge. These include the centrality of the Science-Philosophy axis
+and the progressive decoupling of Art from both disciplines following
+the Italian Renaissance. At the same time, the methodology produces
+genuinely new quantitative regularities, including the power-law
+distribution of inter-cluster connectivity and the core-periphery
+organisation of intra-cluster strength. These findings would not be
+visible from an individual-level analysis, which supports the argument
+that the triad-averaging procedure is not merely a methodological
+convenience but a substantive analytical advance.
+
+The second theoretical contribution concerns the relationship between
+two distinct levels at which the same cultural network can be analysed:
+its topology (that is, the structure of its connections) and its
+semantic content (that is, the meaning encoded in the text of its
+pages). The biographical network analysis shows that temporal
+organisation is present at both levels, but in different forms.
+
+At the topological level, the dominant pattern is temporal homophily:
+figures tend to be connected to others who lived in the same period.
+However, this general tendency is interrupted by selective but
+historically meaningful connections across centuries and eras. One
+notable finding is that, under certain analytical perspectives, medieval
+figures become structurally invisible, a result that raises questions
+about whose contributions the network systematically marginalises. At
+the semantic level, the pattern is one of gradual, graded change.
+Temporally adjacent centuries tend to occupy closer positions in
+embedding space, and conventional historical periods emerge as distinct
+semantic clusters without being imposed on the method in advance.
+
+Building on this structural picture, the outlier analysis adds a finer
+layer of interpretation. By identifying century pairs whose semantic
+similarity is unexpectedly high relative to their temporal distance, it
+points to specific historical processes as the drivers of unexpected
+semantic affinity across centuries. In the case of Science, the Islamic
+Translation movement is identified as one such driver; in the case of
+Humanities and Philosophy, it is the humanist recovery of classical
+textual culture.
+
+The convergence of network and semantic analyses on a consistent, if not
+identical, picture of temporal organisation supports the argument that
+these two dimensions are not redundant. Rather, they are mutually
+illuminating. Treating them as complementary is methodologically more
+powerful than applying either in isolation, because each dimension
+reveals aspects of cultural organisation that the other cannot capture
+alone.
+
+The practical contributions of this thesis operate at two levels. For
+researchers working with Wikipedia or comparable knowledge repositories,
+the results show that the wikilinks network can function as a data
+source for cultural and historical analysis, rather than merely as a
+supplement to the textual content of Wikipedia\'s articles. The
+structural patterns recovered here align with well-established
+historical knowledge across multiple periods and disciplines. This
+alignment supports the practical use of wikilinks networks as a
+meaningful empirical object in their own right, not merely a convenient
+proxy for other sources of evidence.
+
+This finding has implications beyond Wikipedia itself. As cultural
+datasets continue to grow in scale, encompassing digitised archives,
+biographical databases, citation networks, and large-scale encyclopaedic
+corpora, the question of how to extract historically meaningful signal
+from relational structures shared across millions of entities becomes
+increasingly central to the practice of cultural analytics. This thesis
+demonstrates that such extraction is possible, and that it can be done
+in a way that is both computationally tractable and interpretively
+accountable. By this the thesis means that the patterns recovered can be
+evaluated against independent historical knowledge rather than treated
+as self-validating outputs of algorithmic processing.
+
+## Limitations
+
+A central limitation of both analyses concerns the status of Wikipedia
+as the main data source. The results demonstrate that Wikipedia's
+cultural network encodes historically meaningful structural and semantic
+patterns; however, what is captured is not cultural history itself, but
+a socially situated representation of it. As noted in the
+[*Introduction*](#introduction), Wikipedia is produced by a
+self-selected community of editors operating under norms of
+verifiability, notability, and neutrality, and grounded in pre-existing
+institutionalised knowledge. The patterns recovered here must therefore
+be interpreted as properties of a historically mediated knowledge system
+rather than of the past directly. The following discussion outlines the
+principal sources of bias that shape this representation.
+
+One of the most extensively documented biases concerns gender. Female
+subjects remain under-represented in Wikipedia's biographical corpus,
+and existing articles tend to be shorter, less interconnected, and more
+peripherally positioned than those of comparable male figures \cite{Langrock2022Gender, Tripodi2023Ms, Lemieux2023Too}.
+This imbalance is historically uneven, becoming more pronounced prior to
+the twentieth century, where women's contributions to Art, Science, and
+Philosophy were systematically excluded from the records on which
+Wikipedia relies. In the 17th-century analysis, the triads used to
+characterise the cultural network are therefore drawn from a
+predominantly male pool. Consequently, the observed structural
+properties (e.g., modularity, assortativity, and node frequency) reflect
+a network already filtered by this exclusion. Whether a more
+gender-balanced corpus would yield different structural patterns remains
+an open question.
+
+Geographic bias introduces a second layer of distortion. Wikipedia's
+coverage is disproportionately concentrated on Western Europe and,
+increasingly, North America, with comparatively limited representation
+of other regions \cite{Beytia2020Positioning, Graham2022Geographies}. Accordingly, the 17th-century network
+analysed here is more precisely a representation of Western European
+intellectual activity as encoded in the English-language edition of
+Wikipedia. Even within Europe, peripheral regions and minority
+traditions are likely under-represented relative to established centres
+of scholarly attention. This skew extends to the large-scale
+biographical network, where temporal homophily and semantic clustering
+primarily reflect individuals embedded in Anglophone-accessible
+historiographical traditions.
+
+This leads to a further constraint: the exclusive reliance on the
+English-language Wikipedia. While methodologically justified by its
+scale, this choice introduces edition-specific biases tied to the
+perspectives and priorities of its predominantly Anglophone editor base
+\cite{Callahan2011Cultural, MiquelRibe2018Wikipedia}. Figures more extensively documented in other language editions
+may appear in attenuated form or be absent altogether \cite{Johnson2022Considerations}. This is
+particularly relevant for the identification of cross-period semantic
+bridges, such as the Islamic Translation Movement linking the Classical
+Era to the 13th century. Although the results align with established
+historiography, multilingual analyses could plausibly modify the
+prominence or configuration of these connections. Prior work shows that
+different language editions produce systematically different prominence
+rankings, indicating that the observed patterns are partly contingent on
+the chosen edition \cite{Eom2015Interactions}.
+
+Wikipedia's notability criteria further constrain the composition of the
+network. The requirement for coverage in reliable secondary sources ties
+inclusion closely to the canon established by academic and journalistic
+institutions \cite{Tripodi2023Ms, WikipediaNotability2026, WikipediaReliableSources2026, WikipediaIndependentSources2026}. As a result, the network systematically
+privileges figures who have been recognised and documented within these
+traditions, while excluding those who were marginalised, insufficiently
+recorded, or subsumed under collective forms of attribution \cite{Callahan2011Cultural}. The
+resulting structure reflects not cultural production as such, but its
+retrospective canonisation.
+
+A related constraint arises from the uneven survival and digitisation of
+historical sources. Coverage of earlier periods depends on the
+availability of secondary materials that have persisted and are
+accessible to editors \cite{Kourany1997History}. This introduces a non-random survivorship
+bias favouring institutionally embedded individuals and regions with
+durable archival infrastructures. Consequently, the networks
+reconstructed for the Classical Era, Middle Ages, and Early Modern
+period are conditioned by long-term processes of preservation and loss
+that cannot be fully corrected.
+
+Temporal asymmetries in Wikipedia's own development add a further layer
+of unevenness. Since its founding in 2001, coverage has expanded
+incrementally, with recent periods and prominent figures typically
+receiving earlier and denser attention. Article content reflects not
+only accumulated historical knowledge but also the evolving priorities
+and demographic composition of the editor community \cite{Kim2016Understanding}. For an
+analysis spanning multiple centuries, this variability in editorial
+maturation remains a background condition.
+
+Altogether, these limitations point to a broader methodological
+constraint. Wikipedia's cultural entities are constructed knowledge
+objects shaped by the interaction of historiography and editorial
+practice. The structural and semantic regularities are therefore
+properties of this representation of the past. Their correspondence with
+established historical knowledge provides a useful validation signal,
+but it is not independent of the same traditions that inform Wikipedia
+itself, introducing a degree of circularity.
+
+At the same time, this does not diminish the analytical value of the
+approach. Precisely because Wikipedia aggregates and formalises a vast
+body of historiographical knowledge, it offers a unique opportunity to
+study how cultural memory is structured, connected, and hierarchically
+organised at scale. The methods developed here make it possible to
+systematically interrogate these structures, to identify both dominant
+patterns and omissions, and to open new lines of inquiry into how
+knowledge about the past is collectively produced and represented.
+
+In summary, the limitations outlined above qualify the scope of the
+findings presented in this thesis without undermining their substance.
+Together, the three contributions demonstrate that Wikipedia\'s cultural
+network encodes historically meaningful structural and semantic patterns
+at scale, that those patterns can be recovered through reproducible
+computational methods, and that this approach both corroborates patterns
+historians have documented through other means and surfaces quantitative
+regularities that were not previously visible at this scale.
+
+## Future Work
+
+Several directions for future research follow from these limitations. A
+first direction concerns the identification of the nodes that occupy the
+core and the periphery within each disciplinary cluster. The bimodal
+distribution of intra-cluster strength established that a core-periphery
+structure exists, but the question of which specific nodes constitute
+the core in each discipline requires a dedicated analysis. This would
+bring the present method into closer dialogue with debates in
+intellectual history about canon formation and the structural conditions
+of intellectual centrality.
+
+A second direction concerns the generative mechanisms underlying the
+observed distributions. The bimodal-versus-power-law contrast between
+intra-cluster and inter-cluster connectivity is consistent with the
+coexistence of random-growth and preferential-attachment processes but
+confirming this dual mechanism would require explicit modelling.
+Building generative models that reproduce both distributions
+simultaneously, and testing whether they reproduce the empirical
+patterns observed across multiple periods, is a direction that would
+offer substantial theoretical rewards.
+
+A third direction concerns the geographical and linguistic extension of
+the framework. The present analysis is restricted to the English version
+of Wikipedia. Applying it to other language editions would allow
+systematic comparison across cultural traditions. For instance, the
+relationships between religion and politics, or between scientific and
+literary cultures are all candidate domains in which the same analytical
+framework could be deployed.
+
+A fourth direction concerns the extension of the data source. The method
+depends on a network with sufficient internal linking density, but it is
+not intrinsically tied to Wikipedia. Natural language processing tools
+could be used to extract comparable networks from other linked corpora,
+such as archival catalogues, bibliographic databases, or domain-specific
+knowledge bases. Comparing the cultural networks recovered from
+different sources for the same period would offer a way of testing the
+robustness of the findings reported here.
+
+## References

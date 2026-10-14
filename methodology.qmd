@@ -1,0 +1,1729 @@
+---
+title: "Methodology"
+author: "Paschalis Agapitos"
+format: html
+bibliography: references.bib
+---
+
+# Methodology
+
+As mentioned in the [*Introduction*](#introduction), the goal is to use
+English Wikipedia's wikilinks network as a quantitative cultural lens
+through which patterns of connectivity between cultural entities^[For a definition of cultural entities in the context of this thesis refer to [Introduction](#Introduction).] can
+be systematically examined. By treating these links as measurable
+connections, it becomes possible to systematically examine patterns of
+cultural connectivity across time, and field. Therefore, the studies
+presented in *section
+[3.1](#wikipedia-as-a-cultural-lens-a-network-approach)* and *section
+[3.2](#network-and-semantic-patterns-in-wikipedias-network-of-biographies)*
+share Wikipedia as their data source. Each one of them operates at a
+different scale and follow different methodological techniques: network
+analysis and distributional semantics. Together, these two frameworks
+provide both the structural and the semantic tools needed to study
+Wikipedia's cultural network of information. More specifically, focusing
+on the individual studies themselves, *section
+[3.1](#wikipedia-as-a-cultural-lens-a-network-approach)* works at the
+micro-to-meso scale, concentrating on a single historical period. It
+reconstructs the interdisciplinary cultural network that connected Art,
+Science, and Philosophy during the 17th century CE. To do so, it employs
+a structural relatedness metric inspired by the Normalized Google
+Distance, a method that infers closeness from linking patterns, and uses
+bootstrapping, a resampling technique that estimates the stability of
+results by repeatedly drawing subsets from the data. *Section
+[3.2](#network-and-semantic-patterns-in-wikipedias-network-of-biographies)*,
+by contrast, opens the scale considerably. It spans twenty-five
+centuries of recorded history and draws on nearly two million Wikipedia
+biographical articles about historically notable individuals. Rather
+than focusing on a single period, it combines network topology (the
+mathematical study of how nodes and edges are arranged and connected)
+with semantic embeddings (numerical representations that capture meaning
+through position in a n-dimensional space) in order to uncover
+long-range temporal patterns that would be invisible at smaller scales.
+The following sections present the methodology of each study in turn,
+beginning with the most granular and progressing toward the most
+expansive.
+
+## Introduction
+
+Network analysis has become one of the primary tools through which the
+field of digital humanities and cultural analytics approach culture at
+scale which, as stated in the [*Introduction*](#introduction), has been
+crystallised through the "network turn" [@Ahnert2020Network; @Manovich2020Cultural; @Middleton2005Distant; @Moretti2005Graphs; @Jockers2013Macroanalysis]: the idea that
+interconnected information (e.g., who or what is connected to whom, and
+when) carries meaningful cultural information.
+
+As introduced earlier, the networks employed in this thesis belong to a
+specific category within this broader tradition. They are cultural
+networks: graphs in which nodes represent cultural entities such as
+people, ideas, artworks, and events, and in which edges encode
+meaningful associations between them. However, these networks require
+careful interpretation. Because Wikipedia is written and maintained by
+contemporary editors, each connection reflects two overlapping layers of
+information rather than a transparent record of the past. The first is a
+historical layer: documented facts about past people and events. The
+second is an editorial layer: the choices that present-day editors have
+made about what to record, emphasise, and connect. It is this second
+layer that makes Wikipedia an artefact of cultural memory --- a
+selective, constructed record of what a particular community of editors,
+writing at a specific moment in time, judged to be worth preserving and
+relating.
+
+Both layers introduce their own analytical challenges. The historical
+layer is uneven: information about the distant past is sparser, less
+consistent, and more prone to gaps than information about recent
+centuries. The editorial layer introduces representational issues,
+reflecting the demographic and cultural composition of Wikipedia\'s
+contributor base rather than any neutral standard of historical
+significance. These are not incidental problems but structural features
+of the data source that affect the methodological choices made in this
+thesis. As detailed in the sections that follow, the analytical
+framework adopted here is designed to account for both layers of bias,
+with the aim of producing a more representative and interpretively
+robust analysis.^[The methodology presented in Section 2.3 has been published as part of a peer-reviewed article with the title “Wikipedia as a cultural lens: a quantitative approach for exploring cultural networks” [@Miccio2025Wikipedia].]
+
+## Period characterization
+
+### Structural Relationships using the Normalised Google Distance
+
+Network analysis has emerged as one of the primary methodological tools
+through which digital humanities and cultural analytics examine culture
+at scale. As noted in the [*Introduction*](#introduction), this
+methodological shift has been theorised as the \"network turn\"
+[@Ahnert2020Network; @Manovich2020Cultural; @Middleton2005Distant; @Moretti2005Graphs; @Jockers2013Macroanalysis]. Most of the research works that use Wikipedia's internal links
+network are using the direct connections between articles. For instance
+Aragon et al. analyse biographical social networks by mapping links
+between biographies across 15 language editions to identify central
+historical figures and cross-cultural similarities [@Aragon2012Biographical]. Another study
+focuses on the \"First Link Network,\" following the first wikilink in
+the body of 4.7 million articles to reveal a flow from specific topics
+toward general, foundational concepts like \"Philosophy\" [@Ibrahim2017Connecting]. This
+structural analysis extends to identifying cultural hierarchies,
+demonstrating how different linguistic editions reflect distinct
+intellectual heritages, such as the Western emphasis on \"Science\"
+versus the East Asian focus on concepts like \"Human\" and \"Earth\"
+[@Eom2015Interactions]. Moreover, within the field of digital history, researchers use
+the wikilink structure between articles on historical figures to
+quantify their importance and explore the temporal relationships between
+link architecture and article popularity [@Jatowt2016Digital]. Additionally, the
+growth of scientific knowledge is examined by treating linked articles
+as concept networks, showing that science in Wikipedia progresses by
+identifying and filling \"knowledge gaps\" or topological cavities over
+time [@Ju2022Historical]. Lastly, a recent multicultural analysis of philosophers
+employs the directed network of hypertext links across nine languages to
+rank intellectual influence, using algorithms like PageRank, and to
+uncover hidden connections between schools of thought [@Rollin2025Most].
+
+The analyses presented above are mainly based on explicit, or direct,
+connections between articles, but this methodological choice
+systematically obscures implicit cultural relationships. Hence, this
+limitation motivates a shift in how relationships between Wikipedia
+articles are conceptualized. Instead of regarding the network as a mere
+set of direct links, the present study introduces the notion of the
+*structural relationship*, which captures associations between articles
+even if they are not directly linked by a wikilink. The underlying idea
+is that if two Wikipedia articles frequently appear close to each other
+in the network, sharing most of the articles that link them and most of
+the articles they link to, then the network itself indicates that these
+two topics are conceptually the same. This signal persists regardless of
+whether a direct link between the two articles exists (see [**Figure
+2**](#_Ref227855629)). In other words, two topics are considered
+conceptually close if they consistently appear within the same
+relational context. This conceptual proximity is assumed to reflect the
+cumulative editorial judgment of thousands of independent contributors
+who, without necessarily intending to connect two topics directly, have
+repeatedly situated them within the same relational context. Therefore,
+instead of viewing the Wikipedia network as merely a collection of
+direct connections, we incorporate the idea of structural relationship
+between nodes.
+
+It should be noted that this idea of implicit relationships between
+articles is not new. Studies by [@Schich2014Network; @Schwartz2021Complex] have examined Wikipedia's
+cultural network through the lens of implicit relationships,
+demonstrating that treating indirect connections reveals meaningful
+patterns absent from direct-link analysis. Nevertheless, those studies
+applied their method to a very small set of specific nodes, rather than
+to a full characterisation of a cultural domain. As opposed to this, the
+analysis carried out later, as shown, brings together multiple cultural
+entities by averaging their connectivity patterns.
+
+![[]{#_Ref227855629 .anchor}**Figure 2** Structural relationship between
+elements in a complex network. The example illustrates how the
+Normalised Google Distance (NGD) detects structurally similar nodes even
+if there is not direct links between
+them.](media/media/image4.png){width="5.8854122922134735in"
+height="3.3375in"}
+
+To detect and quantify this type of structural relationship, we use a
+metric inspired by the Normalised Google Distance (hereafter NGD) [@Cilibrasi2007Google; @Scholten2024Peripheral]. The measure captures the overlap in link neighbourhoods. Formally,
+the NGD between two articles $a$ and $b$ is defined as [@Cilibrasi2007Google]:
+
+$$d_{in/out}(a,b) = \frac{\log\left( \max\left( |A|,\ |B| \right) \right) - log(|A\bigcap B|)}{\log\left( |W| \right) - log(\min\left( |A|,\ |B| \right))}$$
+
+Where $a$ and $b$ denote the two articles of interest; $A$ and $B$
+represent the set of Wikipedia articles that link to, or are linked
+from, $a$ and $b$ respectively, depending on whether the in-degree
+($d_{in}$) or the out-degree ($d_{out}$) is being computed; and $W$
+denotes the total number of nodes (Wikipedia articles) in the network.
+When $|A\bigcap B| = 0$, the distance is undefined and treated as
+infinite, reflecting the complete absence of any shared neighbourhood
+between the two articles.
+
+The interpretation of the formula is the following: The numerator
+compares the shared neighbourhood to the larger of the two individual
+neighbourhoods, expressed as a log-ratio that grows as the overlap
+shrinks. The denominator then rescales this value against the size of
+the full network, so that the resulting distance reflects relative
+rather than absolute overlap. Consequently, two articles whose
+neighbourhoods overlap substantially receive a small distance, whereas
+two articles whose neighbours barely intersect receive a large one. A
+further property follows from this construction: the measure responds
+not only to the raw number of shared neighbours, but also to the size of
+each neighbourhood. Ten shared neighbours, for instance, carry a very
+different meaning for two sparsely connected articles than for two
+densely connected ones.
+
+For each pair of articles $a$ and $b$, two distances are computed
+separately. The first, $d_{in}(a,b)$, is based on the set of articles
+that link to both $a$ and $b$, and therefore captures how similarly the
+rest of the network refers to them. The second, $d_{out}(a,b)$, is based
+on the set of articles that both $a$ and $b$ link to and therefore
+captures how similarly their authors situate them within the broader
+conceptual landscape. The final distance $d(a,b)$ is then defined as the
+harmonic mean of these two quantities. Because the harmonic mean is
+dominated by its smaller input, the combined distance is pulled toward
+whichever direction shows the stronger neighbour overlap. Consequently,
+a pair of articles which share many neighbours align closely in even one
+direction receives a relatively low combined distance, which makes the
+measure responsive to partial structural relatedness. Finally, since the
+theoretical distance $d(a,b)$ can range from 0 to infinity, which makes
+raw values hard to compare and interpret. To address this, the distance
+is mapped onto a bounded similarity score in the range
+$\lbrack 0,1\rbrack$ using the transformation:
+$r(a,b) = exp( - d(a,b))$. This way, identical items (distance 0) yield
+a similarity of 1, while increasingly dissimilar items (large distances)
+approach 0.
+
+This metric offers several advantages over relying on direct links
+alone, both of which matter for the reliability and scope of the
+corresponding analysis of *section
+[3.1](#wikipedia-as-a-cultural-lens-a-network-approach)*. First,
+including incoming links reduces a bias that appears when only article
+text or outgoing links are used. Any single Wikipedia article reflects
+the choices of the editors who wrote it, including which topics they
+decided to reference. Incoming links work differently. They aggregate
+judgments from the broader editorial community, reflecting how many
+independent contributors, writing across different articles, have chosen
+to place a given topic within the network. That aggregation dilutes the
+idiosyncratic perspective any one article carries. Second, using both
+incoming and outgoing links together gives a more complete picture of
+each article\'s position in the network. Outgoing links show how an
+article reaches toward related concepts. Incoming links show how the
+rest of the network locates it. Together, they reflect the structure of
+the encyclopaedia, not the editorial perspective of any single article.
+
+### People, triads and clustering
+
+The goal is to investigate cross-field intellectual exchange in a given
+century. To do so, we first need to extract the biographical data from
+Wikipedia which will serve the basis for this analysis. These
+biographies will then be used to construct triads of individuals from
+three broad areas of knowledge creation: Art, Philosophy, and Science of
+the 17th century. This two-step process, extraction followed by the
+construction of triads, provides the structured input from which the
+networks analysed in the corresponding chapter (see *Results - section
+[3.1](#wikipedia-as-a-cultural-lens-a-network-approach)*) are built. The
+methodological choices governing each step are described in turn below.
+
+**Detection of biographies**. The first step was to obtain a stable,
+reproducible corpus of Wikipedia articles. This was achieved by parsing
+a publicly available dump of the English Wikipedia, specifically a
+snapshot dated 29 January 2023. Wikipedia dumps are periodic static
+exports of the entire encyclopaedia and constitute a standard resource
+for large-scale computational studies of knowledge. Working from a fixed
+snapshot guarantees reproducibility: because the dataset is frozen at a
+single point in time, it does not shift as editors update articles,
+meaning any researcher can recover the exact same sample from the same
+dump. From this snapshot, individuals were identified by detecting the
+tag \"person\" in the infobox field of each article, where
+available.^[The infobox is a structured metadata block appearing at the top of many Wikipedia articles, providing key factual information in a machine-readable format.] Applying this filter produced an initial sample of
+501,046 persons, which forms the starting population for all subsequent
+classification steps.
+
+**Metadata for biographies**. With the initial sample of biographical
+pages established, the next step was to extract the specific attributes
+required to identify the field to which each individual belongs and the
+century during which they lived. For each person, the first sentence of
+the corresponding Wikipedia article was parsed using regular expressions
+to retrieve three pieces of information: birthdate, number of internal
+links, and professional occupation. The birthdate enables temporal
+filtering, restricting the sample to the 17th century. The number of
+internal links serves as a proxy for an individual\'s relative
+prominence within Wikipedia\'s knowledge network. The profession
+provides the basis for field classification into Art, Philosophy, or
+Science. This last variable was also extracted from the first sentence
+of each biography rather than from the full article text, because the
+first sentence of a Wikipedia biography typically follows a standardised
+formula that explicitly names the subject\'s primary occupation and
+nationality. Relying on this sentence alone therefore yields a concise
+and consistent signal across hundreds of thousands of entries, without
+introducing the noise that full-text extraction would generate.
+Together, these three attributes form the biographical metadata
+necessary for the classification pipeline described below.
+
+![[]{#_Ref227940480 .anchor}**Figure 3** Schematic representation of the
+pipeline used to extract artists, scientists, and philosophers from
+Wikipedia for the period
+1600-1650.](media/media/image5.png){width="6.2640791776028in"
+height="3.4548589238845144in"}
+
+[Figure 3](#_Ref227940480) illustrates the full pipeline used to
+generate the triads. Starting from the complete set of Wikipedia pages
+tagged as "persons" extracted from the dump, the pipeline proceeds
+through a sequence of filtering and classification steps. First, the
+sample was narrowed to individuals born between 1600 and 1650, the
+historical window of interest for this study. This period was chosen
+because it encompasses a pivotal era in Western intellectual history,
+bridging the late Renaissance and the central decades of the Scientific
+Revolution and laying important foundations for the Enlightenment, a
+time when the boundaries between art, philosophy, and emerging forms of
+science were actively being negotiated and cross‑field intellectual
+exchange was particularly intense [@Burns2016Scientific].
+
+**Art-Philosophy-Science classification**. With the sample restricted to
+the relevant historical period, the next step was to identify the field
+in which each individual belongs to given the following three fields:
+Art, Philosophy, or Science. This classification was performed by
+checking whether at least one term from a set of pre-defined keyword
+lists appeared among the professions extracted from each biography (see
+[**Figure 3**](#_Ref227940480)). At this point, I should mention that
+any classification scheme of this kind involves a degree of
+arbitrariness in the choice of keywords, but the approach carries three
+practical advantages that justify its use here. First, it is systematic
+and fully transparent: every classification decision follows the same
+rule and can be inspected and, if needed, revised. Second, it is
+flexible: the keyword lists can be broadened or narrowed depending on
+the research question, making the method readily adaptable to other
+historical periods or disciplinary boundaries. Third, it operates at
+scale without requiring manual annotation, which would be infeasible
+given the size of the dataset. The principal trade-off is that some
+individuals will inevitably be misclassified, either because their
+biography uses unusual occupational terminology or because they
+genuinely worked across multiple fields. However, given the scale of the
+dataset, such edge cases are unlikely to distort the aggregate patterns
+of interest, and the transparency of the keyword lists means that any
+misclassification can be identified and corrected if needed.
+
+Moreover, we set a minimum outdegree^[The outdegree refers to the number of links that a node sends.] threshold of 100 wikilinks,
+meaning that only individuals whose Wikipedia articles contain at least
+100 outgoing wikilinks were retained as nodes of the network. This
+threshold is set on the basis of three considerations. First, the
+outdegree of a Wikipedia article can serve as a proxy for an
+individual's relative prominence [@Ruprechter2020Relating]. The intuition behind this idea
+is that more richly documented figures tend to have more outgoing links,
+and prominence within Wikipedia's knowledge network is a reasonable, if
+imperfect, indicator of historical significance. Second, articles with
+higher outdegree tend to have been edited more frequently and by more
+contributors, which is associated with higher overall article quality
+[@Lamprecht2017How]. Third, because the size of the network generated for each person
+scales with that person's outdegree, a minimum threshold is necessary to
+ensure that the resulting networks are large enough to support
+statistically meaningful analysis. The value of 100 is established
+empirically through experience with networks drawn from multiple
+historical period [@Miccio2025Wikipedia; @Miccio2022Mapping], and represents a pragmatic balance between
+inclusivity and analytical reliability.
+
+**Triads and networks**. Once all this information is available, the
+next step is to generate the triads. To do that, as mentioned earlier, I
+use biographical pages of people born between 1600 and 1650 that are
+classified as artists, scientists, or philosophers based on keywords in
+their biographies (see [**Figure 4**](#_Ref228206339)). Then all
+possible combinations of these individuals are generated to form triads.
+Each triad is specifically composed of one individual from each of three
+pre-defined disciplines: Art, Science, and Philosophy. Using Wikipedia's
+internal links, I identify articles related to these individuals,
+forming a larger network of cultural entities (for the definition refer
+to [*Introduction*](#introduction)) that includes people, objects, and
+ideas. An example of a triad consists of the artist Johannes Vermeer,
+the scientist Christian Huygens, and the philosopher Blaise Pascal. This
+triad-based approach permits the quantification of how knowledge flowed
+between different disciplines during the 17th century CE and can reveal
+patterns of either strong or weak connections between disciplines.
+
+![[]{#_Ref228206339 .anchor}**Figure 4** People's Wikipedia articles
+classified in one of the disciplines: Art (light orange), Science (light
+blue), and Philosophy (light
+purple).](media/media/image6.png){width="6.292809492563429in"
+height="1.9095483377077864in"}
+
+Once the triads are established, the next step is to build a network for
+each one.^[A network, in the technical sense used here, is a mathematical structure composed of nodes (individual entities) and edges (connections between the nodes)[@Coscia2021Atlas].] 
+In the present context, in the network each node
+corresponds to a Wikipedia article, and each edge represents a wikilink
+connecting two articles. The goal of constructing these networks is to
+produce a structured, quantitative representation of the conceptual
+landscape surrounding each triad, capturing how the ideas, people, and
+topics associated with each field relate to one another.
+
+For each person in each triad the corresponding English Wikipedia
+article is retrieved, along with all articles that are reachable within
+two wikilinks steps from it. In other words, this means collecting not
+only the articles directly linked from the person's page, but also the
+articles linked from those pages, and so on up to this second level of
+distance. This step was implemented to enrich but also bound the sample
+of the conceptual terrain surrounding each individual. For instance, for
+a triad such as that of Johannes Vermeer, Christiaan Huygens, and Blaise
+Pascal, this procedure yields a graph of 38,487 nodes and over 1.4
+million edges, which illustrates the sheer scale of information that
+Wikipedia encodes even for a narrow selection of three historical
+figures.
+
+Among the extracted links, there are a lot that do not carry substantive
+encyclopaedic content and they exist in Wikipedia as content pages that
+serve organisational purposes: redirect pages (page that automatically
+forward visitors to another article), disambiguation page (which list
+multiple possible meanings of a term), category pages, and list pages.
+These are removed from the graph, as they do not represent genuine
+conceptual entities and would introduce noise into the subsequent
+analysis. Redirect links are resolved prior to removal, meaning that any
+link pointing to a redirect is updated to point directly to the
+article's actual destination (e.g., "Physics" sends a link to "Einstein"
+(redirect) will be resolved to link to "Albert Einstein" (content
+article).
+
+With the cleaned graph ready, the next step is to measure the
+relatedness between each seed and the other nodes in its neighbourhood.
+This is done by using the NGD converted to a similarity metric (see
+*section
+[2.3.1](#structural-relationships-using-the-normalised-google-distance)*).
+The directed graph of wikilinks is then converted into an undirected
+one, meaning that the distinction between who links to whom is discarded
+in favour of a simpler representation in which connections are treated
+as bidirectional. Directionality on Wikipedia is not arbitrary:
+wikilinks tend to flow from more specific articles toward more canonical
+ones [@Ibrahim2017Connecting; @Eom2015Interactions; @Dimitrov2017What; @Consonni2019WikiLinkGraphs]. For this reason, this structural asymmetry itself
+can be used to study reference patterns or cultural prominence through
+measures such as PageRank or in/out-degree. Discarding it therefore
+rules out a particular family of analyses. In the present case, however,
+this is not a problem, for two reasons. First, the relatedness measure
+adopted here is symmetric by construction, since NGD is derived from
+co-occurrence statistics that do not encode direction; keeping the graph
+directed after assigning symmetric weights would be inconsistent.
+Second, the aim of the analysis is not to trace influence or reference
+flows, but to characterise the conceptual landscape surrounding each
+triad in terms of mutual relevance and clustering, which is precisely
+what an undirected representation is suited for. The final graph
+consists of 1017 nodes and 126073 edges.
+
+![[]{#_Ref228456858 .anchor}**Figure 5** Cultural network based on the
+seeds of Johannes Vermeer, Christiaan Huygens and Blaise Pascal. Each
+point represents a Wikipedia entry, and each line represents the
+relationship between those items. Note the strong interaction between
+Science (green) and Philosophy (blue) and the relative isolation of Art
+(red).](media/media/image7.jpeg){width="6.268055555555556in"
+height="6.268055555555556in"}
+
+The visualisation of this network was done using Gephi [@Bastian2009Gephi], an
+open-source software for exploring and analysing networks, employing the
+Fruchterman-Reingold method [@Fruchterman1991Graph] known as the force-directed
+layout algorithm. This algorithm treats the network as a physical system
+in which nodes repel each other like charged particles while edges pull
+connected nodes together like springs. The result is a spatial
+arrangement in which nodes that are more strongly connected tend to
+cluster together, and nodes that are more loosely connected drift apart.
+It is important to note that this spatial arrangement is determined
+entirely by the structure of the data: no manual positioning is
+involved. Each node in the visualisation is assigned to the cluster of
+whichever seed it is most closely related to, as measured by the NGD.
+Following the same line of thought, if a node is strongly related to
+multiple seeds, it is placed in the cluster of the seed to which it is
+most similar.
+
+By visually inspecting the resulting network for the
+Vermeer-Huygens-Pascal triad (see [**Figure 5**](#_Ref228456858)) we see
+an interesting pattern: the Science cluster (anchored by Huygens) and
+the Philosophy cluster (anchored by Pascal) are positioned in close
+proximity to one another, reflecting a high degree of conceptual overlap
+between these two fields in the 17th century. By contrast, the Art
+cluster (anchored by Vermeer) is more isolated and less connected to the
+other two. The algorithm places Isaac Newton firmly within the
+scientific cluster, positions Pascal midway between Science and
+Philosophy (a position that makes sense if we consider Pascal's
+contributions to both mathematics and philosophy of religion) and
+situates the painterly technique of Chiaroscuro midway between optics
+and Vermeer\'s cluster, again a conceptually coherent placement that the
+algorithm arrives at without any field-specific guidance. This internal
+coherence provides reassurance that the network construction method is
+capturing meaningful structure rather than producing arbitrary patterns.
+
+### Data Sampling and the Role of Triads
+
+The network presented in [Figure 5](#_Ref228456858) is a network built
+from one triad. Even though, it offers a snapshot of the conceptual
+relationships among three specific individuals, it cannot by itself
+characterise the intellectual landscape of an entire historical period.
+Therefore, to produce a more robust and generalisable picture, the
+network generation procedure is repeated across all available triads,
+and the resulting network-level statistics are then averaged. This
+averaging strategy is analogous to the logic of repeated sampling in
+statistics: the more data combinations we have the more representative
+our sample will be.
+
+The number of triads required to achieve a reliable characterisation
+depends on how heterogeneous the underlying period is, and on the level
+of precision that the research question demands. However, in any case,
+the statistical error associated with any averaged quantity decreases as
+the number of triads increases, following the standard deviation in
+which the error is proportional to the standard deviation ($\sigma$)
+divided by the square root of the number of sampled triads
+$\sqrt{N_{T}}$: $\frac{\sigma}{\sqrt{N_{Τ}}}$. In the case of this
+analysis, the number of triads was maximised rather than estimated from
+a target precision. In other words, given the pool of people available
+for the period 1600-1650, all possible combinations of one artist, one
+scientist, and one philosopher were enumerated, yielding a total of 465
+triads. This constitutes the maximum possible sample for the given
+population of people.
+
+Network Properties and Statistical analysis
+
+Beyond the visual comparison presented in [Figure 5](#_Ref228456858),
+the main analysis (see *Results - section
+[3.1](#wikipedia-as-a-cultural-lens-a-network-approach)*) draws on a set
+of quantitative tools from complex network theory and statistical
+analysis to examine the structure of the graphs more rigorously. For
+each graph constructed in the previous step (one per triad) a range of
+measurements is computed at three levels: the network as a whole (i.e.,
+global properties), groups of nodes within it (i.e., cluster
+properties), and individual nodes (i.e., node-level properties). The
+following subsections here describe each measure and the rationale
+behind its use; the results of this analysis are presented in *section
+[3.1](#wikipedia-as-a-cultural-lens-a-network-approach)*.
+
+#### Global properties
+
+##### Modularity
+
+One of the questions that arises when examining the cultural network of
+Science, Art, and Philosophy in the 17th century CE as a whole is
+whether its nodes tend to organise into distinct, tightly knit groups
+(usually referred to as clusters or communities) or whether connections
+are spread more evenly across the entire network. Modularity is a
+standard quantitative measure used to answer this type of question.
+
+As shown earlier, the network used in this analysis is an undirected
+weighted one, which means that the connection (edge) between the nodes
+does not have a direction and each connection carries a weight which in
+this case is the result of the NGD as a similarity metric. For this type
+of network, modularity $Q$ is defined following Newman [@Newman2003Structure] as:
+
+$$Q = \frac{1}{W}\sum_{c}^{}{(\frac{W_{c}}{1} - \frac{S_{c}^{2}}{4W})}$$
+
+where $W$ denotes the total weight of all links in the network, $W_{c}$
+is the total weight of links that fall entirely within cluster $c$, and
+$S_{c}$ is the sum of weights of all links connected to nodes in cluster
+$c$, regardless of whether those links go inside or outside the cluster.
+The sum is computed across all clusters.
+
+A high modularity value indicates that most of the link weight is
+concentrated within clusters rather than between them. In other words,
+nodes within a cluster are more strongly connected to each other than to
+the rest of the network. In the present study a high modularity score
+for the Science-Art-Philosophy network---which has been generated by
+taking into account multiple triads---would indicate that the Science,
+Art, and Philosophy clusters are each internally cohesive and relatively
+self-contained: concepts and figures associated with Science would be
+more strongly related to one another than to concepts and figures
+related to Art. Consequently, this would suggest that, despite sharing a
+common historical moment, the three fields maintained distinct
+conceptual identities in the 17th century. In contrast, a low modularity
+score would point to a more entangled cultural landscape, in which the
+boundaries between Science, Art, and Philosophy are blurred and nodes
+cross cluster boundaries freely.
+
+As mentioned earlier, this part of analysis, is not limited to a single
+network. More specifically, one network per triad is constructed and the
+goal is to characterize a historical period using the averaged metrics
+from a plethora of triads of individuals from that period. The issue is
+that each of these networks might differ in size, density, and the
+distribution of link weights. All these structural differences affect
+how high the raw modularity score $Q$ can theoretically get, independent
+of how well-clustered the network actually is. For instance, a network
+with very unequal cluster sizes, has a lower theoretical ceiling for $Q$
+than a network with balanced clusters. This means that if raw $Q$ values
+are compared directly, modularity could mistakenly show that one triad
+is less clustered than another, when in reality a triad had simply lower
+maximum possible score to begin with. For this reason, we start by
+calculating the maximum achievable modularity for each network:
+
+$$Q_{Max} = 1 - \sum_{c}^{}\frac{S_{c}^{2}}{{4W}^{2}}$$
+
+Then a normalisation is performed prior to comparison by dividing each
+network's $Q$ by its own maximum $Q_{Max}$:
+
+$$Q_{N} = \frac{Q}{Q_{Max}}$$
+
+This normalisation places every network on the same $\lbrack 0,1\rbrack$
+scale where the score reflects how close the network comes to its own
+best possible clustering and not on some absolute ceiling. This makes
+cross-triad comparisons meaningful and interpretable.
+
+#### Cluster properties
+
+##### Assortativity
+
+While modularity summarises the overall degree of clustering in a single
+number, the assortativity matrix $A$ provides a more detailed picture by
+capturing which clusters tend to connect with which. Each element
+$a_{ij}$ of this matrix records the total weight of links that run
+between nodes belonging to a cluster $i$ and nodes belonging to cluster
+$j$. Diagonal elements (i.e., where $i = j$) therefore represent
+internal connections within a cluster, while off-diagonal elements
+represent inter-cluster connections.
+
+As in modularity, to facilitate interpretation and comparison, the
+matrix is normalised by dividing each element by the sum of all elements
+in the matrix:
+
+$$A_{N} = \frac{A}{||A||}$$
+
+Where $||A||$ denotes the sum of all entries in $A$. Each entry in the
+resulting normalised matrix $A_{N}$ then expresses the proportion of
+total link weight that flows between a given pair of clusters. This
+metric can tell us, for instance, whether two particular clusters share
+a disproportionately large share of connections relative to the rest of
+the network.
+
+In the context of the present study, the assortativity matrix allows the
+analysis to go beyond the binary question of whether clusters are
+well-separated or not, and instead ask a more nuanced question: which
+fields were conceptually closer to each other in the 17th century, and
+which were more distant? This is answered by this method, because, for a
+given triad, the off-diagonal elements of $A_{N}$ directly quantify the
+degree of conceptual overlap between pairs of clusters. For instance, a
+relatively large value in the cell corresponding to the science and
+philosophy clusters would indicate that substantial proportion of the
+network's connections flow between those two fields---which would be
+consistent with the visual observation in the network presented in
+[Figure 5](#_Ref228456858). A small value in the cell corresponding to
+Art and Science, by contrast, would confirm that the cluster of Art is
+more isolated from the cluster of Science; something that visualisation
+suggests too (see [**Figure 5**](#_Ref228456858)).
+
+This is important for this analysis for two reasons: 1) It provides a
+quantitative foundation for claims that might otherwise rest solely on
+visual inspection of the network layout. 2) Because the matrix is
+computed separately for each triad, it enables systematic comparison
+across triads. For example, with this method, we can see whether the
+relative proximity of Science and Philosophy is a stable pattern that
+recurs across multiple triads, or whether it is specific to the
+Vermeer-Huygens-Pascal configuration. In this way, assortativity
+contributes directly to the broader goal of characterizing the structure
+of 17th century intellectual culture through the lens of network
+analysis.
+
+##### Openness
+
+A complementary perspective on cluster structure is provided by the
+measure of openness, which shifts attention from the network level to
+the level of individual nodes within each cluster. A node is considered
+open if the sum of its link weights to nodes outside its own cluster
+(its external strength) exceeds the sum of its links weights to nodes
+within its cluster (its internal strength).
+
+Openness $Op$ for a given cluster is defined as the percentage of nodes
+in that cluster for which external strength exceeds internal strength.
+It therefore ranges from 0% (all nodes are more strongly tied to their
+own cluster than to others) to 100% (all nodes are more strongly
+connected outward that inward). A cluster with low openness is
+relatively self-contained and internally cohesive, while a cluster with
+high openness is more open with its members maintaining stronger ties
+across cluster boundaries than within them.
+
+In the context of the present study, openness gives an answer to the
+following question: how self-contained each field was (i.e., Science,
+Art, Philosophy) in the 17th century? For example, a low openness score
+for the Art cluster would suggest that the concepts and figures
+connected to artists of that century were predominantly connected to one
+another, forming a relatively enclosed conceptual world with limited
+overlap with Science and Philosophy. By contrast, a high openness score
+for the Science cluster would indicate that many of the figures and the
+concepts of scientists of the 17th century were more strongly connected
+to nodes outside the Science cluster than within them.
+
+---
+title: Methodology
+format: html
+bibliography: references.bib
+---
+
+In the context of the present study, openness gives an answer to the
+following question: how self-contained each field was (i.e., Science,
+Art, Philosophy) in the 17th century? For example, a low openness score
+for the Art cluster would suggest that the concepts and figures
+connected to artists of that century were predominantly connected to one
+another, forming a relatively enclosed conceptual world with limited
+overlap with Science and Philosophy. By contrast, a high openness score
+for the Science cluster would indicate that many of the figures and the
+concepts of scientists of the 17th century were more strongly connected
+to nodes outside the Science cluster than within it. A finding like this
+one would point out to a field that was deeply entangled with
+neighbouring intellectual traditions rather than operating in isolation.
+
+In historical terms, this is a meaningful difference. If the Philosophy
+cluster shows high openness, it would suggest that engagement with Art
+and Science was not limited to a few individuals, but it is a feature
+that could characterise the entire period under study (the 17th
+century). On the other hand, if openness is low but assortativity
+reveals strong ties between specific cluster pairs, it would suggest
+that cross-field exchange was mediated by a small number of pivotal
+nodes, which could then be identified and examined more closely.
+
+#### Node-level properties
+
+##### Node Connectivity
+
+To enhance the general picture that can be obtained by the previous
+methodological steps, the focus turns to individual nodes and the
+specific patterns of their connections. Although the networks studied at
+this part of the thesis are undirected, it is analytically useful to
+decompose each node's total connectivity into two components:
+
+- Internal strength ($s_{int}$): the sum of weighted links connecting a
+  node to other nodes within the same cluster.
+
+- External strength ($s_{out}$): the sum of weighted links connecting a
+  node to nodes in other clusters.
+
+This decomposition makes it possible to identify, for instance, whether
+a particular node acts as a bridge between communities and/or a hub
+within each own cluster. The former is denoted by a high external
+strength the latter by high internal strength. This information, in
+turn, provides insight into the structural role that entity plays in the
+broader network.
+
+In the context of the present study, this measure allows the insights of
+this study to move from broad structural patterns down to the level of
+specific concepts, figures, or artefacts and examine the role each of
+these nodes play in the cultural landscape of the 17th century (see
+Focus Reading in [*Introduction*](#introduction)). This is important
+because it shifts the focus from the structural to the interpretive. In
+other words, identifying the nodes with the highest bridging capacity is
+particularly valuable in a humanities context because those nodes can
+refer to concepts or figures that played a genuinely cross-field role
+and now can be studied at a larger scale. Moreover, this kind of finding
+would be difficult to arrive at through close reading alone, and it
+illustrates one of the important contributions that a computational
+study can offer to historical and cultural inquiry.
+
+##### Bootstrapping
+
+The network measures described above (e.g., [Modularity](#modularity),
+[Assortativity](#assortativity), [Openness](#openness), and [Node
+Connectivity](#node-connectivity)) are all derived from a single
+instance of each network. To ensure that the values obtained are stable
+features of the underlying cultural structure as this structured is
+presented through Wikipedia at a particular point in time, we use the
+bootstrapping method.
+
+This method is used in this study to report all the statistical
+quantities, including means, variances, and derived coefficients.
+Bootstrapping is a computational resampling technique that estimates the
+reliability of a statistical result without requiring access to the full
+population of data [@Gel2017Bootstrap; @Thompson2016Using]. Moreover, it does not assume any
+particular theoretical distribution for the data. The only assumption
+behind this methodology is that the sample should be representative of
+the population which is most likely to happen with a larger number of
+iterations [@Efron1993Introduction; @Coscia2021Atlas]. The method works by repeatedly drawing random
+samples with replacement from the dataset, computing the statistic of
+interest on each resample, and using the distribution of those repeated
+estimates to characterise uncertainty and construct confidence
+intervals.
+
+Replacement in the context of the bootstrap method means that the drawn
+data points in one iteration return to the dataset and can be re-drawn
+in a next iteration. That means that every observation in the original
+dataset is eligible to be selected, even if it has already been chosen
+in that same resample. A single resample may therefore contain some
+observations multiple times and omit others entirely. The point of this
+procedure is not to generate new data, but to simulate the variability
+one would expect if the study were repeated many times under similar
+conditions. Usually, the resampling process is carried out multiple
+times (in the case of this study, the resampling was performed 1000
+times). After a large number of resamples, the resulting distribution of
+estimates gives a reliable picture of how stable or variable a given
+statistic is.
+
+This stability is particularly informative in the study presented here
+because the analysis compares multiple triads, and it is important to
+establish that observed differences between them are statistically
+robust rather than by chance. In general, this approach speaks to one of
+the central methodological challenges of applying quantitative tools to
+historical and cultural data. Unlike controlled experimental data, the
+networks studied here cannot be replicated under different conditions,
+and the entities they represent (i.e., 17th century scientists, artists,
+philosophers, and the concepts associated with them) cannot be resampled
+from some larger population in any literal sense. Bootstrapping offers a
+principled way to nonetheless reason about uncertainty and reliability
+within these constraints, lending the quantitative findings a degree of
+statistical credibility that would otherwise be difficult to establish.
+
+## WikiTextGraph
+
+The methodology^[WikiTextGraph has been published as a peer-reviewed software tool; the accompanying paper, 'WikiTextGraph: A Python Tool for Parsing Multilingual Wikipedia Text and Graph Extraction,' appeared in the Journal of Open Research Software [@Agapitos2025WikiTextGraph].] introduced in *Section [2.3](#period-characterization)*
+retrieved Wikipedia content pages through online API requests, an
+approach that was well-suited to the bounded task for which it was
+designed: characterising the cultural network connecting Art, Science,
+and Philosophy in 17th-century Europe (see *Results - section
+[3.1](#wikipedia-as-a-cultural-lens-a-network-approach)*). That study
+demonstrated that Wikipedia\'s network can function as a quantitative
+lens onto cultural history through complex network analysis. However,
+the individuals under study spanned only fifty years, and the three
+disciplines examined represented a narrow slice of Wikipedia\'s full
+network. These constraints were acceptable at that stage of the
+analysis, but they become an obstacle when the goal is to extend the
+temporal window and expand the population of articles to approximately
+two million biographical pages. At that scale, online API requests are
+no longer feasible: Wikipedia imposes rate limits on automated queries,
+and the cumulative overhead of retrieving millions of individual pages
+through repeated requests makes this approach computationally
+impractical.
+
+Scaling up this kind of analysis is not only a matter of applying the
+same pipeline to more data. It introduces two compounding problems that
+must be addressed together. The first is computational. The English
+Wikipedia dump runs to several gigabytes in compressed form and can
+expand to hundreds of gigabytes once unpacked. Loading it into memory on
+standard research hardware is not feasible, and processing articles one
+by one, without careful engineering, quickly exhausts available
+resources and runs for impractically long periods. The second problem is
+one of accessibility. Researchers without an advanced technical
+background face an additional obstacle, because working directly with
+Wikipedia's raw data requires a high level of programming and systems
+expertise. Together, these two barriers mean that working with the
+entirety of Wikipedia's network may not be as straightforward as it
+seems and that a software that will deal with the issues mentioned above
+is necessary for working with cultural data at scale in the field of
+digital humanities and cultural analytics.
+
+Existing tools address parts of these problems, but none resolves them
+in a unified way. General-purpose text extraction tools such as
+WikiExtractor [@Attardi2025Wikiextractor] and Cirrus Extractor [@Wenger2024Dataset] are designed primarily
+to produce clean plain text for Natural Language Processing (NLP)
+applications; they do not construct link networks. The wiki-dump parser
+[@Studer2023Wiki] converts Wikipedia dumps into a structured format but relies on
+WikiExtractor for text cleaning and does not resolve redirects.
+PyWikibot [@Wikimedia2025Pywikibot], a Python library maintained by the Wikimedia
+Foundation, offers real-time data retrieval through Wikipedia\'s API and
+handles redirect resolution, but it queries the live website article by
+article, making it orders of magnitude slower than processing a local
+dump file directly. Other projects have released pre-built graph
+datasets for specific languages or time windows [@Consonni2019WikiLinkGraphs; @Aspert2019Graph], but these
+cannot be easily updated or extended to new language editions or dump
+snapshots. Taken together, no existing tool combines efficient
+large-scale parsing, thorough text cleaning, redirect resolution, broken
+link removal, and graph construction into a single coherent and
+reproducible workflow that is accessible to researchers without deep
+programming expertise.
+
+This gap is what motivates the development of a purpose-built tool. The
+following section therefore introduces WikiTextGraph, an open-source
+Python library developed as part of this thesis to parse Wikipedia dumps
+efficiently and to extract the complete internal link network from any
+language edition of the encyclopaedia [@Agapitos2025WikiTextGraph]. By addressing both the
+computational and accessibility barriers within a unified workflow,
+WikiTextGraph makes the large-scale cultural analysis that the remainder
+of this thesis depends on both feasible and reproducible.
+
+### How WikiTextGraph Works
+
+WikiTextGraph^[https://github.com/PaschalisAg/WikiTextGraph] takes as input a compressed Wikipedia database file,
+known as a dump, which the Wikimedia Foundation makes publicly available
+for every language edition of the encyclopaedia. Compression here means
+that the file has been algorithmically reduced in size for storage and
+distribution. These dumps are distributed in XML format, a widely used
+way of structuring text data so that both humans and computers can read
+it: content is wrapped in labelled tags that describe what each piece of
+information represents, allowing the boundaries between articles,
+titles, and other elements to be identified unambiguously. Together,
+compression and XML formatting mean that the entirety of a Wikipedia
+language edition (i.e., all of its articles, titles, and internal
+structure) is packaged into a single downloadable archive. After this
+file has been provided to WikiTextGraph, the user also specifies which
+language edition they are working with and where on their computer the
+output files should be saved. Optionally, they can request that the tool
+construct a network graph from the data, in addition to extracting the
+text. WikiTextGraph operates in two sequential stages: the first is to
+parse and clean the articles, and the second, is graph construction.
+
+Stage 1: Parsing and Cleaning. Instead of loading the entire dump file
+into the computer\'s working memory at once, WikiTextGraph reads and
+processes the dump incrementally, handling ten thousand articles at a
+time. By processing articles in fixed-size batches rather than all at
+once, the tool keeps the amount of data held in working memory at any
+given moment small, making it possible to run the software on standard
+research hardware rather than requiring specialist infrastructure.
+
+The parsing method the tool uses is called SAX, which stands for Simple
+API for XML. Parsing, in this context, means reading a structured file
+and identifying and extracting the meaningful pieces of information
+within it --- in this case, distinguishing article titles from body
+text, and both from the many formatting and administrative elements that
+surround them in the raw dump. Unlike parsing approaches that first read
+the entire file into memory and build a complete internal map of its
+contents before any processing begins, SAX reads the file from beginning
+to end in a single continuous pass, acting on each piece of content as
+it is encountered and then discarding it. This means the tool never
+needs to hold more than a small portion of the file in memory at once,
+making it both fast and memory efficient.
+
+![[]{#_Ref228704990 .anchor}**Figure 6** Illustration of the link
+extraction and graph construction process applied to a single Wikipedia
+article. The left panel shows a raw Wikipedia article on ocean
+acidification with wikilinks encoded in MediaWiki markup syntax.^[MediaWiki markup syntax is the lightweight markup language used by Wikipedia and other Wikimedia Foundation projects to format article content. It encodes text formatting, structure, and wikilinks using a set of plain-text conventions interpreted by the MediaWiki software at render time. Wikilinks (i.e., links between articles within the same wiki) are written using double square brackets, such that [[Article title]] renders as a clickable link to the corresponding article. The syntax also supports display text variants ([[Article title|display text]]), section anchors ([[Article title#Section]]), and combinations of both ([[Article title#Section|display text]]), all of which resolve to the same target article for the purposes of network construction.]
+Highlighted in green are the six article titles extracted by the regular
+expression: carbon dioxide, pH, coral reefs, marine food web, pelagic
+zone, and greenhouse gas. Non-extracted components (e.g., section
+anchors and display text) remain visually unmarked. The right panel
+shows the directed network subgraph produced from this article: each
+extracted title becomes a target node, the source article (ocean
+acidification) becomes a source node, and each link is recorded as a
+directed edge pointing from source to target. This figure demonstrates
+the one-to-one correspondence between link extraction and edge
+construction that underpins the graph construction pipeline described in
+this section.](media/media/image8.png){width="6.268055555555556in"
+height="2.1444444444444444in"}
+
+As the tool reads each article, it performs two types of filtering. The
+first removes entire pages that do not contain encyclopaedic content.
+Wikipedia contains many pages that serve administrative, navigational,
+or bibliographical purposes rather than presenting knowledge about a
+subject: templates, which are reusable formatting blueprints that
+editors apply across multiple pages; category pages, which group
+articles by theme; redirect pages, which exist solely to forward a
+reader from one title to another; help pages, which document
+Wikipedia\'s own editing conventions; and disambiguation pages, which
+list multiple articles that share a similar name. These are identified
+by prefixes in their titles --- that is, fixed strings of characters
+that appear at the very beginning of the page title, such as
+\"Template:\", \"Category:\", or \"Help:\" --- and are excluded from
+further processing (see *Appendix - [A2.1. Page-level
+filter](#a2.1.-page-level-filter)*).
+
+The second type of filtering removes non-content sections from within
+articles that do pass the first check. Sections such as \"References\",
+\"External links\", \"See also\", and \"Further reading\" appear at the
+end of most Wikipedia articles and do not form part of the encyclopaedic
+narrative. The tool stops extracting text from an article when it
+encounters one of these section headings (see *Appendix - [A2.2.
+Sections filter](#a2.2.-sections-filter)*).
+
+After these filtering steps, the tool removes additional formatting
+elements that are part of MediaWiki markup syntax but that are not
+part of the readable text itself. These include HTML comment tags, which
+are notes left by editors that are invisible to ordinary readers but
+present in the raw file; citation reference tags, which encode the
+footnote markers attached to inline references; and templating
+constructs such as infoboxes, which are the structured summary tables
+that appear in the upper-right corner of many Wikipedia articles.
+Stripping these elements out leaves only the plain prose of each
+article\'s main body. The title and cleaned text of each processed
+article are then written to disk in batches as processing proceeds,
+rather than being accumulated in working memory until the entire dump
+has been read. This further reduces the tool\'s memory demands and
+ensures that no work is lost if processing is interrupted (for an
+overview of Stage 1 see [**Figure 7**](#_Ref228618472)).
+
+![[]{#_Ref228618472 .anchor}**Figure 7** The full pipeline of
+WikiTextGraph from top to bottom. The teal boxes at the top represent
+the four inputs. Focusing on Stage 1 the diagram presents how
+WikiTextGraph, given the input, processes and prepares Wikipedia
+articles. The output is Wikipedia content articles cleaned and
+pre-processed. Stage 2 picks up from the clean output and builds the
+network graph.](media/media/image9.png){width="6.190578521434821in"
+height="3.8829790026246718in"}
+
+Stage 2: Graph Construction. After parsing and cleaning the content
+articles, WikiTextGraph proceeds to extract the wikilinks from the
+cleaned articles and uses them to construct a directed network. In this
+case, each Wikipedia article corresponds to a node, and each wikilink
+from one article to another corresponds to an edge. The network is
+directed, meaning that every connection has an explicit direction
+associated with it: a link from article A to article B is recorded as an
+edge going from A to B and is treated as distinct from a link travelling
+in the opposite direction, from B to A.
+
+As mentioned earlier, internal links in Wikipedia are written in a
+MediaWiki markup syntax using double square brackets (refer to [**Figure
+6**](#_Ref228704990)). The tool uses a pattern-matching procedure,
+called a regular expression, to identify all such links within each
+article\'s text (see **Code Block [1](#_Ref228782147)**). A regular
+expression is a precisely defined sequence of characters that instructs
+the computer to search a body of text and locate all passages that match
+a particular structural pattern, in much the same way that a search
+function can find every occurrence of a word in a document, but with the
+added ability to describe flexible patterns rather than fixed strings.
+This procedure handles the various ways a link can be written in
+Wikipedia markup, including links that point to a specific section
+within an article rather than its opening, links that display different
+text to the reader than the article title they reference, and links that
+combine both features. In each case, regardless of the specific form the
+markup takes, the tool extracts only the title of the target article.
+
++----------------------------------------------------------------------+
+| r'\\\[\\\['                                                          |
+|                                                                      |
+| r'(\[\^#\|\]+)'                                                      |
+|                                                                      |
+| r'(?:#(\[\^\|\]\]))?'                                                |
+|                                                                      |
+| r'(?:\\\|(\[\^\]\]\*))?'                                             |
+|                                                                      |
+| r'\\\]\\\]'                                                          |
++======================================================================+
+
+: []{#_Ref228782147 .anchor}**Code Block 1** Regular expression used to
+detect the different types of wikilinks. The regular expression is
+designed to capture wiki markup patterns (e.g., sections, alternative
+text, etc.) while preserving only the main article link.
+
+Before the network is finalised, several cleaning steps are applied to
+ensure its accuracy and integrity. First, link targets are normalised,
+meaning they are brought into a consistent form so that equivalent
+references are treated as identical by the software. Wikipedia article
+titles can be written with either spaces or underscores between words,
+and both forms appear in the raw dump. The tool converts all underscores
+to spaces so that references to the same article are recognised as
+pointing to the same node regardless of how they happened to be written.
+
+Second, redirects are resolved (see [**Figure 8**](#_Ref228781421)). A
+redirect is a Wikipedia page that exists solely to forward readers from
+one title to another, for example from an alternative spelling, a common
+abbreviation, or a former name to the canonical article that carries the
+full encyclopaedic content. If redirects are left unresolved, what is
+actually the same article appears as multiple distinct nodes in the
+network, artificially inflating its size and distorting the connection
+structure. WikiTextGraph builds a complete mapping of every redirect
+page to its final target article and replaces all redirect links with
+the canonical target before the network is assembled. This mapping is
+stored in a compressed file, meaning it is saved in a space-efficient
+encoded form, that can also be consulted independently by researchers
+who wish to study redirect patterns as a phenomenon in their own right.
+
+![[]{#_Ref228781421 .anchor}**Figure 8** Visualisation of the redirect
+resolution process. The left panel shows the unresolved state: article A
+contains a link pointing to a redirect page for article B, which in turn
+forwards to B itself. The right panel shows the resolved state:
+WikiTextGraph detects the intermediate redirect, removes the edge to the
+redirect page, and replaces it with a direct edge from A to B. The
+redirect node (shown in orange with a dashed border) is excluded from
+the final network; only canonical article nodes are
+retained.](media/media/image10.png){width="6.268055555555556in"
+height="2.1214949693788276in"}
+
+Third, broken links are removed. These are links whose target page does
+not exist in the dump, either because the page was deleted at some point
+before the dump was created or because it was referenced but never
+written. Retaining such links would introduce nodes into the network
+that have no associated article content, which would undermine the
+integrity of subsequent analyses.
+
+Fourth, links to other language editions of Wikipedia are excluded.
+Although Wikipedia articles sometimes contain links that point to their
+counterparts in other languages, these cross-language links are filtered
+out so that each language edition is treated as a self-contained
+network. This ensures that the structure of the resulting graph reflects
+only the internal knowledge organisation of the edition under study.
+
+Fifth, self-loops and duplicate edges are removed. A self-loop is an
+edge that connects a node to itself, which in this context would mean an
+article containing a wikilink to its own page. A duplicate edge is one
+that records the same connection between the same two articles more than
+once, which can occur when a link appears multiple times within a single
+article\'s text. Neither self-loops nor duplicate edges carry meaningful
+information for the kind of network analysis this thesis undertakes;
+thus both are discarded.
+
+The resulting network is stored as a table of source and target pairs,
+where each row records one directed edge connecting two articles. To
+allow large graphs to be loaded and processed efficiently, each article
+is assigned a unique numerical identifier rather than being referred to
+by its full title throughout the table. Numerical identifiers are faster
+for computers to compare and look up than text strings of variable
+length, which is an important consideration when the network contains
+millions of nodes. A separate lookup table is saved alongside the edge
+table, mapping each numerical identifier back to its corresponding
+article title so that results can be interpreted in human-readable terms
+at any point in the analysis. The edge table itself is saved in the
+Parquet format, a file format specifically designed for storing large
+tabular datasets in a way that minimises disk space and allows specific
+columns to be read into memory without loading the entire file, making
+it well suited to the scale of data involved here (see [**Figure
+9**](#_Ref228781506)).
+
+![[]{#_Ref228781506 .anchor}**Figure 9** Graph construction pipeline for
+*WikiTextGraph*. Wikilinks are extracted from the cleaned article corpus
+via regular expression, retaining only the target article title. Links
+are then cleaned through five sequential operations: title
+normalisation, redirect resolution, removal of broken links, exclusion
+of cross-language links, and deduplication. Each surviving article is
+assigned a unique integer identifier. The final network is stored as a
+Parquet edge table of source--target identifier pairs and a title lookup
+table. Nodes represent articles; directed edges represent
+wikilinks.](media/media/image12.svg){width="4.971025809273841in"
+height="6.286756342957131in"}
+
+Graphical User Interface (GUI). The tool can be operated in two ways to
+ensure that users with no technical background can use this software.
+For instance, users comfortable with the command line can run it by
+passing the required parameters as arguments to a Python script. Users
+unfamiliar with command-line environments can instead use a graphical
+interface, which presents the same options through a point-and-click
+window: selecting the dump file, choosing the language edition,
+specifying the output location, and deciding whether to generate the
+graph (see [**Figure 10**](#_Ref228781461)). Once processing begins, the
+graphical interface closes to free up memory and can be reopened by
+launching the tool again if needed.
+
+![[]{#_Ref228781461 .anchor}**Figure 10** Graphical User Interface (GUI)
+of *WikiTextGraph*. Users not familiar with running this software
+through their computer's command line can use the
+GUI.](media/media/image13.png){width="4.257425634295713in"
+height="4.805050306211723in"}
+
+## Biographical Network Construction
+
+### Introduction
+
+*Section [2.3](#period-characterization)* outlined and explained the
+methodology used to map the cultural network of Science, Art, and
+Philosophy within a defined historical window: the first five decades of
+the 17th century. *Section [2.4](#wikitextgraph)* then expanded this
+scope by introducing WikiTextGraph, an open-source Python library
+capable of parsing the full English Wikipedia dump, cleaning its
+articles, and extracting the underlying graph structure. Building on
+both approaches while addressing their limitations, the present section
+details the methodology applied to analyse nearly two million
+biographical entries, with particular focus on the cultural networks of
+scientists and philosophers across twenty-five centuries.
+
+### Extraction and Classification of Biographical Pages
+
+When expanding the scope of the analysis to cover all possible
+biographical pages on Wikipedia, a fundamental identification problem
+arises: out of the approximately 7 million articles that make up the
+English Wikipedia, it is not immediately clear which ones describe real
+people. Three approaches exist for solving this problem, each with each
+own limitation.
+
+The first approach, used in *Section [2.3](#period-characterization)*,
+relies on the infobox (i.e., the structured summary box that appears in
+the top-right corner of many Wikipedia articles and contains key facts
+such as a person\'s date of birth, nationality, or occupation). While
+detecting biographical pages through the infobox is a valid strategy
+[@Viseur2013Extraction], many studies have shown that the infobox is not a consistent
+feature across Wikipedia: a large number of biographical articles either
+lack an infobox entirely or have one that is incomplete [@Heist2020Entity; @Reznik2016Hidden]. As a
+result, any method that relies solely on the infobox will systematically
+miss a significant portion of biographical pages.
+
+The second approach makes use of Wikipedia\'s own internal listing
+system [@Aragon2012Biographical; @Jatowt2016Digital]. Wikipedia maintains a set of pages that group
+articles about people according to various criteria (for example, by
+occupation, by nationality, or by whether the person is living or
+deceased).^[https://en.wikipedia.org/wiki/List_of_lists_of_lists#People] Consulting these lists could in principle yield a more
+complete set of biographical pages than the infobox method. However,
+this approach is computationally expensive: it requires fetching and
+parsing each of these listing pages one by one, then following the links
+to the individual biographical articles, which makes it impractical when
+working at the scale of millions of articles.
+
+The third approach, and the one adopted in this study, avoids both of
+these limitations by turning to Wikidata; a structured knowledge
+database that runs alongside Wikipedia and stores factual information in
+machine-readable format [@Moreira2021Analysis]. Unlike the infobox method, Wikidata
+assigns every concept or entity a unique identifier called a
+\"Q-number\". It is important to clarify that the Q-number for the
+concept \"human\" is Q5, meaning that every person who has a Wikidata
+entry is explicitly tagged as such, independently of whether their
+Wikipedia article contains an infobox or appears in any listing page.
+This makes Q5 a reliable and consistent criterion for identifying
+biographical pages at scale (see [**Figure 11**](#_Ref228801212)).
+
+![[]{#_Ref228801212 .anchor}**Figure 11** Screenshot of the Wikidata
+entry for Freddie Mercury (Q15869), illustrating the structure of a
+Wikidata record. Each entity in Wikidata is assigned a unique identifier
+(Q-number) and described through a set of structured statements. The
+magnified panel highlights the \"instance of: human\" statement, which
+corresponds to the Q5 identifier, the property used in this study to
+systematically identify all biographical entities across the English
+Wikipedia.](media/media/image14.png){width="6.268055555555556in"
+height="3.0631944444444446in"}
+
+To extract all Q5 entities efficiently and avoid the processing delays
+caused by querying Wikidata\'s online interface directly --- which
+imposes strict limits on the number of requests that can be made --- we
+instead parsed the full Wikidata dump of January 23rd, 2025. For each Q5
+entity found in this dump, we extracted the corresponding English
+Wikipedia article title, the date of birth, and, where available, the
+date of death. We then applied WikiTextGraph (see *Section 2.4*) to the
+English Wikipedia dump of the same date to extract all content pages and
+the link graph of that version of Wikipedia. By matching the article
+titles obtained from Wikidata with those extracted from Wikipedia, we
+obtained a final list of 1,935,343 biographical entries, a number
+consistent with independent estimates reported by other sources [@Eom2015Interactions; @Lerner2018Knowledge] (refer to [**Figure 12**](#_Ref228802412) for the overview of the
+step followed).
+
+![[]{#_Ref228802412 .anchor}**Figure 12** Pipeline for the construction
+of the biographical corpus. Two parallel processing tracks operate on
+offline dumps of Wikidata and English Wikipedia, both dated 23 January
+2025. The Wikidata track (purple) filters all entities classified as
+human (Q5) and extracts for each the corresponding English Wikipedia
+article title, Date Of Birth (DOB), and, where available, Date Of Death
+(DOD). The Wikipedia track (teal) applies WikiTextGraph to parse all
+encyclopaedic content pages and construct the internal link graph. The
+two tracks converge at a title-matching step, which retains only those
+Wikidata Q5 entities for which a corresponding Wikipedia article exists.
+The resulting biographical corpus comprises 1,935,343 entries, each
+associated with an article title, a date of birth, and, where recorded,
+a date of death.](media/media/image15.png){width="6.268055555555556in"
+height="3.7372911198600174in"}
+
+Once the biographical pages are identified, the next step necessary for
+the analysis, is to detect what each person is known for. In Wikipedia's
+editorial conventions, the opening sentence of a biographical article
+typically contains a brief description of the person's most significant
+role or contribution. For example, the English Wikipedia page of Grace
+Hopper presents her notability features as: "an American scientist,
+mathematician, and United States Navy rear admiral" (see [**Figure
+13**](#_Ref228804144)). Each of these descriptors (e.g., computer
+scientist, mathematician, United States Navy rear admiral) is in this
+thesis defined as notability feature. In other word, a notability
+feature is the occupation, skill, or domain of activity for which a
+person is primarily recognised on Wikipedia.
+
+Three important things should be noted about the notability features on
+Wikipedia. First, a single person can have more than one notability
+feature, as the Grace Hopper example illustrates. Second, notability
+features are not fixed across languages: the same person may be
+described differently in the English Wikipedia than in, say, the Spanish
+or Arabic edition, reflecting different editorial priorities across
+language communities. Third, and most importantly, notability features
+represent the judgement of contemporary Wikipedia editors about what a
+person is best remembered for. For this reason, they do not necessarily
+reflect how that person identified themselves, or how they were
+perceived in their own time.
+
+![[]{#_Ref228804144 .anchor}**Figure 13** Representation of the
+detection of notability features using as an example the biographical
+page of Grace Hopper as of the 6^th^ of May 2026. The upper box shows
+the first sentence of the biographical article of Grace Hopper as it
+appears in the English Wikipedia. The middle box shows what the
+algorithm is going to recognise as notability features from this first
+sentence. The bottom box shows the final output after cleaning
+unnecessary text elements from the final
+output.](media/media/image16.png){width="6.261288276465442in"
+height="3.447130358705162in"}
+
+Stanza, a software tool that can analyse texts either be breaking it
+into its components (e.g., tokens) or by assigning part of speech tags
+to words, was used to isolate the first sentence of each article
+automatically [@Qi2020Stanza]. More specifically, in the case of this thesis,
+Stanza was used for sentence tokenisation which is the process of
+automatically detecting where one sentence ends and the next begins.
+Once the first sentence was isolated, a rule-based algorithm was applied
+to detect and extract the notability features it contains. A rule-based
+algorithm is a set of explicit, human-written instructions that the
+computer follows step by step, as opposed to a system that learns
+patterns from data. The algorithm operates in four stages:
+
+First, the sentence is cleaned: leading and trailing spaces are removed,
+and any parenthetical content --- such as dates of birth, pronunciation
+guides, or Wikipedia formatting templates --- is stripped out, since
+these elements could otherwise interfere with the extraction. The text
+is also lowercased to ensure consistent matching. Second, the algorithm
+searches the cleaned sentence for the first occurrence of a copular or
+function verb --- that is, a linking verb such as is, was, were, served,
+or played --- which in biographical writing typically introduces the
+description of who the person is. Everything that follows this verb is
+treated as the region where the notability features are most likely to
+appear. If no such verb is found, the biography is skipped, as no
+features can be reliably extracted. Third, the text in this candidate
+region is broken into individual tokens, and the algorithm reads through
+them one by one until it encounters a clause-boundary word --- such as
+who, which, for, from, or best --- that typically signals the start of
+additional context rather than a core description (for example, \"who
+was born in\...\" or \"best known for\...\"). Everything before this
+boundary word is kept as the candidate descriptor. Fourth, since a
+person can have more than one notability feature, the candidate
+descriptor is split wherever a comma, semicolon, or coordinating
+conjunction such as and appears --- reflecting the common Wikipedia
+pattern of listing multiple roles in sequence, as in \"scientist,
+mathematician, and rear admiral.\" Two fixed expressions, rock and roll
+and track and field, are deliberately protected from this splitting
+step, as their internal and is part of the phrase itself rather than a
+list separator. The resulting segments are then cleaned of leading
+articles (a, an, the) and punctuation, yielding the final list of
+notability features for each biography.
+
+Having the notability features extracted, the next step is to organize
+them into a set of categories. The previous approach used in *Section
+[2.3.2](#people-triads-and-clustering)* used a limited set of keywords
+to perform that task. Even though that approach worked well for a
+limited number of biographies, in the case of this analysis the
+heterogeneity of fields in which an individual can belong raises
+sharply, thus the approach should be broad enough to be able to
+recognise fields that are not so common.
+
+Previous studies mostly have used the categories under Wikipedia native
+lists to classify individuals into their fields of activity [@Moretti2000Conjectures; @Eom2013Highlighting].
+However, as some studies have shown, Wikipedia's native category system
+is unstable and complex which makes the classification task even more
+difficult [@Eom2013Highlighting; @Kozlowski2019Geometry]. At the same time, as in the case of infobox to
+detect biographies, nothing ensures that all biographies have been
+listed in one of Wikipedia's native category systems. For these reasons
+the approach followed here uses embeddings as a classification task.
+
+The classification task was carried out through a three-step
+computational process. First, the text was standardised to ensure
+consistent orthography across the same terms. For instance, each word is
+lowercased and lemmatized which means that --- each word is reduced to its dictionary form (e.g., "writers" becomes "writer"). This ensures that slight spelling or grammatical variations do not prevent two phrases that mean the same thing from being recorded as equivalent.
+
+Second, each text is converted into numbers (embeddings). In other
+words, each standardised notability phrase is converted into a numerical
+vector using a machine learning model called Sentence Transformer
+[@Reimers2019Sentence].^[The model used is https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2] A vector is simply an ordered list of number (in this case,
+768 numbers) that encode the meaning of a phrase in a form a computer
+can compare and calculate with [@Stoltz2021Cultural]. One feature of these vectors that
+should be remembered is that phrases with similar meanings end up close
+to one another in this numerical space. This type of embedding (i.e.,
+Sentence Transformer) is chosen because previous studies have shown that
+contextual embeddings outperform static embeddings [@Deb2022Comparative; @Alkaabi2025Static; @Liu2024Comparative].
+
+Third, once all notability features and Fields of Human Activity
+(henceforward: FHAs)^[In this analysis Iuse the term “Field of Human Activity” as proposed by Eom and Shepelyansky [@Eom2013Highlighting] because I believe that it describes more clearly this types of classes. However, it is worth mentioning that previous studies have used terms like: categories [@Reznik2016Hidden], cycles [@Gabella2019Cultural], and occupations [@JaraFigueroa2019How].] are represented as vectors, agglomerative
+clustering is performed which is a bottom-up grouping process that
+starts by treating every phrase as its own group and then progressively
+merged the most similar ones. It should be noted that two phrases are
+considered similar if their vectors are close in the numerical space.
+How close two vectors are to each other is measured using cosine
+similarity which measures the angle between two vectors: a value of 1
+means that the two vectors are exactly the same, and a value of 0 means
+that two vectors are completely unrelated. For example, "Spanish author"
+and "French author" will be merged into the same cluster because their
+meanings are similar but not exactly the same. For each resulting
+cluster, mean pooling is applied which results in a representative
+vector after averaging all vectors in it. This representative vector is
+then compared to the pre-defined vectors for each of the 13 FHAs:
+Sports, Government & Law, Dramaturgical Arts, Applied Arts, Music,
+Literature, Humanities & Philosophy, Business, Science, Religion, Media,
+Military, and Healthcare & Medicine. Whichever FHA vector was closest
+determined the category assigned to that cluster. So, for example, a
+cluster centred around the concept of \"athlete\" would be matched to
+the FHA of Sports.
+
+We chose to group them into 13 broad FHAs (see *Appendix A -- [A3.1.
+Fields of Human Activity
+(FHAs)](#a3.1.-fields-of-human-activity-fhas)*). The final
+classification scheme was refined through an iterative process: starting
+from previous studies [@Eom2015Interactions] and continuing with manual validation of
+the results to ensure that the majority of the notability features fit
+into the defined FHAs. Furthermore, to evaluate the reliability of this
+assignment process, a random sample of 500 biographies is manually
+annotated, and these annotations were compared to the algorithmic
+assignments. Performance is evaluated using normalized accuracy
+($0.978$) and multi-label precision ($0.983$), recall ($0.986$), and F1
+score ($0.985$).
+
+At this point, a note on retrospective labelling is necessary. Assigning
+a label such as \"Science\" to a figure from Classical Antiquity or the
+Middle Ages is, strictly speaking, an anachronism: the concept of
+Science as a distinct discipline did not exist in those periods. A
+scholar like Archimedes, for instance, would not have identified himself
+as a scientist or an engineer --- these are modern categories. In his
+own time, his work would have been understood as part of a broader,
+undivided intellectual tradition that we might today call Natural
+Philosophy, in which mathematics, the study of nature, and philosophical
+reasoning were not yet separated into distinct fields. Similarly, many
+medieval scholars were polymaths (i.e., individuals who worked across
+what we would now consider multiple disciplines simultaneously) making
+it impossible to assign them cleanly to a single modern category.
+
+Despite this, the FHA labels used in this study are not applied
+arbitrarily. Because Wikipedia is built and maintained by contemporary
+editors, its biographical articles already describe historical figures
+using modern terminology. Archimedes, for example, is described on his
+English Wikipedia page as a mathematician, physicist, engineer, and
+inventor --- all modern labels applied retrospectively. This means that
+the notability features extracted from Wikipedia\'s first sentences
+already carry this modern framing, and the FHA labels assigned in this
+study reflect that framing rather than imposing an additional layer of
+anachronism.
+
+The use of 13 broad FHA categories is therefore a deliberate
+methodological choice, made for two practical reasons. First,
+finer-grained subcategories (e.g., \"astrophysics\" or \"organic
+chemistry\") would be historically meaningless for the majority of the
+twenty-five centuries covered by this study and would produce extremely
+sparse data for earlier periods. Second, broader categories provide a
+stable and consistent framework across the entire time span, making
+long-term comparisons possible.
+
+### Biography-to-biography network
+
+At this stage of the methodology, three pieces of information are
+available for each person in the dataset: their English Wikipedia title,
+the century in which they were born, and the FHAs they have been
+assigned to in the previous step (see *section
+[2.5.2](#extraction-and-classification-of-biographical-pages)*). The
+next step is to create a biography-to-biography network, which is a
+structured map of the wikilinks that connect biographical Wikipedia
+articles to one another.
+
+To understand what this means, it helps to recall what a network is in
+the most basic sense: a collection of nodes (the things being connected)
+and edges (the connections between them). In this network, each node is
+a Wikipedia biographical article --- representing one person --- and
+each edge is a directed wikilink from one biographical article to
+another. As mentioned earlier, the word "directed" here is important
+because it means that a link has a clear origin and a clear destination.
+For instance, as of the time of writing, the English Wikipedia article
+on Aristotle contains a wikilink to the article on Galileo Galilei but
+not the other way around.
+
+To construct the biography-biography network, I begin with the complete
+English Wikipedia network of content pages and then filter it to retain
+only biographical pages as sources and targets. This filtering step
+produces a subnetwork that is substantially smaller than the full
+Wikipedia graph and qualitatively different from it: every node in the
+resulting network represents a person, and every directed edge is a
+hyperlink from one biographical article to another. The resulting
+directed network contains 1,360,200 nodes and 7,998,710 edges.
+
+![[]{#_Ref228875689 .anchor}**Figure 14** Overview of the data
+processing pipeline, from the entire Wikipedia network of content
+articles to the network of notability features over time. (A) The full
+network of English Wikipedia articles, where nodes represent individual
+pages and edges represent wikilinks. (B) The biography-to-biography
+network, created by filtering the full network to include only links
+between biographical articles. (C) The network of notability features
+over time, generated by grouping biographies by FHA and century of
+birth. This representation allows us to analyse how different FHAs are
+connected across historical periods, as reflected in Wikipedia's
+internal link
+structure.](media/media/image17.png){width="2.321839457567804in"
+height="4.851323272090989in"}
+
+At this point, it is worth pausing to note what a link in this network
+represents. When a Wikipedia editor writes an article about a person and
+inserts a wikilink to another person\'s article, that is a deliberate
+editorial choice; a statement, however implicit, that these two
+individuals are related or relevant to one another. The
+biography-to-biography network therefore captures not just who is
+mentioned alongside whom, but also the retrospective judgements that
+contemporary Wikipedia editors have made about which historical figures
+belong in each other\'s company (see [*Introduction*](#introduction)).
+
+The goal of this analysis is to focus on the broad historical patterns
+that emerge from the connections between people of different fields.
+However, working directly with nearly 1.4 million nodes and almost 8
+million edges means that there is a level of detail that is too
+fine-grained to reveal the broad structural patterns that emerge across
+FHAs and centuries. Therefore, to make the data manageable and to enable
+comparisons across long periods of time, the individual biographical
+nodes are grouped together into their FHAs, producing what is called
+here the Network of FHAs Across Centuries.
+
+The grouping works as follows: Every biographical page is placed into a
+group defined by two properties simultaneously: their FHA and their
+century of birth. For example, all scientists born in the 17th century
+form one group, all scientists born in the 18th century form another,
+all philosophers born in the 17th century form yet another, and so on.
+Each of these groups becomes a single node in the new, aggregated
+network. A node might therefore be labelled \"Science, 17th century\" or
+\"Humanities & Philosophy, 5th century BCE.\"
+
+Once the nodes are defined in this way, the edges between them are
+constructed by counting how many wikilinks connect the biographical
+articles in one group to those in another. If, for example, the
+Wikipedia articles of 17th-century scientists collectively contain 450
+wikilinks pointing to articles about ancient Greek scientists, then the
+edge from the node \"Science, 17th century\" to the node \"Science, 5th
+century BCE\" carries a weight of 450. Weight here simply means the
+strength or intensity of the connection. In other words, a "heavier"
+edge means more links flow between those two groups. The result is a
+weighted directed network, where both the direction of the connections
+and their numerical strength are preserved (see [**Figure
+14**](#_Ref228875689)). This aggregation step is what makes large-scale
+historical patterns to emerge. Instead of asking \"does Newton link to
+Aristotle?\", the network now allows us to ask questions at a much
+broader level: \"do scientists of the Modern Era tend to link to
+scientists of the Classical Era, and if so, how strongly?".
+
+### Weight Normalisation & Network Filtering
+
+The previous step constructed a direct weighted network of biographies.
+However, the weight of edges is the raw count of links which raises an
+issue when comparing individuals from different historical periods. Some
+centuries are represented by thousands of biographies, while others in
+the distant past contain only a small number. Additionally, a group with
+more outgoing links will produce more outgoing links simply because
+there are more articles to link from and not necessarily because this
+group is historically more connected. At the same time, more recent
+centuries tend to have far more Wikipedia coverage than earlier ones,
+which could make the Modern Era appear artificially dominant in the
+network. To address this issue, the raw link counts are normalised
+(i.e., converted from absolute numbers into proportions) so that groups
+of different sizes can be more fairly compared with each other.
+
+This normalization is performed in two complementary ways, each
+answering a slightly different question. The first is the out-degree
+normalization, which looks at the network from the perspective of the
+source (i.e., the group that sends the links). For each pair of nodes i
+(source) and j (target), the raw number of connections $w_{ij}$ is
+divided by the total number of links that node i sends out to all other
+nodes^[A node, as mentioned earlier, is a combination of the FHA and the century.]:
+
+$$w_{ij}^{+} = \frac{w_{ij}}{\sum_{j = 1}^{N}w_{ij}}$$
+
+The result $w_{ij}^{+}$ can be read as: "Out of all the links that
+source group i sends out, what fraction goes to target group j? In more
+simple terms, this tells us about the linking priorities of the source
+group; where the "attention" of group is directed (for an example see
+*Appendix A -- Weight Normalisation -- [Out-degree
+normalisation](#out-degree-normalisation)*).
+
+The second approach is the in-degree normalization, which approaches the
+networks from the perspective of the target group; the group that
+receives the links. Here, the raw number of connections $w_{ij}$ is
+divided by the total number of links that node *j* receives from all
+other nodes:
+
+$$w_{ij}^{-} = \frac{w_{ij}}{\sum_{i = 1}^{N}w_{ij}}$$
+
+The result $w_{ij}^{-}$ can be read as: "out of all the links that the
+target group j receives, what fraction comes from the source group i?
+This tells us about the historical visibility of the target group. In
+other words, which groups reference it, and how much (for an example see
+*Appendix A -- Weight normalisation -- [In-degree
+normalisation](#in-degree-normalisation)*). The reason both perspectives
+are important is that they can answer different questions from the same
+underlying data. Moreover, they can reveal some asymmetries that might
+have been encoded in the data that would not be visible if only one of
+the normalisations was considered. Lastly, as the results show (see
+*Results -- Section
+[3.2](#network-and-semantic-patterns-in-wikipedias-network-of-biographies)*)
+the choice of normalisation is not merely a technical detail, but it
+affects the historical narratives that emerge from the data.
+
+Once the weights have been normalised, a three-step filtering process is
+applied before the main analyses. The purpose of this filtering is to
+remove parts of the network that are too sparse or too unbalanced to
+produce reliable results. Groups with very few biographies or very few
+links could distort the patterns observed, since a single unusual link
+would have an outsized influence on a group that contains only two or
+three people. The three filters are applied sequentially, and the entire
+sequence is repeated in a loop until the network stabilises and no
+further nodes are removed. Specifically: Filter 1 removes any individual
+biographical page that has five or fewer outgoing links, since pages
+with very few links provide insufficient information about a person\'s
+connections; Filter 2 removes any FHA--century node that contains five
+or fewer biographies, since a group that small cannot be considered
+representative of a broader field or period; and Filter 3 removes any
+century that is represented by fewer than five different FHAs, ensuring
+that each century retained in the dataset reflects a sufficiently
+diverse range of human activity to support meaningful comparison.
+
+It is important to acknowledge the limitations of this filtering
+process. Some historically significant figures are excluded because
+their century is too sparsely documented in Wikipedia to meet these
+thresholds. Confucius and Sun Tzu, for example, do not survive the
+filtering process, not because they are unimportant, but because the 5th
+century BCE is represented by too few biographies across too few fields
+to be retained. This is a limitation of the approach, but it is a
+necessary compromise: retaining poorly documented centuries would
+introduce noise and statistical unreliability that would undermine the
+validity of the comparisons made across the remaining twenty-five
+centuries. Moreover, the threshold of five used across all three filters
+may appear arbitrary, but it reflects a deliberate decision to balance
+between two competing risks: setting it too low would allow centuries
+and fields with negligible data to distort the results, while setting it
+too high would exclude a disproportionate number of biographies and
+reduce the historical coverage of the dataset. After the filtering
+converges, the dataset spans biographical articles from the 5th century
+BCE to the 20th century CE, with fields such as Science, Humanities &
+Philosophy, Literature, Government & Law, Military, and Religion
+represented across most of this range (for the final result see
+[**Figure 15**](#_Ref228885946)). This aggregation yields a weighted
+directed network in which each node corresponds to a unique combination
+of century and FHA, and each directed edge indicates that at least one
+biographical link exists between a source node and a target node,
+whether within the same century or FHA, or across different ones. The
+network contains 233 nodes and 18,097 edges. Each edge carries a weight
+that reflects the normalised number of connections between the
+corresponding century-FHA pairs, calculated using the normalisation
+procedure described above.
+
+![[]{#_Ref228885946 .anchor}**Figure 15** Heatmap of the final
+iteration. Green cells represent the nodes (defined by century and FHA)
+that are retained in the dataset after the data filtering control
+process.](media/media/image18.png){width="6.117020997375328in"
+height="4.8723403324584424in"}
+
+## Semantic Analysis
+
+The methodology described in *section
+[2.5](#biographical-network-construction)* constructs a network where
+nodes are biographical pages and edges are the wikilinks between them.
+Grouping biographies into their respective FHAs makes it possible to
+study how interactions between fields such as Science and Humanities &
+Philosophy changed across centuries, and to identify periods of
+increased intellectual exchange. But this approach is limited to the
+structure of connections. It can tell us which fields link to which, and
+how often. It cannot say anything about the context in which those links
+occur. For instance, grouping scientists by century of birth might
+reveal that the concepts appearing in their linked biographies shift
+gradually over time. This could mean that scientists are anchored to
+concepts associated with people from earlier centuries, which then give
+way to newer ones. Network structure alone cannot answer that kind of
+question. To address this, the final part of the analysis (see *Results
+-- Section
+[3.2](#network-and-semantic-patterns-in-wikipedias-network-of-biographies)*)
+turns to contextual embeddings. These draw on advances in NLP, where
+contextual language models encode words and entities as vectors that
+capture semantic relationships based on usage. Within a digital
+humanities and cultural analytics framework, embeddings make it possible
+to analyse cultural and historical meaning at scale. They complement
+network structure with interpretable representations of how concepts and
+people are situated within evolving textual contexts.
+
+### Embeddings
+
+As very briefly explained in *section
+[2.5.2](#extraction-and-classification-of-biographical-pages)*, an
+embedding is a way of representing the meaning of a piece of text as a
+vector. A vector of numbers is the component that a computer needs to
+understand the difference between the words "physicist" and "soldier".
+For this reason, to perform any kind of meaningful comparison between
+pieces of text, that text must first be converted into a numerical form
+that a computer can work with. What makes embeddings extremely useful in
+a computational analysis of textual data is the conversion from
+alphanumeric characters to a vector because this process is designed to
+preserve meaning and be "understood" by a machine. Two phrases that are
+semantically similar (e.g., refer to related concepts or are used in
+similar contexts) will be mapped to vectors that are numerically close
+to one another in this space [@Kozlowski2019Geometry; @Stoltz2021Cultural] (see [**Figure
+16**](#_Ref231898745) for a schematic illustration).
+
+![[]{#_Ref231898745 .anchor}**Figure 16** Schematic illustration of the
+embedding process applied to four notability features. Each word (left
+column) is converted by the embedding model into a vector; its vector
+representation (centre column). These vectors are then placed as points
+in a conceptual space (right panel), where the distance between any two
+points reflects the degree of semantic difference between the
+corresponding
+words.](media/media/image19.png){width="6.168133202099738in"
+height="3.170213254593176in"}
+
+This way of representing meaning aligns this type of analysis with the
+tradition of cultural cartography, which aims to simplify texts in
+faithful ways while preserving the graded, relational meanings of words
+[@Stoltz2021Cultural; @Kirchner2010Meanings; @Mohr1998Measuring]. Embedding models offer a concrete means to do this: they
+allow the comparison of frequencies to be substituted with the
+comparison of distances, by providing standardised maps of meaning space
+in which semantic relations are realized as "spatial" relations. This is
+a very important aspect for this study, since the questions of interest
+are inherently graded rather than discrete; the network approach
+presented earlier to detect hotspots of connections between FHAs follows
+also a graded approach. It is important to note, though, that embedding
+models do not "understand" meaning in substantive sense, nor do the
+procedures built on top of them substitute for interpretation [@Chakrabarti2017Mixed; 
+@Lee2015Coding]. Rather, it would be more accurate to talk about condensing
+information in order to facilitate interpretation [@Lee2015Coding].
+
+The specific type of embeddings used here are known as contextual
+embeddings, produced by a Sentence-Transformer model.^[As in section 2.5.2 the model used is: https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2.] Unlike static
+embeddings which assign a single fixed numerical representation to each
+word regardless of context, contextual embeddings capture meaning as it
+functions within a given sentence or passage [@Ethayarajh2019How]. For instance, the
+word "bank" would receive different vector representations depending on
+whether it appears in a text about finance or about rivers. Since this
+part of the analysis aims to study how the context of outgoing links
+changes across time given an FHA, this sensitivity to context makes
+contextual embeddings better suited to the kind of nuanced semantic
+analysis required by the present study. Moreover, in many cases they
+have been shown to outperform static embeddings in comparable tasks
+(e.g., classification) [@Deb2022Comparative; @Alkaabi2025Static; @Liu2024Comparative; @Ethayarajh2019How].
+
+In practice, contextual embeddings are used in this study as follows:
+For every biographical article in the English Wikipedia corpus, all
+outgoing wikilinks are extracted. Each of these link titles is then
+passed through the Sentence Transformer model mentioned above, which
+converts it into a 768-dimensional vector. That number refers to the
+number of coordinates used to describe the item's position in the
+semantic space.
+
+Once all the outgoing wikilinks from biographies belonging to a given
+century are embedded in this way, their individual vectors are averaged
+together using a technique called mean pooling (see [**Figure
+17**](#_Ref229391666) for an overview of the approach):
+
+${\overrightarrow{v}}_{c} = \frac{1}{n_{c}}\Sigma_{i = 1}^{n_{c}}{\overrightarrow{v}}_{i}$.
+
+This averaged vector ${\overrightarrow{v}}_{c}$ corresponds to the
+centroid of the link embeddings. After computing the centroid, L-2
+normalisation is applied to ensure that the resulting vector has unit
+length. In other words, that the resulting vector represents direction
+only, without allowing the magnitude to influence the result:
+
+$\overrightarrow{v}'_{c} = \frac{v_{c}}{||v_{c}||_{2}}$.
+
+![[]{#_Ref229391666 .anchor}**Figure 17** Computational workflow for
+constructing century-level semantic profiles. The method involves
+extracting all outbound links from biographies of a given FHA and
+grouping them by the subject's birth century. These links---covering
+various entities such as individuals, concepts, and objects---are mapped
+into a high-dimensional embedding space. Using mean pooling, a centroid
+vector is computed for each century to represent the central trend of
+the period\'s information
+landscape.](media/media/image20.png){width="6.268055555555556in"
+height="3.4228576115485563in"}
+
+Once each century is represented by a normalised semantic profile, pairs
+of centuries can be compared using cosine distance, a standard measure
+for embedding similarity [@Ethayarajh2019How]. Cosine distance captures how similar
+the directions of two vectors are which means that if vectors point in
+the same direction, they have distance 0, while increasingly different
+directions yield larger distances. Because the semantic profiles of the
+centuries are L2-normalised, in my case, vector length does not affect
+the comparison [@Ethayarajh2019How]:
+
+$$d_{\cos}(v,w) = 1 - v \bullet w$$
+
+In the context of the analysis presented in *Section
+[3.2](#network-and-semantic-patterns-in-wikipedias-network-of-biographies)*,
+the semantic profile computed for each century can be read as a compact
+summary of the aggregate referential field invoked by Wikipedia
+biographies of people born in that century, as encoded by a particular
+Sentence-Transformer. Taken together, these profiles can be understood
+as pointing toward something broader which we call here the semantic
+cultural landscape of a given period. This is the wider terrain of
+references, associations, and conceptual neighbourhoods within which the
+biographies of that century are situated. However, there are some points
+worth noting. First, the profile is corpus-relative: it reflects the
+references made by present-day English Wikipedia editors rather than
+historical reality, and a different language edition would yield a
+different profile for the same century (see
+[*Introduction*](#introduction)). Second, it is a summary in a
+high-dimensional space and not a description of the period\'s ideas.
+Third, since it is a centroid, it records the central tendency of the
+referential field rather than its full internal structure; the
+landscape, in other words, is only ever approached through its mean.
+Bearing this scope in mind, by computing semantic profiles for each
+century and then measuring the cosine distance between them, it becomes
+possible to ask whether centuries that are temporally close (e.g., 5th
+and 4th century BCE) tend to be close in semantic content too, or
+whether the conceptual worlds referenced by biographies shift
+dramatically across time, revealing discontinuities in the cultural and
+intellectual terrain that may not align with chronological proximity
+(see *1.6. [Research Questions](#research-questions)*).
+
+## References
