@@ -7,16 +7,14 @@ book:
   page-footer: "Mapping Cultural Connectivity: Network and Embeddings Analysis Applied to English Wikipedia's Internal Link Structure was written by Paschalis Agapitos and supervised by Dr. Gustavo Ariel Schwartz and Dr. Juan Luis Suarez."
   author: "Paschalis Agapitos"
   cover-image: media/cover.png
-  date: "9/30/2026"
+  date: "10/14/2026"
   search: true
-  output-file: mapping-cultural-connectivity-phd-thesis
-  downloads: [pdf, epub]
-  
+
   site-url: "https://PaschalisAg.github.io/mapping-cultural-connectivity-phd-thesis/"
   repo-url: "https://github.com/PaschalisAg/mapping-cultural-connectivity-phd-thesis"
   repo-branch: main
   repo-actions: [source, issue]
-  
+
   chapters:
     - index.qmd
     - abstract.qmd
@@ -28,26 +26,13 @@ book:
     - conclusions-limitations-future-work.qmd
 
 bibliography: references.bib
+
 format:
   html:
-    theme: litera # zephyr, united, spacelab, simplex, sandstone, pulse, litera, cosmos, journal
+    theme: litera
     link-citations: true
     toc: true
     syntax-highlighting: pygments
     number-sections: false
     html-math-method: mathjax
     cover-image: media/cover.png
-  
-  pdf:
-    documentclass: scrreprt
-    link-citations: true
-    toc: true
-    number-sections: false
-    cover-image: media/cover.png
-      
-  epub:
-    cover-image: media/cover.png
-    link-citations: true
-    syntax-highlighting: pygments
-    number-sections: false
-    html-math-method: mathjax
