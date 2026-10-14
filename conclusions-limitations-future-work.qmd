@@ -469,5 +469,3 @@ such as archival catalogues, bibliographic databases, or domain-specific
 knowledge bases. Comparing the cultural networks recovered from
 different sources for the same period would offer a way of testing the
 robustness of the findings reported here.
-
-## References
