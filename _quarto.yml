@@ -10,8 +10,8 @@ book:
   search: true
   downloads: [pdf, epub]
   
-  site-url: "https://PaschalisAg.github.io/phd-thesis-quarto/"
-  repo-url: "https://github.com/PaschalisAg/phd-thesis-quarto"
+  site-url: "https://PaschalisAg.github.io/mapping-cultural-connectivity-phd-thesis/"
+  repo-url: "https://github.com/PaschalisAg/mapping-cultural-connectivity-phd-thesis"
   repo-branch: main
   repo-actions: [source, issue]
   
